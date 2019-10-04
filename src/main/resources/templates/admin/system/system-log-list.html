@@ -1,0 +1,103 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+
+    <link rel="stylesheet" type="text/css" href="/static/lib/datatables/1.10.15/jquery.dataTables.css">
+    <div th:include="admin/common :: head"></div>
+    <style type="text/css">
+        th {
+            text-align: center;
+        }
+        .table td {
+            text-align: center;
+        }
+    </style>
+    <title>系统日志</title>
+</head>
+
+<body>
+
+<nav class="breadcrumb">
+    <i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span>系统管理
+    <span class="c-gray en">&gt;</span>登录日志
+    <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px"
+       href="javascript:location.replace(location.href);" title="刷新"><i class="Hui-iconfont">&#xe68f;</i>
+    </a>
+</nav>
+
+<div class="cl pd-5 bg-1 bk-gray mt-20">
+
+    <span class="l">
+		<a class="btn btn-danger-outline radius"  onclick="datadel()" href="javascript:;" >
+		<i class="Hui-iconfont">&#xe6e2;</i>批量删除</a>
+	</span>
+    <span class="r" >共有数据：<div style="display:inline;line-height:31px" th:text="${systemLogList.size()} ">条</div></span>
+</div>
+
+<div class="page-container">
+    <div class="mt-20">
+        <table id="sheetList" class="table table-border table-bordered table-bg table-hover table-sort">
+            <thead>
+            <tr class="text-c">
+                <th width="25">
+                    <input type="checkbox" name="" value="">
+                </th>
+                <th>ID</th>
+                <th>用户名</th>
+                <th width="600">IP地址</th>
+                <th>操作时间</th>
+                <th>操作</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            <tr  th:each="systemLog,systemLogList : ${systemLogList}" >
+                <td><input type="checkbox" th:value="${systemLog.id}"  name=""></td>
+                <td th:text="${systemLog.id}"></td>
+                <td th:text="${systemLog.nickname}"></td>
+                <td th:text="${systemLog.address}"></td>
+                <td th:text="${systemLog.operateTime}"></td>
+
+                <td class="td-manage">
+                    <a title="删除" href="javascript:;"class="ml-5" style="text-decoration:none"
+                       th:onclick="|javascript:question_del(this,'${systemLog.id }')|">
+                        <i class="Hui-iconfont">&#xe6e2;</i></a>
+                </td>
+
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+</div>
+
+
+
+
+<footer th:include="admin/common :: footer"></footer>
+<!--请在下方写此页面业务相关的脚本-->
+<script type="text/javascript" src="/static/lib/My97DatePicker/4.8/WdatePicker.js"></script>
+<script type="text/javascript" src="/static/lib/datatables/1.10.15/jquery.dataTables.js"></script>
+<script type="text/javascript" src="/static/lib/laypage/1.2/laypage.js"></script>
+
+<script type="text/javascript">
+    $(function(){
+        $('.table-sort').dataTable({
+            "aaSorting": [
+                [
+                    1,"desc"
+                ]
+            ],//默认第几个排序
+            "bStateSave": true,//状态保存
+            "aoColumnDefs": [
+                //{"bVisible": false, "aTargets": [ 3 ]} //控制列的隐藏显示
+                {"orderable":false,"aTargets":[0]}// 制定列不参与排序
+            ]
+        });
+
+    });
+
+</script>
+
+</body>
+</html>

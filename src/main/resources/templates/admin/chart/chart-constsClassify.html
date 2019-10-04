@@ -1,0 +1,128 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link rel="stylesheet" type="text/css" href="/static/lib/datatables/1.10.15/jquery.dataTables.css">
+    <div th:include="admin/common :: head"></div>
+
+    <title>课程分类统计</title>
+</head>
+
+<body>
+
+<nav class="breadcrumb">
+    <i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span>统计
+    <span class="c-gray en">&gt;</span> 课程分类统计
+    <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新">
+        <i class="Hui-iconfont">&#xe68f;</i></a>
+</nav>
+
+<div class="panel panel-default">
+    <div class="panel-header" style="text-align: center">根据课程类型进行课程数目大数据统计</div>
+    <div class="panel-body">
+		<a class="btn btn-primary radius" th:text="'云计算&大数据&nbsp:'+${hdkf}+'/门&nbsp'" onclick="datadel()" href="javascript:;" >
+            云计算&大数据</a>
+
+        <a class="btn btn-secondary radius" th:text="'后端开发&nbsp:'+${hdkf}+'/门&nbsp'" onclick="product_add()" href="javascript:;" >
+        后端开发</a>
+
+        <a class="btn btn-success radius" th:text="'前端开发&nbsp:'+${qdkf}+'/门&nbsp'" onclick="product_add()" href="javascript:;">
+            前端开发</a>
+
+        <a class="btn btn-warning radius" th:text="'算法开发&nbsp:'+${sfkf}+'/门&nbsp'" onclick="product_add()" href="javascript:;">
+            算法开发</a>
+
+        <a class="btn btn-danger radius" th:text="'移动开发&nbsp:'+${ydkf}+'/门&nbsp'" onclick="product_add()" href="javascript:;">
+            移动开发</a>
+
+		<a class="btn btn-primary radius" th:text="' UI设计&多媒体&nbsp:'+${uisjdmt}+'/门&nbsp'" onclick="datadel()" href="javascript:;" >
+            UI设计&多媒体</a>
+
+        <a class="btn btn-secondary radius" th:text="'前沿技术&nbsp:'+${qyjs}+'/门&nbsp'" onclick="product_add()" href="javascript:;" >
+        前沿技术</a>
+
+        <br><br>
+        <a class="btn btn-success radius" th:text="'计算机基础&nbsp:'+${jsjjc}+'/门&nbsp'" onclick="product_add()" href="javascript:;">
+        计算机基础</a>
+
+        <a class="btn btn-warning radius" th:text="'数据库&nbsp:'+${sjk}+'/门&nbsp'" onclick="product_add()" href="javascript:;">
+        数据库</a>
+
+        <a class="btn btn-danger radius" th:text="'运维&测试&nbsp:'+${ywcs}+'/门&nbsp'" onclick="product_add()" href="javascript:;">
+        运维&测试</a>
+    </div>
+</div>
+
+
+
+<article class=" cl pd-20" >
+
+<div id="container" style="min-width:700px;height:400px"></div>
+
+</article>
+
+
+<footer th:include="admin/common :: footer"></footer>
+<!--请在下方写此页面业务相关的脚本-->
+<script type="text/javascript" src="/static/lib/My97DatePicker/4.8/WdatePicker.js"></script>
+<script type="text/javascript" src="/static/lib/datatables/1.10.15/jquery.dataTables.js"></script>
+<script type="text/javascript" src="/static/lib/laypage/1.2/laypage.js"></script>
+
+<!--请在下方写此页面业务相关的脚本-->
+<script type="text/javascript" src="/static/lib/hcharts/Highcharts/5.0.6/js/highcharts.js"></script>
+<script type="text/javascript" src="/static/lib/hcharts/Highcharts/5.0.6/js/modules/exporting.js"></script>
+
+<script type="text/javascript" th:inline="javascript">
+    $(function () {
+
+
+    $('#container').highcharts({
+        chart: {
+            plotBackgroundColor: null,
+            plotBorderWidth: null,
+            plotShadow: false
+        },
+        title: {
+            text: '课程分类数据统计饼状图'
+        },
+        tooltip: {
+            pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+        },
+        plotOptions: {
+            pie: {
+                allowPointSelect: true,
+                cursor: 'pointer',
+                dataLabels: {
+                    enabled: true,
+                    color: '#000000',
+                    connectorColor: '#000000',
+                    format: '<b>{point.name}</b>: {point.percentage:.1f} %'
+                }
+            }
+        },
+
+        series: [{
+            type: 'pie',
+            name: 'Browser share',
+            data: [
+
+                ['云计算&大数据', [[${yjsdsj}]]],
+                ['后端开发',    [[${hdkf}]]],
+                ['前端开发',    [[${qdkf}]]],
+                ['算法开发',    [[${sfkf}]]],
+                ['移动开发',    [[${ydkf}]]],
+                ['数据库',      [[${sjk}]]],
+                ['运维&测试',   [[${ywcs}]]],
+                ['UI设计&多媒体',[[${uisjdmt}]]],
+                ['前沿技术',    [[${qyjs}]]],
+                ['计算机基础',   [[${jsjjc}]]],
+
+            ]
+        }]
+    });
+
+
+    });
+
+</script>
+</body>
+</html>

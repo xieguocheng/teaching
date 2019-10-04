@@ -1,0 +1,104 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link rel="stylesheet" type="text/css" href="/static/lib/datatables/1.10.15/jquery.dataTables.css">
+    <div th:include="admin/common :: head"></div>
+    <!--[if lt IE 9]>
+    <script type="text/javascript" src="/static/lib/html5shiv.js"></script>
+    <script type="text/javascript" src="/static/lib/respond.min.js"></script>
+    <![endif]-->
+    <title>用户详情页面</title>
+</head>
+<body>
+
+<div class="cl pd-20" style=" background-color:#5bacb6">
+    <img class="avatar size-XL l" th:src="${user.hearder}">
+    <dl style="margin-left:80px; color:#fff">
+        <dt>
+            <span class="f-18" th:text="${user.realname}"></span>
+            <span class="pl-10 f-12"></span>
+        </dt>
+        <dd class="pt-10 f-12" style="margin-left:0" th:text="'账号:'+${user.username}"></dd>
+    </dl>
+</div>
+
+<div class="pd-20">
+    <table class="table">
+        <tbody>
+
+        <tr>
+            <th class="text-r" width="80">角色：</th>
+            <td th:if="${user.teacher==2}"><span  class="label label-danger radius">已申请教师资格</span></td>
+            <td th:if="${user.teacher!=2}"><span  class="label label-secondary radius">普通用户</span></td>
+        </tr>
+
+        <tr>
+            <th class="text-r" width="80">性别：</th>
+            <td th:if="${user.gender}==0" >未知</td>
+            <td th:if="${user.gender}==1" >男</td>
+            <td th:if="${user.gender}==2" >女</td>
+        </tr>
+        <tr>
+            <th class="text-r">签名：</th>
+            <td th:text="${user.sign}"></td>
+        </tr>
+        <tr>
+            <th class="text-r">简介：</th>
+            <td th:text="${user.title}"></td>
+        </tr>
+
+        <tr>
+            <th class="text-r" >手机：</th>
+            <td th:text="${user.mobile}"></td>
+        </tr>
+        <tr>
+            <th class="text-r">地区：</th>
+            <td th:text="${user.province}+'-'+${user.city}+'-'+${user.district}"></td>
+        </tr>
+        <tr>
+            <th class="text-r">学校：</th>
+            <td th:text="${school.name}+'—'+${school.place}+'—'+${school.type}+'—'+${school.properties}"></td>
+        </tr>
+
+        <tr>
+            <th class="text-r">学历：</th>
+            <td th:text="${user.education}"></td>
+        </tr>
+
+
+        <tr>
+            <th class="text-r">兴趣爱好：</th>
+            <td th:text="${user.hobby}"></td>
+        </tr>
+
+
+
+
+        <tr>
+            <th class="text-r">登录IP：</th>
+            <td th:text="${user.ip}"></td>
+        </tr>
+        <tr>
+            <th class="text-r">登录时间：</th>
+            <td th:text="${#dates.format(user.loginTime, 'yyyy-MM-dd hh:ss:mm')}"></td>
+        </tr>
+
+        <tr>
+            <th class="text-r">注册时间：</th>
+            <td th:text="${#dates.format(user.createTime, 'yyyy-MM-dd hh:ss:mm')}"></td>
+        </tr>
+        <tr>
+            <th class="text-r">生日：</th>
+            <td th:text="${#dates.format(user.birthday, 'yyyy-MM-dd hh:ss:mm')}"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<footer th:include="admin/common :: footer"></footer>
+<!--请在下方写此页面业务相关的脚本-->
+<script type="text/javascript" src="/static/lib/My97DatePicker/4.8/WdatePicker.js"></script>
+<script type="text/javascript" src="/static/lib/datatables/1.10.15/jquery.dataTables.js"></script>
+<script type="text/javascript" src="/static/lib/laypage/1.2/laypage.js"></script>
+</body>
+</html>

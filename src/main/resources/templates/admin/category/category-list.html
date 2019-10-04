@@ -1,0 +1,227 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+
+    <link rel="stylesheet" type="text/css" href="/static/lib/datatables/1.10.15/jquery.dataTables.css">
+    <div th:include="admin/common :: head"></div>
+
+    <link rel="stylesheet" href="/static/lib/zTree/v3/css/zTreeStyle/zTreeStyle.css" type="text/css">
+
+    <title>课程分类管理</title>
+</head>
+
+
+
+
+<body>
+
+<nav class="breadcrumb">
+    <i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span>课程分类管理
+    <span class="c-gray en">&gt;</span> 类目管理
+    <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px"
+       href="javascript:location.replace(location.href);" title="刷新">
+        <i class="Hui-iconfont">&#xe68f;</i>
+    </a>
+</nav>
+
+<div class="cl pd-5 bg-1 bk-gray mt-20">
+    <span class="l">
+		<a class="btn btn-secondary-outline radius" onclick="add('新增类目','/admin/category/categoryAdd/0','500','350')"
+           href="javascript:;">
+       <i class="Hui-iconfont">&#xe600;</i>新增类目</a></span>
+	</span>
+</div>
+
+<div class="page-container">
+
+            <article class="cl pd-20">
+                <table class="table">
+                    <tr>
+                        <td width="200" class="va-t">
+                            <ul id="treeDemo" class="ztree"></ul>
+                        </td>
+                        <td class="va-t"><iframe ID="testIframe" Name="testIframe"
+                                                 FRAMEBORDER=0 SCROLLING=AUTO width=100%  height=390px
+                                                 SRC="/admin/category/show/1">
+
+                        </iframe>
+                        </td>
+                    </tr>
+                </table>
+            </article>
+
+
+
+
+
+</div>
+
+
+<style type="text/css">
+
+    .ztree li span.button.add{margin-right:2px;background-position:-144px 0;vertical-align:top;*vertical-align:middle}
+
+</style>
+
+<footer th:include="admin/common :: footer"></footer>
+
+<script type="text/javascript" src="/static/lib/zTree/v3/js/jquery.ztree.all-3.5.min.js"></script>
+
+<!--请在下方写此页面业务相关的脚本-->
+<script type="text/javascript" src="/static/lib/My97DatePicker/4.8/WdatePicker.js"></script>
+<script type="text/javascript" src="/static/lib/jquery.validation/1.14.0/jquery.validate.js"></script>
+<script type="text/javascript" src="/static/lib/datatables/1.10.15/jquery.dataTables.js"></script>
+<script type="text/javascript" src="/static/lib/laypage/1.2/laypage.js"></script>
+<script type="text/javascript" src="/static/lib/jquery.validation/1.14.0/validate-methods.js"></script>
+<script type="text/javascript" src="/static/lib/jquery.validation/1.14.0/messages_zh.js"></script>
+<script type="text/javascript" src="/static/lib/webuploader/0.1.5/webuploader.min.js"></script>
+<script type="text/javascript">
+
+
+    var setting = {
+        data: {
+            simpleData: {
+                enable:true,
+                idKey: "id",
+                pIdKey: "parentId",
+                rootPId: ""
+
+            },
+        },
+        /* check: {
+             enable: true,
+             chkStyle: "checkbox",
+             chkboxType: { "Y": "s", "N": "s" },
+             autoCheckTrigger: true
+         },*/
+        edit: {
+            enable: true,
+            showRemoveBtn: true,
+            showRenameBtn: false,
+            removeTitle:"删除",		// 删除按钮的 Title 辅助信息
+            renameTitle:"重命名"		// 编辑名称按钮的 Title 辅助信息。
+        },
+        view: {
+            dblClickExpand: false,
+            showLine: true,
+            selectedMulti: false,
+            addHoverDom: addHoverDom,//显示操作图标
+            removeHoverDom: removeHoverDom,//移除添加图标
+        },
+        callback: {
+            //beforeEditName: beforeEditName,//点击编辑时触发，用来判断该节点是否能编辑
+            //beforeRename:beforeRename,//编辑结束时触发，用来验证输入的数据是否符合要求(也是根据返回值 true|false 确定是否可以编辑完成)
+            //onRename: zTreeOnRename,//修改
+
+            beforeRemove:beforeRemove,//点击删除时触发，用来提示用户是否确定删除（可以根据返回值 true|false 确定是否可以删除）
+            onRemove: zTreeOnRemove,//删除
+
+            onClick: function(event,treeId, treeNode) {
+                var zTree = $.fn.zTree.getZTreeObj("treeDemo");
+                demoIframe.attr("src","/admin/category/show/"+treeNode.id);
+                return true;
+
+            }
+
+        }
+
+    };
+
+    //删除之前,删除逻辑放里面
+    function beforeRemove(treeId,treeNode){
+
+        if(treeNode.isParent){
+            layer.msg("不能直接删除父亲节点",{icon: 5,time:2000})
+            return false;
+        }
+
+        var zTree = $.fn.zTree.getZTreeObj("treeDemo");
+        layer.confirm("确认删除节点 -> " + treeNode.name + " 吗？", {btn: ['确定', '取消']},
+            function (index) {//确定
+                $.ajax({
+                    url: "/admin/category/remove",
+                    data: {
+                        "id": treeNode.id
+                    },
+                    type: "POST",
+                    async: false,
+                    success: function (data) {
+                        if (data.code===200) {
+                            //手动移除节点
+                            layer.msg('删除成功!',{icon: 6,time:2000}, function(){
+                                zTree.removeNode(treeNode);
+                            })
+                        }else {
+                            layer.msg(data.message,{icon: 5,time:2000})
+                        }
+                    },
+                    error: function () {
+                        layer.msg("请求失败",{icon: 5,time:2000})
+                    }
+                });
+            },
+            function (index) {//取消
+                layer.close(index);
+            });
+        //注意：返回false便不会触发onRemove事件
+        return false;
+    }
+
+    //删除节点,不用了,使用layui会阻塞,导致弹框出错
+    function zTreeOnRemove(event, treeId, treeNode) {
+    }
+
+    /*节点添加操作*/
+    function addHoverDom(treeId, treeNode) {
+
+        var sObj = $("#" + treeNode.tId + "_span");
+        if (treeNode.editNameFlag || $("#addBtn_" + treeNode.tId).length > 0) return;
+        var addStr = "<span class='button add' id='addBtn_" + treeNode.tId
+            + "' title='添加' onfocus='this.blur();'></span>";
+        sObj.after(addStr);
+        //给图标绑定事件
+        var btn = $("#addBtn_" + treeNode.tId);
+        if (btn) btn.bind("click", function () {
+
+        var zTree = $.fn.zTree.getZTreeObj("tree");
+
+        debugger;
+        if(treeNode.level===1){
+            layer.msg("最多添加二级目录",{icon: 5,time:2000})
+            return false;
+        }else{
+            layer_show("添加类目","/admin/category/categoryAdd/"+treeNode.id,500,350);
+        }
+
+            return false;
+        });
+    }
+
+    //添加图标移开事件
+    function removeHoverDom(treeId, treeNode) {
+        $("#addBtn_treeDemo_"+treeNode.id).unbind().remove();
+        $("#addBtn_"+treeNode.tId).unbind().remove();
+    }
+
+    //加载ztree
+    $(document).ready(function(){
+
+        var zNodes ='[(${list})]';
+        zNodes=eval("("+zNodes+")");
+        var t = $("#treeDemo");
+        t = $.fn.zTree.init(t, setting, zNodes);
+
+        demoIframe = $("#testIframe");
+        //demoIframe.bind("load", loadReady);
+        var zTree = $.fn.zTree.getZTreeObj("treeDemo");
+        // zTree.selectNode(zTree.getNodeByParam("id",'11'));
+        zTree.expandAll(true);//展开所有树
+    });
+    
+    
+    function add(title,url,w,h) {
+        layer_show(title,url,w,h);
+    }
+</script>
+</body>
+</html>

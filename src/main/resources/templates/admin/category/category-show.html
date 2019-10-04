@@ -1,0 +1,122 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+
+    <link rel="stylesheet" type="text/css" href="/static/lib/datatables/1.10.15/jquery.dataTables.css">
+    <div th:include="admin/common :: head"></div>
+
+    <title></title>
+</head>
+
+<body>
+<div class="pd-20">
+    <form action="/admin/category/update" method="POST" class="form form-horizontal" id="form-update" th:object="${constsClassify}">
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>默认ID：</label>
+            <div class="formControls col-5">
+                <input type="text" class="input-text disabled radius"  placeholder="" id="id" th:value="${constsClassify.id}"
+                       name="id" readonly="readonly">
+            </div>
+            <div class="col-5"> </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>分类名称：</label>
+            <div class="formControls col-5">
+                <input type="text" class="input-text"  placeholder="" id="name" th:value="${constsClassify.name}"
+                       name="name">
+            </div>
+            <div class="col-5"> </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2">类目备注：</label>
+            <div class="formControls col-5">
+                <textarea name="intro" cols="" rows="" class="textarea"  placeholder="说点什么...最少输入10个字符" datatype="*10-100" dragonfly="true" nullmsg="备注不能为空！"
+                          onKeyUp="textarealength(this,100)" th:text="${constsClassify.intro}"></textarea>
+                <p class="textarea-numberbar"><em class="textarea-length">0</em>/100</p>
+            </div>
+            <div class="col-5"> </div>
+        </div>
+        <div class="row cl">
+            <div class="col-9 col-offset-2">
+                <input class="btn btn-primary radius" type="submit" value="&nbsp;&nbsp;提交&nbsp;&nbsp;">
+            </div>
+        </div>
+    </form>
+</div>
+
+
+
+
+
+
+<footer th:include="admin/common :: footer"></footer>
+<!--请在下方写此页面业务相关的脚本-->
+<script type="text/javascript" src="/static/lib/My97DatePicker/4.8/WdatePicker.js"></script>
+<script type="text/javascript" src="/static/lib/jquery.validation/1.14.0/jquery.validate.js"></script>
+<script type="text/javascript" src="/static/lib/datatables/1.10.15/jquery.dataTables.js"></script>
+<script type="text/javascript" src="/static/lib/laypage/1.2/laypage.js"></script>
+<script type="text/javascript" src="/static/lib/jquery.validation/1.14.0/validate-methods.js"></script>
+<script type="text/javascript" src="/static/lib/jquery.validation/1.14.0/messages_zh.js"></script>
+<script type="text/javascript" src="/static/lib/webuploader/0.1.5/webuploader.min.js"></script>
+<script type="text/javascript">
+
+$(function(){
+    $('.skin-minimal input').iCheck({
+        checkboxClass: 'icheckbox-blue',
+        radioClass: 'iradio-blue',
+        increaseArea: '20%'
+    });
+
+    //表单验证
+    $("#form-update").validate({
+
+        rules: {
+            name: {
+                required: true
+            },
+            choice: {
+                required: true
+            }
+        },
+        // errorElement: 'span',
+        messages: {
+            name: '类目名称',
+        },
+        // errorPlacement: function (error, element) { //错误信息位置设置方法
+        //     error.appendTo(element); //这里的element是录入数据的对象
+        // },
+        onkeyup: false,
+        focusCleanup: true,
+        success: "valid",
+        submitHandler: function (form) {
+
+            $(form).ajaxSubmit({
+                type: 'post',
+                url: '/admin/category/update', // 提交地址
+                success: function (data) {
+                    if (data.code === 200) {
+
+                        layer.msg('修改成功!',{icon: 6,time:2000}, function(){
+                            parent_reload();
+                        })
+                        /*var index = parent.layer.getFrameIndex(window.name);
+                        parent.$('.btn-refresh').click();
+                        parent.layer.close(index);
+                        removeIframe();*/
+
+                    } else {
+                        layer.msg(data.message, {icon: 5, time: 2000});
+                    }
+                },
+                error: function (request, message, e) {
+                    layer.msg(request.responseText, {icon: 5, time: 2000});
+                }
+            });
+            return false; //此处必须返回false，阻止常规的form提交
+        }
+    });
+});
+</script>
+
+</body>
+</html>

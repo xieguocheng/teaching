@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.teaching.mapper.BbsArticleMapper" >
+  <resultMap id="BaseResultMap" type="com.teaching.pojo.BbsArticle" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="type_id" property="typeId" jdbcType="VARCHAR" />
+    <result column="view" property="view" jdbcType="INTEGER" />
+    <result column="love" property="love" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="del" property="del" jdbcType="INTEGER" />
+    <result column="content" property="content" jdbcType="LONGVARCHAR" />
+  </resultMap>
+
+  <!--查询日增量-->
+  <select id="selectDayVisit" resultType="INTEGER">
+        SELECT
+	ROUND(sum(t2.total) / COUNT(t2.create_time),0)
+FROM
+	(
+		SELECT
+			COUNT(*) total,
+			t1.create_time create_time
+		FROM
+			(
+				SELECT
+					id,
+					DATE_FORMAT(create_time, '%Y-%m-%d') create_time
+				FROM
+					bbs_article
+			) t1
+		GROUP BY
+			t1.create_time
+	) t2
+  </select>
+
+
+
+</mapper>

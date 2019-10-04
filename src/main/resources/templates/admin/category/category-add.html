@@ -1,0 +1,111 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+
+    <link rel="stylesheet" type="text/css" href="/static/lib/datatables/1.10.15/jquery.dataTables.css">
+    <div th:include="admin/common :: head"></div>
+
+    <title>添加类目</title>
+</head>
+
+<body>
+
+<article class=" cl pd-20" >
+    <form  class="form form-horizontal"
+          id="form-teacher-add" method="POST">
+
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>父节点ID：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" class="input-text disabled radius"  placeholder="" id="id"
+                       th:if="${parentId!=null}" th:value="${parentId}"
+                       name="parentId" readonly="readonly">
+            </div>
+
+        </div>
+
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>分类名称：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" class="input-text"  placeholder="" id="name"
+                       name="name">
+            </div>
+
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2">类目备注：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <textarea name="intro" cols="" rows="" class="textarea"  placeholder="说点什么..." datatype="*10-100" dragonfly="true" nullmsg="备注不能为空！"
+                          onKeyUp="$.Huitextarealength(this,100)" ></textarea>
+                <p class="textarea-numberbar"><em class="textarea-length">0</em>/100</p>
+            </div>
+
+        </div>
+
+
+        <div class="row cl">
+            <div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3">
+                <input class="btn btn-primary radius" type="submit" value="&nbsp;&nbsp;提交&nbsp;&nbsp;">
+            </div>
+        </div>
+
+    </form>
+</article>
+
+<footer th:include="admin/common :: footer"></footer>
+<!--请在下方写此页面业务相关的脚本-->
+<script type="text/javascript" src="/static/lib/My97DatePicker/4.8/WdatePicker.js"></script>
+<script type="text/javascript" src="/static/lib/jquery.validation/1.14.0/jquery.validate.js"></script>
+<script type="text/javascript" src="/static/lib/datatables/1.10.15/jquery.dataTables.js"></script>
+<script type="text/javascript" src="/static/lib/laypage/1.2/laypage.js"></script>
+<script type="text/javascript" src="/static/lib/jquery.validation/1.14.0/validate-methods.js"></script>
+<script type="text/javascript" src="/static/lib/jquery.validation/1.14.0/messages_zh.js"></script>
+<script type="text/javascript" src="/static/lib/webuploader/0.1.5/webuploader.min.js"></script>
+
+
+
+<script type="text/javascript">
+    $(function(){
+        $('.skin-minimal input').iCheck({
+            checkboxClass: 'icheckbox-blue',
+            radioClass: 'iradio-blue',
+            increaseArea: '20%'
+        });
+
+        $("#form-teacher-add").validate({
+            rules:{
+                name:{
+                    required:true,
+                },
+
+            },
+            onkeyup:false,
+            focusCleanup:true,
+            success:"valid",
+
+            submitHandler:function(form){
+                var fd = new FormData($("#form-teacher-add")[0]);
+                $.ajax({
+                    url : "/admin/category/add",
+                    type : "post",
+                    data : fd,
+                    dataType : "json",
+                    processData : false, // 告诉jQuery不要去处理发送的数据
+                    contentType : false, // 告诉jQuery不要去设置Content-Type请求头
+                    success: function(data){
+                        if (data.code === 200){
+                            layer.msg('添加成功!',{icon: 6,time:1000}, function(){
+                                parent_reload();
+                            })
+                        }else{
+                            layer.msg("添加失败", {icon: 5, time: 2000});
+                        }
+                    }
+                });
+            }
+
+        });
+    });
+</script>
+</body>
+</html>

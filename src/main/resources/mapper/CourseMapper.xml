@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.teaching.mapper.CourseMapper" >
+  <resultMap id="BaseResultMap" type="com.teaching.pojo.Course" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="classify" property="classify" jdbcType="VARCHAR" />
+    <result column="classify_name" property="classifyName" jdbcType="VARCHAR" />
+    <result column="sub_classify" property="subClassify" jdbcType="VARCHAR" />
+    <result column="sub_classify_name" property="subClassifyName" jdbcType="VARCHAR" />
+    <result column="picture" property="picture" jdbcType="VARCHAR" />
+    <result column="level" property="level" jdbcType="INTEGER" />
+    <result column="free" property="free" jdbcType="INTEGER" />
+    <result column="price" property="price" jdbcType="DECIMAL" />
+    <result column="time" property="time" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="onsale" property="onsale" jdbcType="INTEGER" />
+    <result column="recommend" property="recommend" jdbcType="INTEGER" />
+    <result column="weight" property="weight" jdbcType="INTEGER" />
+    <result column="study_count" property="studyCount" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="create_user" property="createUser" jdbcType="VARCHAR" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="update_user" property="updateUser" jdbcType="VARCHAR" />
+    <result column="del" property="del" jdbcType="INTEGER" />
+    <result column="brief" property="brief" jdbcType="LONGVARCHAR" />
+  </resultMap>
+
+  <!--查询日增量-->
+  <select id="selectDayVisit" resultType="INTEGER">
+        SELECT
+	ROUND(sum(t2.total) / COUNT(t2.create_time),0)
+FROM
+	(
+		SELECT
+			COUNT(*) total,
+			t1.create_time create_time
+		FROM
+			(
+				SELECT
+					id,
+					DATE_FORMAT(create_time, '%Y-%m-%d') create_time
+				FROM
+					course
+			) t1
+		GROUP BY
+			t1.create_time
+	) t2
+  </select>
+
+
+    <select id="selectForChartConstsClassify" resultType="java.util.HashMap">
+ <![CDATA[
+        SELECT
+COUNT( CASE WHEN  classify_name  = '云计算&大数据' then 1 else null end ) as yjsdsj,
+COUNT( CASE WHEN  classify_name  = '后端开发' then 1 else null end ) as hdkf,
+COUNT( CASE WHEN  classify_name  = '前端开发' then 1 else null end ) as qdkf,
+COUNT( CASE WHEN  classify_name  = '算法开发' then 1 else null end ) as sfkf,
+COUNT( CASE WHEN  classify_name  = '移动开发' then 1 else null end ) as ydkf,
+COUNT( CASE WHEN  classify_name  = '数据库' then 1 else null end ) as sjk,
+COUNT( CASE WHEN  classify_name  = '运维&测试' then 1 else null end ) as ywcs,
+COUNT( CASE WHEN  classify_name  = 'UI设计&多媒体' then 1 else null end ) as uisjdmt,
+COUNT( CASE WHEN  classify_name  = '前沿技术' then 1 else null end ) as qyjs,
+COUNT( CASE WHEN  classify_name  = '计算机基础' then 1 else null end ) as jsjjc
+FROM course
+  ]]>
+
+    </select>
+
+
+
+</mapper>

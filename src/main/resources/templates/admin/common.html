@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<!-- 定义需引入的公共资源 start -->
+<head th:fragment="head">
+
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport"
+          content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
+    <link rel="Bookmark" href="../../static/favicon.ico" type="image/x-icon" >
+    <link rel="shortcut Icon" href="../../static/favicon.ico" type="image/x-icon"/>
+    <!--[if lt IE 9]>
+    <script type="text/javascript" src="/static/lib/html5shiv.js"></script>
+    <script type="text/javascript" src="/static/lib/respond.min.js"></script>
+    <![endif]-->
+
+    <link rel="stylesheet" type="text/css" href="/static/lib/h-ui/css/H-ui.min.css"/>
+    <link rel="stylesheet" type="text/css" href="/static/lib/h-ui.admin/css/H-ui.admin.css"/>
+    <link rel="stylesheet" type="text/css" href="/static/lib/Hui-iconfont/1.0.8/iconfont.css"/>
+    <link rel="stylesheet" type="text/css" href="/static/lib/h-ui.admin/skin/default-black/skin.css" id="skin"/>
+    <link rel="stylesheet" type="text/css" href="/static/lib/h-ui.admin/css/style.css"/>
+
+    <!--[if IE 6]>
+    <script type="text/javascript" src="/static/lib/DD_belatedPNG_0.0.8a-min.js"></script>
+    <script>DD_belatedPNG.fix('*');</script>
+    <![endif]-->
+
+
+
+    <title>智慧教学网站后台管理</title>
+    <meta name="keywords" content="learn">
+    <meta name="description" content="learn后台管理系统">
+</head>
+<!-- 定义需引入的公共资源 end -->
+
+<!-- 定义统一头部标签样式 start -->
+<header th:fragment="header" class="navbar-wrapper">
+    <div class="navbar navbar-fixed-top">
+        <div class="container-fluid cl"><a class="logo navbar-logo f-l mr-10 hidden-xs" href="/">智慧教学网站</a>
+            <a class="logo navbar-logo-m f-l mr-10 visible-xs" href="/">后台管理系统</a>
+            <span class="logo navbar-slogan f-l mr-10 hidden-xs">后台管理系统</span>
+            <a aria-hidden="false" class="nav-toggle Hui-iconfont visible-xs" href="javascript:;">&#xe667;</a>
+            <nav class="nav navbar-nav">
+                <ul class="cl">
+                    <li class="dropDown dropDown_hover"><a href="javascript:;" class="dropDown_A"><i
+                            class="Hui-iconfont">&#xe600;</i> 新增 <i class="Hui-iconfont">&#xe6d5;</i></a>
+                        <ul class="dropDown-menu menu radius box-shadow">
+                            <li><a href="javascript:;" data-title="添加管理员" data-href="/admin/add/house"
+                                   th:onclick="|add('新增管理','/admin/system/addAdminPage')|">
+                                <i class="Hui-iconfont">&#xe62d;</i> 管理员</a></li>
+                            <li><a href="javascript:;" data-title="新增课程" data-href="/admin/add/house"
+                                   th:onclick="|addCourse('新增课程','/admin/course/courseAdd')|">
+                                <i class="Hui-iconfont">&#xe623;</i> 课程</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
+            <nav id="Hui-userbar" class="nav navbar-nav navbar-userbar hidden-xs">
+                <ul class="cl">
+
+                    <li class="dropDown dropDown_hover">
+                        <a href="#" class="dropDown_A">
+
+                            <!--<div style="display: inline-block;" sec:authentication="name"
+                                 th:text="管理员 +${session.SPRING_SECURITY_CONTEXT.
+                                 authentication.principal.username}">
+                            </div>-->
+                            <!--这里导致前端页面乱了-->
+
+                            <!--<i class="Hui-iconfont">&#xe6d5;</i></a>
+                        <ul class="dropDown-menu menu radius box-shadow">
+                            <li><a href="javascript:;" th:onclick="'mySelfInfo(' + ${adminId} + ')'">个人信息</a></li>
+                            <li><a href="javascript:;"authentication
+                   th:onclick="|javascript:switch_account(this)|">
+                                切换账户</a>
+                            </li>
+                            <li><a href="/logout">退出</a></li>
+                        </ul>
+                    </li>-->
+
+
+                    <li id="Hui-msg"><a href="#" title="消息"><span class="badge badge-danger">1</span><i
+                            class="Hui-iconfont" style="font-size:18px">&#xe68a;</i></a></li>
+
+                    <li id="Hui-skin" class="dropDown right dropDown_hover">
+                        <a href="javascript:;" class="dropDown_A" title="换肤">
+                            <i class="Hui-iconfont" style="font-size:18px">&#xe62a;</i></a>
+                        <ul class="dropDown-menu menu radius box-shadow">
+                            <li><a href="javascript:;" data-val="default" title="default（green）">default（green）</a></li>
+                            <li><a href="javascript:;" data-val="blue" title="blue">blue</a></li>
+                            <li><a href="javascript:;" data-val="default-black" title="black">black</a></li>
+                            <li><a href="javascript:;" data-val="red" title="red">red</a></li>
+                            <li><a href="javascript:;" data-val="yellow" title="yellow">yellow</a></li>
+                            <li><a href="javascript:;" data-val="orange" title="orange">orange</a></li>
+                        </ul>
+                    </li>
+
+                </ul>
+            </nav>
+        </div>
+    </div>
+</header>
+<!-- 定义统一头部标签样式 end -->
+
+<!-- 菜单 start -->
+<div th:fragment="left_menu">
+    <aside class="Hui-aside">
+        <div class="menu_dropdown bk_2">
+            <dl id="menu-hmepage">
+                <dt>
+                    <a data-href="/admin/welcome" href="javascript:void(0)" data-title="我的桌面"
+                    style="text-decoration: none;">
+                        <i class="Hui-iconfont">&#xe603;</i>  我的桌面
+                    </a>
+                </dt>
+
+            </dl>
+
+            <dl id="menu-homepage">
+                <dt><i class="Hui-iconfont">&#xe625;</i> 主页管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe698;</i>
+                </dt>
+                <dd>
+                    <ul>
+                        <li><a data-href="/admin/question/singleChoiceList" data-title="轮播管理"
+                               href="javascript:void(0)">轮播管理</a></li>
+                        <li><a data-href="/admin/question/multipleChoiceList" data-title="课程推荐管理"
+                               href="javascript:void(0)">课程推荐管理</a></li>
+                        <li><a data-href="/admin/question/fillBlankList" data-title="名师推荐管理"
+                               href="javascript:void(0)">名师推荐管理</a></li>
+                    </ul>
+
+                </dd>
+            </dl>
+            <dl id="menu-course">
+                <dt><i class="Hui-iconfont">&#xe616;</i> 合格课程管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe698;</i>
+                </dt>
+                <dd>
+                    <ul>
+                        <li><a data-href="/admin/course/courseAdd" data-title="新增课程"
+                               href="javascript:void(0)">新增课程</a></li>
+                        <li><a data-href="/admin/course/courseFreeList" data-title="免费课程"
+                               href="javascript:void(0)">免费课程</a></li>
+                        <li><a data-href="/admin/course/courseMoneyList" data-title="实战课程"
+                               href="javascript:void(0)">实战课程</a></li>
+
+                        <li><a data-href="/admin/course/courseRemoveList" data-title="已删除课程"
+                               href="javascript:void(0)">已删除课程</a></li>
+                    </ul>
+                </dd>
+            </dl>
+
+            <dl id="menu-category">
+                <dt><i class="Hui-iconfont">&#xe681;</i> 课程分类管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe698;</i>
+                </dt>
+                <dd>
+                    <ul>
+                        <li><a data-href="/admin/category/categoryList" data-title="课程分类管理"
+                               href="javascript:void(0)">课程分类</a></li>
+                        <li><a data-href="/admin/course/courseCategoryList/1" data-title="课程分类列表"
+                               href="javascript:void(0)">课程分类列表</a></li>
+                    </ul>
+                </dd>
+            </dl>
+
+            <dl id="menu-comment">
+                <dt><i class="Hui-iconfont">&#xe622;</i> 评论答疑管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe698;</i>
+                </dt>
+                <dd>
+                    <ul>
+                        <li><a data-href="/admin/user/userList" data-title="评论列表" href="javascript:void(0)">
+                            评论列表</a></li>
+                        <li><a data-href="/admin/user/userList" data-title="答疑列表" href="javascript:void(0)">
+                            答疑列表</a></li>
+                        <li><a data-href="/admin/user/userList" data-title="屏蔽词" href="javascript:void(0)">
+                            屏蔽词</a></li>
+                    </ul>
+                </dd>
+            </dl>
+            <dl id="menu-BBS">
+                <dt><i class="Hui-iconfont">&#xe62d;</i> BBS论坛答疑管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe698;</i>
+                </dt>
+                <dd>
+                    <ul>
+                        <li><a data-href="/admin/userSuper/userSuperList" data-title="问题列表" href="javascript:void(0)">
+                            文章列表</a></li>
+                    </ul>
+                </dd>
+            </dl>
+            <dl id="menu-check">
+                <dt><i class="Hui-iconfont">&#xe63b;</i> 审核管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe698;</i>
+                </dt>
+                <dd>
+                    <ul>
+                        <li><a data-href="/admin/feedback/feedbackList" data-title="教师资格审核管理" href="javascript:void(0)">
+                            教师资格审核管理</a></li>
+                        <li><a data-href="/admin/feedback/feedbackList" data-title="课程发布审核管理" href="javascript:void(0)">
+                            课程发布审核管理</a></li>
+                    </ul>
+                </dd>
+            </dl>
+            <dl id="menu-user">
+                <dt><i class="Hui-iconfont">&#xe60d;</i> 用户管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe698;</i>
+                </dt>
+                <dd>
+                    <ul>
+                        <li><a data-href="/admin/user/userCommonList" data-title="用户列表" href="javascript:void(0)">
+                            用户列表</a></li>
+                        <li><a data-href="/admin/user/userTeacherList" data-title="教师列表" href="javascript:void(0)">
+                            教师列表</a></li>
+                    </ul>
+                </dd>
+            </dl>
+            <dl id="menu-statistics">
+                <dt><i class="Hui-iconfont">&#xe61a;</i> 数据统计<i class="Hui-iconfont menu_dropdown-arrow">&#xe698;</i>
+                </dt>
+                <dd>
+                    <ul>
+                        <li><a data-href="/admin/chart/chartConstsClassify" data-title="课程分类饼状图统计" href="javascript:void(0)">
+                            分类统计饼状图</a></li>
+                        <li><a data-href="/admin/chart/chartUser" data-title="用户月均折线图统计" href="javascript:void(0)">
+                            用户月均折线图</a></li>
+                        <li><a data-href="/admin/chart/chartCourse" data-title="课程月均折线图统计" href="javascript:void(0)">
+                            课程月均折线图</a></li>
+                    </ul>
+                </dd>
+            </dl>
+
+            <dl id="menu-suggestion">
+                <dt><i class="Hui-iconfont">&#xe692;</i> 意见管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe698;</i>
+                </dt>
+                <dd>
+                    <ul>
+                        <li><a data-href="/admin/feedback/feedbackList" data-title="用户意见反馈" href="javascript:void(0)">
+                            用户意见反馈</a></li>
+                    </ul>
+                </dd>
+            </dl>
+
+            <dl id="menu-system">
+            <dt><i class="Hui-iconfont">&#xe62e;</i> 系统管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe698;</i>
+            </dt>
+            <dd>
+                <ul>
+                    <li><a data-href="/admin/system/adminList" data-title="管理员列表" href="javascript:void(0)">
+                        管理员列表</a></li>
+                    <li><a data-href="/admin/system/systemLogList" data-title="登录日志" href="javascript:void(0)">
+                        登录日志</a></li>
+                </ul>
+            </dd>
+            </dl>
+
+
+
+        </div>
+    </aside>
+    <div class="dislpayArrow hidden-xs"><a class="pngfix" href="javascript:void(0);" onClick="displaynavbar(this)"></a>
+    </div>
+</div>
+<!-- 菜单 end -->
+
+
+<div th:fragment="house_manage">
+    <script type="text/javascript" src="/static/lib/My97DatePicker/4.8/WdatePicker.js"></script>
+    <script type="text/javascript" src="/static/lib/datatables/1.10.0/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="/static/lib/laypage/1.2/laypage.js"></script>
+    <script type="text/javascript">
+        /*添加*/
+        function add(title,url,w,h){
+            layer_show(title,url,w,h);
+        }
+
+        function addCourse(title,url,w,h){
+            var index = layer.open({
+                type: 2,
+                title: title,
+                content: url
+            });
+            layer.full(index);
+        }
+        /*用户-切换账号*/
+        function switch_account(obj,id){
+            layer.confirm('确定要切换账号吗？<br>这将会退出当前账号哦！',
+                function(index){
+                parent.window.location="/admin/switchAccount";
+            });
+        }
+    </script>
+
+</div>
+
+<div th:fragment="footer">
+    <script type="text/javascript" src="/static/lib/My97DatePicker/4.8/WdatePicker.js"></script>
+    <script type="text/javascript" src="/static/lib/jquery/1.9.1/jquery.min.js"></script>
+    <script type="text/javascript" src="/static/lib/layer/2.4/layer.js"></script>
+    <script type="text/javascript" src="/static/lib/h-ui/js/H-ui.min.js"></script>
+    <script type="text/javascript" src="/static/lib/h-ui.admin/js/H-ui.admin.js"></script> <!--/_footer 作为公共模版分离出去-->
+    <script type="text/javascript" src="/static/js/common.js"></script>
+</div>
+
+</html>

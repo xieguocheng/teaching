@@ -1,0 +1,372 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<!--<head th:include="admin/common :: head">-->
+    <title>DASHBOARD</title>
+
+    <style>
+        @font-face {
+            font-family: 'iconfont';
+            src: url(data:application/font-woff2;charset=utf-8;base64,d09GMgABAAAAAAUUAA0AAAAACiQAAAS9AAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAP0ZGVE0cGh4GVgCCUhEICodghjcLEAABNgIkAxYEIAWFCAdMG4QIUZQuTorsYzHd3oBsR5GmhMERyhzzQD48ndb7g0CllaRyUgDT3T1mDQQngOfrb/y5b7dmIk440sizCFL/8AX2/79f6byJogK+U/pFBvFNlkViFUfRPwNSAnMGMHMjWhcbbFl3wJ2JeOXhQAAIALqdXgIAeHPPrQ3cbROABGAJoBA0HoIBUADSyIsF6lkPAUuA3yd/oREAhS3c2OI7owXJv8NffFHccGoYChNqQrDQjMXeh/JNBNs9IxggIEDB50c+P/fFFzPw+WGz0FphnW/lCEJIkB0I28ECUMB/DwHIkBksXL6DygDGQC4gHwAAGACOSqGxfsTzNfExiTalhRKJUOhmbC6c1OuVoisGN01Sq5Vv0yWYYzR1lYV4jdUOg8DW6Ewurl3rVa/ff3587sSLB5p7z45xR5/enbwce8FAMhE4XczZ+ItaZ/4WwwvhM53D5WzXK18/f/nw3JErFzTnLh3iDl4827SazNmtsdxtuf842XDE78AFcajegw2tstrjpeGaHNdnlub0u5IFH2FSuVokeX0veNw+sZHmAGHn5CJSK2Ol8GSJG0QrzZHURVYrDao0aClZOchjDGP+uf0S+N30Xtdnkv2++g/kWp1CwVms2mVVfi9DpNOVK1aJNQcIMRj6LOVKS72+3GBQ6HRyrbbZXKE0P6mNJA8MaQaDUnwuQKdtKmudiKML7NPU6jR78mOEWka1aTRtCo/SaPQy97o/Is1OrY56iWTxGuIbeDb+bWVlnf4TDNawZbLxDyZZw15ub2JT5ia8mcmtizDupuI3W6/iICIf7JejjOrpI2VB7ojtb4q1fpko0am2LoXfl7rUSPrvDaOtT1n0Y/7D2T5PDwzzd/847KO0xPCA9OdmrfZS60gmNft/t2A7vh9Mf7azPuZ0fjq8ZO0NJtKMq47dJsdgP5ED7CI7uVf9N/ju4eFGHiIG6g2GV6X7ZCayZBlx67RLc+wuXrz0bfAPgW+Yjpq+4fT+2cSeYF4D67jNmYhTglmIf8tU5SpavfmPl50X0pA8gw2/z5a7+NdNZqnob3MasYBh8qtvzHi5hJK04B02xTYz3imszET2cko1eWfa82STI9RjSUXszdiy/OYv3FWZzXnuX2SqEksvRq4NH4e60fnkFiW1AX31aSnRReZnXBTEe2dEPn38pvz3Kv37AAAQAIHK83vneqP4XwXiNkjuLnGu1rVKBghQAIDAwJbSAICYeoTgB9OGCf92r+qzVSIC4BvAAwAUQEQE+B8AAGDqPRAAAFjw54EQkAOFrxtoAq8ghrEdWGI3gEfgQxDxS+piMbOsRiN9AHwBAMJYKlBkaoFmbBgxjKXAsnQAeIw9ARGlryaLeaaHSJoBrRoNsdItnDUZJ7Zr1quHqs0QEYhubpQzqPIP/+RIZUX4YqBUK7VhXRoNwP/5qk1ePUVUajVgUHuusxCBgmFn33pIYHBWlGXsyU6qn2cZNEIt1JAhKs5UBvTq5iyzCFerLjHSy1lf+Ld0aNVsSCBcC2UOjqhDh4ZUZwHKF9DKJbn2X9EeoK38lD6xgohkqpI9gZrrtGCrZlFlVq51iqbRWkQY4nclqKxUOluvVYzMksYoXCMZA1YhFv7KCQAAAA==) format('woff2'),
+            url(data:application/font-woff;charset=utf-8;base64,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) format('woff');
+
+            font-weight: normal;
+            font-style: normal;
+        }
+        .iconfont {
+            font-family: "iconfont" !important;
+            font-size: 16px;
+            font-style: normal;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        .icon-user:before {
+            content: "\e7ae";
+            font-size: 200%;
+        }
+
+        .icon-team:before {
+            content: "\e7af";
+            font-size: 200%;
+        }
+
+        .icon-file-text:before {
+            content: "\e7b9";
+            font-size: 200%;
+        }
+
+        .icon-comment:before {
+            content: "\e8e8";
+            font-size: 200%;
+        }
+
+
+        div#monitor{
+            display: flex;
+            margin-top: 2em;
+            margin-left:2em;
+        }
+        div#monitor a{
+            color: #555;
+            text-decoration: none;
+        }
+        div#monitor a:hover{
+            text-decoration: none;
+        }
+        div#monitor>div{
+            border-radius: 10px;
+            width: 20%;
+            margin-right: 5%;
+            height: min-content;
+            background:#fafafa;
+            box-shadow:  0 0 5px #bbb;
+            position: relative;
+        }
+        div#monitor div.block div.line1{
+            width: 90%;
+            height: 5em;
+            border-bottom: thin solid #ddd;
+            margin:0 auto .5em auto;
+        }
+        div#monitor div.block div.line2{
+            width: 90%;
+            margin: auto;
+        }
+        div#monitor div.block div.line1 div.icon{
+            width: 4.5em;
+            height: 4.5em;
+
+            box-shadow:  0 0 5px #bbb;
+            border-radius: 5px;
+            position: absolute;
+            top: -1em;
+            left: 1em;
+            color: white;
+            text-align: center;
+            line-height: 4.5em;
+        }
+        div#monitor div.block:nth-child(1) div.line1 div.icon{
+            background:linear-gradient(to right,#fd951e,#f87c0b);
+        }
+        div#monitor div.block:nth-child(2) div.line1 div.icon{
+            background:linear-gradient(to right,#4ba64c,#3d983d);
+        }
+        div#monitor div.block:nth-child(3) div.line1 div.icon{
+            background:linear-gradient(to right,#e43338,#de272d);
+        }
+        div#monitor div.block:nth-child(4) div.line1 div.icon{
+            background:linear-gradient(to right,#982aae,#7c029b);
+        }
+        div#monitor div.block div.line1 div.desc{
+            position: absolute;
+            right: 1em;
+            text-align: right;
+            line-height: .6;
+        }
+        div#monitor div.block div.line1 div.desc p.title{
+            color: #666;
+            font-size: 80%;
+            display: block;
+
+        }
+        div#monitor div.block div.line1 div.desc p.info{
+            color: #555;
+            font-size: 120%;
+        }
+        div#monitor div.block div.line2 p{
+            font-size: 	95%;
+        }
+    </style>
+
+</head>
+<body>
+
+
+
+<div class="page-container">
+
+    <div id="monitor">
+        <div class="block">
+            <div class="line1">
+                <div class="icon icon-user iconfont"></div>
+                <div class="desc">
+                    <p class="title">网站浏览总量</p>
+                    <p class="info">9999</p>
+                </div>
+            </div>
+            <div class="line2"><p><a href="#">日浏览量：90</a></p></div>
+        </div>
+        <div class="block">
+            <div class="line1">
+                <div class="icon icon-team iconfont"></div>
+                <div class="desc">
+                    <p class="title"  >用户量</p>
+                    <p class="info" th:text="${authUserCount}"></p>
+                </div>
+            </div>
+            <div class="line2"><p><a href="#"  th:text="'日增长量：'+${authUserVisit}"></a></p></div>
+        </div>
+        <div class="block">
+            <div class="line1">
+                <div class="icon icon-file-text iconfont"></div>
+                <div class="desc">
+                    <p class="title">课程量</p>
+                    <p class="info" th:text="${courseCount}"></p>
+                </div>
+            </div>
+            <div class="line2"><p><a href="#" th:text="'日增长量：'+${courseVisit}"></a></p></div>
+        </div>
+        <div class="block">
+            <div class="line1 ">
+                <div class="icon icon-comment iconfont"></div>
+                <div class="desc">
+                    <p class="title">BBS论坛文章量</p>
+                    <p class="info" th:text="${bbsArticleCount}"></p>
+                </div>
+            </div>
+            <div class="line2"><p><a href="#" th:text="'日增长量：'+${bbsVisit}"></a></p></div>
+        </div>
+    </div>
+
+
+
+    <br><br>
+    <article class="cl pd-20">
+        <div class="f-14 c-error" style="text-align: center;">
+            用户折线图
+        </div>
+        <div id="container" style="min-width:700px;height:400px"></div>
+    </article>
+
+
+
+</div>
+
+<br><br>
+
+
+<!--<div class="panel panel-success">
+    <div class="panel-header">面板标题</div>
+    <div class="panel-body">面板内容</div>
+</div>
+<div class="panel panel-primary">
+    <div class="panel-header">面板标题</div>
+    <div class="panel-body">面板内容</div>
+</div>
+<div class="panel panel-secondary">
+    <div class="panel-header">面板标题</div>
+    <div class="panel-body">面板内容</div>
+</div>
+
+<div class="panel panel-warning">
+    <div class="panel-header">面板标题</div>
+    <div class="panel-body">面板内容</div>
+</div>
+<div class="panel panel-danger">
+    <div class="panel-header">面板标题</div>
+    <div class="panel-body">面板内容</div>
+</div>
+
+
+<p style="height: 50px;" class="f-20 text-success">
+
+    test
+
+</p>
+
+
+<div style="padding: 20px; background-color: #F2F2F2;">
+    <div class="layui-row layui-col-space15">
+        <div class="layui-col-md6">
+            <div class="layui-card">
+                <div class="layui-card-header">卡片面板</div>
+                <div class="layui-card-body">
+                    卡片式面板面板通常用于非白色背景色的主体内<br>
+                    从而映衬出边框投影
+                </div>
+            </div>
+        </div>
+        <div class="layui-col-md6">
+            <div class="layui-card">
+                <div class="layui-card-header">卡片面板</div>
+                <div class="layui-card-body">
+                    结合 layui 的栅格系统<br>
+                    轻松实现响应式布局
+                </div>
+            </div>
+        </div>
+        <div class="layui-col-md12">
+            <div class="layui-card">
+                <div class="layui-card-header">标题</div>
+                <div class="layui-card-body">
+                    内容
+                </div>
+            </div>
+        </div>
+    </div>
+</div><div class="panel panel-success">
+    <div class="panel-header">面板标题</div>
+    <div class="panel-body">面板内容</div>
+</div>
+<div class="panel panel-primary">
+    <div class="panel-header">面板标题</div>
+    <div class="panel-body">面板内容</div>
+</div>
+<div class="panel panel-secondary">
+    <div class="panel-header">面板标题</div>
+    <div class="panel-body">面板内容</div>
+</div>
+
+<div class="panel panel-warning">
+    <div class="panel-header">面板标题</div>
+    <div class="panel-body">面板内容</div>
+</div>
+<div class="panel panel-danger">
+    <div class="panel-header">面板标题</div>
+    <div class="panel-body">面板内容</div>
+</div>
+
+
+<p style="height: 50px;" class="f-20 text-success">
+
+    test
+
+</p>
+
+
+<div style="padding: 20px; background-color: #F2F2F2;">
+    <div class="layui-row layui-col-space15">
+        <div class="layui-col-md6">
+            <div class="layui-card">
+                <div class="layui-card-header">卡片面板</div>
+                <div class="layui-card-body">
+                    卡片式面板面板通常用于非白色背景色的主体内<br>
+                    从而映衬出边框投影
+                </div>
+            </div>
+        </div>
+        <div class="layui-col-md6">
+            <div class="layui-card">
+                <div class="layui-card-header">卡片面板</div>
+                <div class="layui-card-body">
+                    结合 layui 的栅格系统<br>
+                    轻松实现响应式布局
+                </div>
+            </div>
+        </div>
+        <div class="layui-col-md12">
+            <div class="layui-card">
+                <div class="layui-card-header">标题</div>
+                <div class="layui-card-body">
+                    内容
+                </div>
+            </div>
+        </div>
+    </div>
+</div>-->
+
+
+
+<footer th:include="admin/common :: footer"></footer>
+<!--请在下方写此页面业务相关的脚本-->
+<script type="text/javascript" src="/static/lib/My97DatePicker/4.8/WdatePicker.js"></script>
+<script type="text/javascript" src="/static/lib/datatables/1.10.15/jquery.dataTables.js"></script>
+<script type="text/javascript" src="/static/lib/laypage/1.2/laypage.js"></script>
+
+<!--请在下方写此页面业务相关的脚本-->
+<script type="text/javascript" src="/static/lib/hcharts/Highcharts/5.0.6/js/highcharts.js"></script>
+<script type="text/javascript" src="/static/lib/hcharts/Highcharts/5.0.6/js/modules/exporting.js"></script>
+<script type="text/javascript" th:inline="javascript">
+    /*<![CDATA[*/
+    $(function () {
+        $('#container').highcharts({
+            title: {
+                text: '月平均用户增长量',
+                x: -20 //center
+            },
+            subtitle: {
+                text: '来源：智慧教学网站系统后台大数据统计',
+                x: -20
+            },
+            xAxis: {
+                categories: ['一月', '二月', '三月', '四月', '五月', '六月','七月', '八月', '九月', '十月', '十一月', '十二月']
+            },
+            yAxis: {
+                title: {
+                    text: '人数/个'
+                },
+                plotLines: [{
+                    value: 0,
+                    width: 1,
+                    color: '#808080'
+                }]
+            },
+            tooltip: {
+                valueSuffix: '个'
+            },
+            legend: {
+                layout: 'vertical',
+                align: 'right',
+                verticalAlign: 'middle',
+                borderWidth: 0
+            },
+            series: [{
+                name: '2016年',
+                data: [7.0, 6.9, 9.5, 14.5, 18.2, 21.5, 25.2, 26.5, 23.3, 18.3, 13.9, 9.6]
+            }, {
+                name: '2017年',
+                data: [-0.2, 0.8, 5.7, 11.3, 17.0, 22.0, 24.8, 24.1, 20.1, 14.1, 8.6, 2.5]
+            }, {
+                name: '2018年',
+                data: [-0.9, 0.6, 3.5, 8.4, 13.5, 17.0, 18.6, 17.9, 14.3, 9.0, 3.9, 1.0]
+            }, {
+                name: '2019年',
+                /*data: [3.9, 4.2, 5.7, 8.5, 11.9, 15.2, 17.0, 16.6, 14.2, 10.3, 6.6, 4.8]*/
+                data:[[${time}]]
+            }]
+        });
+    });
+    /*]]>*/
+</script>
+</body>
+</html>

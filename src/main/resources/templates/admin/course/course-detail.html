@@ -1,0 +1,156 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link rel="stylesheet" type="text/css" href="/static/lib/datatables/1.10.15/jquery.dataTables.css">
+    <div th:include="admin/common :: head"></div>
+
+
+    <title>基本详情页面</title>
+</head>
+<body>
+
+<div class="cl pd-20" style=" background-color:#5bacb6">
+    <!-- 教师头像默认保存在home/teacherImg -->
+    <img class="avatar size-XL l" th:src="${course?.picture}">
+    <dl style="margin-left:80px; color:#fff">
+        <dt>
+            <span class="f-18" th:text="${course?.name}" ></span>
+            <!--<span class="pl-10 f-12" th:text="教师【+${course?.user_id}+】"></span>-->
+
+        </dt>
+        <dd class="pt-10 f-12" style="margin-left:0" th:text="课程类型【+${course.subClassifyName}+】"></dd>
+    </dl>
+</div>
+
+
+<div id="tab_demo" class="HuiTab">
+    <div class="tabBar clearfix">
+        <span style="background: #5bacb6">课程详情</span>
+        <span style="background: #5bacb6">课程章节</span>
+        <span style="background: #5bacb6">评论答疑</span>
+    </div>
+    <div class="tabCon" >
+        <div class="pd-20">
+        <table class="table">
+            <tbody>
+
+            <tr>
+                <th class="text-r" width="80">简介：</th>
+                <td th:text="${course?.brief}"></td>
+            </tr>
+            <tr>
+                <th class="text-r" width="80">时长：</th>
+                <td th:text="${course.time}+'/h'"></td>
+            </tr>
+            <tr>
+                <th class="text-r" width="80">学习人数：</th>
+                <td th:text="${course.studyCount}+'人'"></td>
+            </tr>
+
+            <tr th:if="${course.free==0}">
+                <th class="text-r" width="80">价格：</th>
+                <td th:text="${course.price}+'美元'"></td>
+            </tr>
+
+            <tr>
+                <th class="text-r" width="80">是否免费：</th>
+                <td th:if="${course.free==1}"><span  class="label label-secondary radius">免费</span></td>
+                <td th:if="${course.free==0}"><span  class="label label-danger radius">收费</span></td>
+            </tr>
+
+            <tr>
+                <th class="text-r" width="80">课程级别：</th>
+                <td th:if="${course.level==1}"><span  class="label label-secondary radius">初级课程</span></td>
+                <td th:if="${course.level==2}"><span  class="label label-success radius">中级课程</span></td>
+                <td th:if="${course.level==3}"><span  class="label label-danger radius">高级课程</span></td>
+            </tr>
+
+            <tr>
+                <th class="text-r" width="80">课程状态：</th>
+                <td th:if="${course.status==0}"><span  class="label label-secondary radius">默认</span></td>
+                <td th:if="${course.status==1}"><span  class="label label-success  radius">审核中</span></td>
+                <td th:if="${course.status==2}"><span  class="label label-danger radius">审核成功</span></td>
+                <td th:if="${course.status==3}"><span  class="label label-info  radius">审核失败</span></td>
+            </tr>
+
+            <tr>
+                <th class="text-r" width="80">是否上架：</th>
+                <td th:if="${course.onsale==0}"><span  class="label label-info radius">未上架</span></td>
+                <td th:if="${course.onsale==1}"><span  class="label label-secondary radius">已上架</span></td>
+            </tr>
+
+            <tr>
+                <th class="text-r" width="80">是否被推荐：</th>
+                <td th:if="${course.recommend==0}"><span  class="label label-info radius">未推荐</span></td>
+                <td th:if="${course.recommend==1}"><span  class="label label-secondary radius">推荐</span></td>
+            </tr>
+            <tr>
+                <th class="text-r" width="80">创建人：</th>
+                <td th:text="${course.createUser}"></td>
+            </tr>
+
+            <tr>
+                <th class="text-r" width="80">创建时间：</th>
+                <td th:text="${#dates.format(course?.createTime, 'yyyy-MM-dd HH:mm:ss')}"></td>
+            </tr>
+            <tr>
+                <th class="text-r" width="80">更新时间：</th>
+                <td th:text="${#dates.format(course?.updateTime, 'yyyy-MM-dd HH:mm:ss')}"></td>
+            </tr>
+
+            <tr>
+                <th class="text-r" width="80">删除状态：</th>
+                <td th:if="${course.del==0}"><span  class="label label-secondary radius">正常</span></td>
+                <td th:if="${course.del==1}"><span  class="label label-danger radius">已删除</span></td>
+            </tr>
+
+
+            </tbody>
+        </table>
+    </div></div>
+    <div class="tabCon">内容二</div>
+    <div class="tabCon">内容三</div>
+</div>
+
+
+
+
+<footer th:include="admin/common :: footer"></footer>
+<!--请在下方写此页面业务相关的脚本-->
+<script type="text/javascript" src="/static/lib/jquery.validation/1.14.0/jquery.validate.js"></script>
+<script type="text/javascript" src="/static/lib/datatables/1.10.15/jquery.dataTables.js"></script>
+<script type="text/javascript" src="/static/lib/jquery.validation/1.14.0/validate-methods.js"></script>
+<script type="text/javascript" src="/static/lib/jquery.validation/1.14.0/messages_zh.js"></script>
+<script type="text/javascript" src="/static/lib/webuploader/0.1.5/webuploader.min.js"></script>
+
+<script type="text/javascript" src="/static/lib/h-ui/js/H-ui.js"></script>
+<script type="text/javascript" src="/static/lib/jquery/1.9.1/jquery.min.js"></script>
+
+<script type="text/javascript">
+
+
+
+
+
+    jQuery.Huitab =function(tabBar,tabCon,class_name,tabEvent,i){
+        var $tab_menu=$(tabBar);
+        // 初始化操作
+        $tab_menu.removeClass(class_name);
+        $(tabBar).eq(i).addClass(class_name);
+        $(tabCon).hide();
+        $(tabCon).eq(i).show();
+
+        $tab_menu.bind(tabEvent,function(){
+            $tab_menu.removeClass(class_name);
+            $(this).addClass(class_name);
+            var index=$tab_menu.index(this);
+            $(tabCon).hide();
+            $(tabCon).eq(index).show()})}
+    $(function(){
+
+        $.Huitab("#tab_demo .tabBar span","#tab_demo .tabCon","current","click","0")
+
+    });
+</script>
+</body>
+</html>

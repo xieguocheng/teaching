@@ -1,0 +1,241 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+
+    <link rel="stylesheet" type="text/css" href="/static/lib/datatables/1.10.15/jquery.dataTables.css">
+    <div th:include="admin/common :: head"></div>
+    <style type="text/css">
+        th {
+            text-align: center;
+        }
+
+        .table td {
+            text-align: center;
+        }
+    </style>
+    <title>免费课程</title>
+</head>
+
+<body>
+<nav class="breadcrumb">
+    <i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span>课程管理
+    <span class="c-gray en">&gt;</span> 免费课程
+    <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px"
+       href="javascript:location.replace(location.href);" title="刷新">
+        <i class="Hui-iconfont">&#xe68f;</i>
+    </a>
+</nav>
+<div class="Huialert Huialert-info"><i class="Hui-iconfont">&#xe6a6;</i>表格呈现的数据,课程状态-审核通过,课程-收费,课程未删除</div>
+
+<div class="cl pd-5 bg-1 bk-gray mt-20">
+
+    <span class="l">
+		<a class="btn btn-danger-outline radius"  onclick="datadel()" href="javascript:;" >
+		<i class="Hui-iconfont">&#xe6e2;</i>批量删除</a>
+
+        <a class="btn btn-secondary-outline radius" onclick="product_add('添加课程','product-add.html')" href="javascript:;">
+        <i class="Hui-iconfont">&#xe600;</i>添加课程</a></span>
+
+    <a class="btn btn-success-outline radius"onclick="product_add()" href="javascript:;">
+        <i class="Hui-iconfont">&#xe644;</i>导出课程</a></span>
+
+    <a class="btn btn-success-outline radius"onclick="product_add()" href="javascript:;">
+        <i class="Hui-iconfont">&#xe645;</i>导入课程</a></span>
+    </span>
+    <span class="r" >共有数据：
+        <div style="display:inline;line-height:31px" th:text="${courseList.size()}+'&nbsp条' "></div>
+    </span>
+</div>
+
+
+<div class="page-container">
+    <div class="mt-20">
+        <table id="sheetList" class="table table-border table-bordered table-bg table-hover table-sort">
+            <thead>
+            <tr class="text-c">
+                <th width="5"><input type="checkbox" name="" value=""></th>
+                <th width="100">课程名称</th>
+                <th width="100">课程封面</th>
+                <th width="40">教师详情</th>
+                <th width="40">类型</th>
+                <th width="40">学习人数</th>
+                <th width="40">权重</th>
+                <th width="100">创建时间</th>
+                <th width="40">是否上架</th>
+                <th width="80">操作</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            <tr  th:each="course,courseList : ${courseList}" >
+                <td><input type="checkbox" th:value="${course.id}"  name=""></td>
+
+                <td  >
+                    <u style="cursor:pointer" class="text-primary" th:text="${course.name}"
+                       th:onclick="|course_show('查看课程','/admin/course/courseDetail/${course.id }')|">
+                    </u>
+                </td>
+
+                <td><img width="100" height="100" class="picture-thumb"th:src="${course.picture}"></td>
+
+                <td ><span class="label label-success radius">
+					<a style="text-decoration:none" class="ml-5"
+                       th:onclick="|userDetail('教师详情','/admin/course/userDetail/${course.userId }')|"
+                       href="javascript:;" title="教师详情">教师详情</a></span>
+                </td>
+
+                <td th:text="${course.subClassifyName}"></td>
+
+                <td th:text="${course.studyCount}"></td>
+
+                <td><input type="text" th:id="'weight_'+${course.id}" class="input-text text-c" th:value="${course.weight}"></td>
+
+                <th class="text-c" th:text="${#dates.format(course.createTime, 'yyyy-MM-dd HH:mm:ss')}"></th>
+
+                <td th:if="${course.onsale}==0" >
+                    <span class="label label-info radius">未上架</span>
+                </td>
+                <td th:if="${course.onsale}==1" >
+                    <span class="label label-success radius">已上架</span>
+                </td>
+
+
+                <td class="td-manage">
+                    <a title="停用" style="text-decoration:none" onClick="member_stop(this,'10001')" href="javascript:;" >
+                        <i class="Hui-iconfont">&#xe631;</i></a>
+                    <a title="编辑"  th:onclick="|javascript:question_edit('编辑','/admin/course/courseEditPage/${course.id}','4','','510')|"
+                       class="ml-5" style="text-decoration:none">
+                        <i class="Hui-iconfont">&#xe6df;</i></a>
+                    <a title="删除" href="javascript:;"class="ml-5" style="text-decoration:none"
+                       th:onclick="|javascript:course_del(this,'${course.id }')|">
+                        <i class="Hui-iconfont">&#xe6e2;</i></a>
+                </td>
+
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+</div>
+
+
+<footer th:include="admin/common :: footer"></footer>
+<!--请在下方写此页面业务相关的脚本-->
+<script type="text/javascript" src="/static/lib/My97DatePicker/4.8/WdatePicker.js"></script>
+<script type="text/javascript" src="/static/lib/datatables/1.10.15/jquery.dataTables.js"></script>
+<script type="text/javascript" src="/static/lib/laypage/1.2/laypage.js"></script>
+
+
+
+<script type="text/javascript">
+    $(function(){
+        //渲染表格
+        $('.table-sort').dataTable({
+            "aaSorting":
+                [
+                    [
+                        1,"desc"
+                    ]
+                ],//默认第几个排序
+            "bStateSave": true,//状态保存
+            "aoColumnDefs": [
+                //{"bVisible": false, "aTargets": [ 3 ]} //控制列的隐藏显示
+                {"orderable":false,"aTargets":[0,2]}// 制定列不参与排序
+            ]
+        });
+
+        //监听权重input改变事件
+        $(".input-text").on("change",function(){
+            debugger;
+            var weight =this.value;
+            var id=this.id.substring(7);
+            $.ajax({
+                url : "/admin/course/updateWeight/"+id+"/"+weight,
+                type : "get",
+                //dataType : "json",
+                processData : false, // 告诉jQuery不要去处理发送的数据
+                contentType : false, // 告诉jQuery不要去设置Content-Type请求头
+                success: function(data){
+                    if (data.code === 200){
+                        layer.msg('修改成功!',{icon: 6,time:1000})
+                    }else{
+                        layer.msg("修改失败,请输入正确的格式!", {icon: 5, time: 2000});
+                    }
+                }
+            });
+
+        })
+
+
+    });
+
+    /*课程详情页面*/
+    function course_show(title,url,w,h){
+        layer_show(title,url,w,h);
+    }
+    /*教师详情页面*/
+    function userDetail(title,url,w,h){
+        layer_show(title,url,w,h);
+    }
+
+
+
+
+    /*用户-查看*/
+    function member_show(title,url,id,w,h){
+        layer_show(title,url,w,h);
+
+    }
+
+
+
+    /*课程task页面*/
+    function course_show_task(title,url,id,w,h){
+        var index = layer.open({
+            type: 2,
+            title: title,
+            content: url
+        });
+        layer.full(index);
+    }
+    /*课程experiment页面*/
+    function course_show_experiment(title,url,id,w,h){
+        var index = layer.open({
+            type: 2,
+            title: title,
+            content: url
+        });
+        layer.full(index);
+    }
+
+
+
+
+    /*用户-删除*/
+    function course_del(obj,id){
+        layer.confirm('逻辑删除一门课程，确认要删除吗？',function(index){
+            $.ajax({
+                type: "POST",
+                url: "/admin/course/logicDelete",
+                data: {
+                    courseId:id,
+                },
+                success: function(data){
+                    //var data = eval('(' + data + ')');
+                    if (data.code === 200){
+                        $(obj).parents("tr").remove();
+                        layer.msg('已删除!',{icon:1,time:1000});
+                        /* 不需要重新请求链接 */
+                        /* location.href="${pageContext.request.contextPath}/teacher/teacherList" */
+                        reloadTable();
+                    }else{
+                        alert("发生错误!请重新操作");
+                    }
+                }
+            });
+        });
+    }
+</script>
+
+</body>
+</html>
