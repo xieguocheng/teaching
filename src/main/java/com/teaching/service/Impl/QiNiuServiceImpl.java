@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 import java.io.File;
 import java.io.InputStream;
 
+@Service
 public class QiNiuServiceImpl implements QiNiuService,InitializingBean {
 
     @Autowired

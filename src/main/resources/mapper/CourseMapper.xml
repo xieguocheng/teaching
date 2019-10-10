@@ -72,5 +72,12 @@ FROM course
     </select>
 
 
+    <!--查询最大的id-->
+    <select id="selectMaxId" resultType="INTEGER">
+        SELECT MAX(id)
+        FROM course
+  </select>
+
+
 
 </mapper>

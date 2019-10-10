@@ -18,5 +18,8 @@ public interface CourseMapper extends MyMapper<Course> {
     //根据classifyName统计课程数量
     public Map<String,Integer> selectForChartConstsClassify();
 
+    //查询最新插入的id（最大）
+    public Integer selectMaxId();
+
 
 }
