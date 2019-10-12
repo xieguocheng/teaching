@@ -23,8 +23,6 @@
 ------------- | -------------
 JAVA  | 1.8
 数据库  |MySQL5.7
-JAVA  | 1.8
-数据库  |MySQL5.7
 核心框架 | spring boot 2.0.5.RELEASE
 安全框架|Spring Security
 视图框架|spring mvc
