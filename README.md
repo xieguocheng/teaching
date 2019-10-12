@@ -57,7 +57,7 @@ js框架|jQuery
 <table>
     <tr>
         <td ><center><img src="https://raw.githubusercontent.com/xieguocheng/teaching/master/picture/3.png" >教师推荐</center></td>
-        <td ><center><img src="https://raw.githubusercontent.com/xieguocheng/teaching/master/picture/3.png" >教师推荐</center></td>
+        <td ><center><img src="https://raw.githubusercontent.com/xieguocheng/teaching/master/picture/4.png" >教师推荐</center></td>
     </tr>
 </table>
 
