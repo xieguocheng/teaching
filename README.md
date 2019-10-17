@@ -49,15 +49,15 @@ js框架|jQuery
 
 <table>
     <tr>
-        <td ><center><img src="https://raw.githubusercontent.com/xieguocheng/teaching/master/picture/1.png" >网站首页</center></td>
-        <td ><center><img src="https://raw.githubusercontent.com/xieguocheng/teaching/master/picture/2.png" >网站课程</center></td>
+        <td ><center><img src="https://raw.githubusercontent.com/xieguocheng/picture/master/teaching/1.png" >网站首页</center></td>
+        <td ><center><img src="https://raw.githubusercontent.com/xieguocheng/picture/master/teaching/2.png" >网站课程</center></td>
     </tr>
 </table>
 
 <table>
     <tr>
-        <td ><center><img src="https://raw.githubusercontent.com/xieguocheng/teaching/master/picture/3.png" >教师推荐</center></td>
-        <td ><center><img src="https://raw.githubusercontent.com/xieguocheng/teaching/master/picture/4.png" >教师推荐</center></td>
+        <td ><center><img src="https://raw.githubusercontent.com/xieguocheng/picture/master/teaching/3.png" >教师推荐</center></td>
+        <td ><center><img src="https://raw.githubusercontent.com/xieguocheng/picture/master/teaching/4.png" >教师推荐</center></td>
     </tr>
 </table>
 
