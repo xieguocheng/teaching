@@ -1,5 +1,9 @@
 package com.teaching.service;
 
+import com.teaching.dto.CourseSectionVO;
+
+import java.util.List;
+
 /**
  * @Author： XO
  * @Description：
@@ -7,4 +11,11 @@ package com.teaching.service;
  */
 
 public interface CourseSectionService {
+
+    /**
+     * 批量添加
+     * @param courseSections
+     */
+    public void batchAdd(List<CourseSectionVO> courseSections);
+
 }

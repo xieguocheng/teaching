@@ -18,4 +18,21 @@
     <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
     <result column="del" property="del" jdbcType="INTEGER" />
   </resultMap>
+
+
+  <select id="getMaxSort" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+		SELECT MAX(sort)
+		FROM course_section
+		WHERE course_id = #{courseId, jdbcType=INTEGER}
+		AND parent_id = 0
+		ORDER BY sort DESC
+	</select>
+
+  <!--查询最大的id-->
+  <select id="selectMaxId" resultType="INTEGER">
+        SELECT MAX(id)
+        FROM course_section
+  </select>
+
 </mapper>
+

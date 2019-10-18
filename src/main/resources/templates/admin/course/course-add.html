@@ -1,13 +1,14 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <!--<link rel="stylesheet" type="text/css" href="/static/lib/datatables/1.10.15/jquery.dataTables.css">
-    <link rel="stylesheet" type="text/css" href="/static/lib/webuploader/0.1.5/webuploader.css">-->
-    <!-- <div th:include="admin/common :: head"></div>-->
+    <!--<link rel="stylesheet" type="text/css" href="/static/lib/datatables/1.10.15/jquery.dataTables.css">-->
 
+    <!-- <div th:include="admin/common :: head"></div>-->
+    <!--<link rel="stylesheet" type="text/css" href="/static/lib/webuploader/0.1.5/webuploader.css">-->
     <link rel="stylesheet" type="text/css" href="/static/css/style.css">
+    <script type="text/javascript" src="/static/lib/jquery/1.9.1/jquery.min.js"></script>
     <link rel="stylesheet" type="text/css" href="/static/css/bootstrap.css">
-    <script type="text/javascript" src="/static/js/oc.min.js"></script>
+    <script type="text/javascript" src="/static/js/bootstrap.js"></script>
 
     <style>
         #image{
@@ -33,17 +34,23 @@
 </head>
 <body>
 
+<!--<div class="start-screen-recording"><div><div class="rec-dot"></div><span>开始录制</span></div></div>
+<script src="https://api.apowersoft.cn/screen-recorder?lang=zh" defer></script>--><!-- loading.gif -->
+
+
 <div class="content">
     <div class="container-fluid">
+
         <div class="block span6">
             <div class="block-body collapse in" style="padding-top:10px;">
-                <form role="form" id="courseForm" method="post" action="${s.base}/course/doMerge.html"  enctype="multipart/form-data">
+                <form role="form" id="courseForm" method="post" action="#"  enctype="Multipart/form-data" >
 
                     <input type="hidden" id="courseId" name="id" value=""/>
+
                     <div class="form-group clearfix">
-                        <label class="control-label" >图片 <span id="imgErrSpan" style="color:red;font-weight:normal;"></span> </label>
+                        <label class="control-label" >图片 </label>
                         <div class="col-sm-10">
-                            <input type="file" id="pictureImg" name="pictureImg" style="display: none;" onchange="photoImgChange();">
+                            <input type="file" id="pictureImg" name="pictureImg" value=""  style="display: none;" onchange="photoImgChange();">
                             <div class="ui-avatar-box">
                                 <img id="coursePicture" style="max-width: 250px;height:120px; ">
                                 <a href="javascript:void(0);" onclick="doUpload();" id="image"
@@ -52,12 +59,14 @@
                         </div>
                     </div>
 
-
-
                     <div class="form-group clearfix">
-                        <label class="control-label" >名称</label>
-                        <div class="col-sm-10">
+                        <label class="control-label" >课程名称</label>
+                        <div class="col-sm-4">
                             <input type="text" class="form-control" name="name" id="name" placeholder="请输入名称">
+                        </div>
+                        <label class="control-label" >讲师<span style="color:red;">*</span></label>
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control"  name="username" placeholder="请输入讲师登录名">
                         </div>
                     </div>
 
@@ -65,20 +74,20 @@
                         <label class="control-label" >分类</label>
                         <div class="col-sm-4">
                             <select id="classify" name="classify" class="form-control"  type="select">
-                                <#list classifys as item>
-                                <option value="${item.code!}">${item.name}</option>
-                                </#list>
+
+                                <option th:each="classify,classifyList:${classifyList}" th:value="${classify.id}" th:text="${classify.name}"></option>
                             </select>
                         </div>
+
                         <label class="control-label" >二级分类</label>
                         <div class="col-sm-4">
                             <select id="subClassify" name="subClassify" class="form-control"  type="select">
-                                <#list subClassifys as item>
-                                <option parentCode="${item.parentCode!}" value="${item.code!}">${item.name}</option>
-                                </#list>
+
+                                <option th:each="subClassify,subClassifyList:${subClassifyList}" th:value="${subClassify.id}" th:text="${subClassify.name}"></option>
                             </select>
                         </div>
                     </div>
+
                     <div class="form-group clearfix">
                         <label class="control-label" >级别</label>
                         <div class="col-sm-4">
@@ -88,9 +97,10 @@
                                 <option value="3">高级</option>
                             </select>
                         </div>
+
                         <label class="control-label" >推荐权重</label>
                         <div class="col-sm-4">
-                            <input type="text" name="weight" class="form-control" />
+                            <input type="text" name="weight" class="form-control" placeholder="默认0"/>
                         </div>
                     </div>
                     <div class="form-group clearfix">
@@ -103,13 +113,7 @@
                         </div>
                         <label class="control-label" >价格</label>
                         <div class="col-sm-4">
-                            <input type="text" name="price" class="form-control" />
-                        </div>
-                    </div>
-                    <div class="form-group clearfix">
-                        <label class="control-label" >讲师<span style="color:red;">*</span></label>
-                        <div class="col-sm-4">
-                            <input type="text" class="form-control"  name="username" placeholder="请输入讲师登录名">
+                            <input type="text" name="price" class="form-control" placeholder="单位/元"/>
                         </div>
                     </div>
                     <div class="form-group clearfix">
@@ -118,6 +122,7 @@
                             <textarea name="brief" rows="5" cols="100"></textarea>
                         </div>
                     </div>
+
                     <div class="form-group clearfix" style="height:50px;">
                         <label class="control-label" ></label>
                         <div class="col-sm-4">
@@ -147,15 +152,16 @@
                     <input style="margin-top:5px;" type="button" onclick="importCourseSection();" class="search-btn" value="导入章节" >
                 </li>
                 <li>
-                    <div  id="sectionTipsAlert"  style="display:none;float:left;margin-left:50px;margin-top:10px;height:30px;color:red;">
+                    <!--<div  id="sectionTipsAlert"  style="display:none;float:left;margin-left:50px;margin-top:10px;height:30px;color:red;">
                         <span id="sectionTipsAlert_msg" class="color-oc f-14"></span>
-                    </div>
+                    </div>-->
                 </li>
             </ul>
             <div id="myTabContent" class="tab-content" style="padding: 10px;">
 
             </div>
         </div>
+
     </div>
 </div>
 
@@ -179,12 +185,18 @@
             <label class="control-label" style="margin-left:55px;">节信息</label>
             <div class="col-sm-7">
                 <input type="text" class="form-control" name="subSectionName"  placeholder="请输入节名称"  style="margin-bottom:5px;">
-                <input type="text" class="form-control" name="videoUrl"  placeholder="请输入视频链接"   style="margin-bottom:5px;">
-                <input type="text" class="form-control" name="time"  placeholder="请输入时长 00:00"   style="margin-bottom:5px;">
+                <input type="text" class="form-control" name="videoUrl"  placeholder="请选择视频"   style="margin-bottom:5px;" disabled >
+                <input type="text" class="form-control" name="time"  placeholder="自动生成视频时长 00:00"   style="margin-bottom:5px;" disabled >
+                <form action="" id="searchForm" name="searchForm" class="form-inline" enctype="multipart/form-data">
+                    <div class="form-group" id="attachmentFrom"></div>
+                </form>
             </div>
             <div class="col-sm-1">
                 <input type="button" onclick="deleteSection(this);" class="search-btn" value="- 删除节" >
             </div>
+
+        </div>
+
         </div>
 
     </div>
@@ -231,16 +243,112 @@
 <footer th:include="admin/common :: footer"></footer>
 <!--请在下方写此页面业务相关的脚本-->
 <script type="text/javascript" src="/static/js/oc.min.js"></script>
-<script type="text/javascript" src="/static/lib/jquery.validation/1.14.0/jquery.validate.js"></script>
+
+<!--<script type="text/javascript" src="/static/lib/jquery.validation/1.14.0/jquery.validate.js"></script>
 <script type="text/javascript" src="/static/lib/datatables/1.10.15/jquery.dataTables.js"></script>
 <script type="text/javascript" src="/static/lib/jquery.validation/1.14.0/validate-methods.js"></script>
 <script type="text/javascript" src="/static/lib/jquery.validation/1.14.0/messages_zh.js"></script>
-<script type="text/javascript" src="/static/lib/webuploader/0.1.5/webuploader.min.js"></script>
+<script type="text/javascript" src="/static/lib/webuploader/0.1.5/webuploader.min.js"></script>-->
 <script type="text/javascript">
+
+    //全局变量
+    var video=1;//video id
+    var click=1;//click id
+    var photoCover=1;//文件名显示框
+
+    $(function() {
+
+        $("#attachmentFrom").append('<table><tr><td><div class="input-group input-group-sm"  style="width:100%">'
+            + '<input type="file" id="video_1" name="video" onchange="changeVideo(this)" class="hidden" accept="*/*"/>'//
+            + '<span id="click_1" class="input-group-addon" style="cursor: pointer;width: 100px"  onclick=$("input[id=video_1]").click(); >'//
+            + '<span class="glyphicon glyphicon-download"></span> 请选择视频文件</span>'
+            + '<input id="photoCover_1" class="form-control input-sm" style="width:350px" type="text" readonly="readonly">'//
+            + '</div></td>'
+            + '<td><button type="button" id="saveButton" class="btn btn-sm btn-info" onclick="attachmentUpload(this);" style=";">'//
+            + '<span class="glyphicon glyphicon-send"></span> 确认上传</button></td></tr></table>');
+
+        //无效的监听
+       /* $("#video_1").change(function() {
+            debugger;
+            $('#saveButton').css("display","none");
+            var fileName = $(this).val();
+            var splitStr = fileName.split('\\');
+            var splitStrs = splitStr[splitStr.length-1];
+            $('#photoCover').val(splitStrs);
+            $('#saveButton').css("display","");
+        });*/
+
+
+    });
+
+    //监听视频上传,为文本框赋值
+    function changeVideo(data) {
+        //debugger;
+        var id=data.id//获取当前id
+        var num=id.substr(6);//获取第几个id：eg：video_1
+        var temp="photoCover_"+num;
+        //截取文件名字
+        var fileName = data.value;
+        var splitStr = fileName.split('\\');
+        var splitStrs = splitStr[splitStr.length-1];
+        $("#"+temp).val(splitStrs);
+
+        
+    }
+
+    //视频上传
+    function attachmentUpload(res){
+        //debugger;
+        var loadindex=layer.load(3);//打开加载框
+
+        var videoId=$(res).parent().prev().find("input[type=file]").attr("id");//通过按钮id获取video文本框的id
+        var data=$("#"+videoId)[0].files[0];//通过id获取input文件video内容
+
+        if(data==undefined){
+            layer.msg("请选择上传的视频！", {icon: 5, time: 2000});
+            layer.close(loadindex);
+            return;
+        }
+
+        var formData = new FormData();
+        formData.append("video",data);
+
+        $.ajax({
+            url : '/qiniu/upload/video',
+            type : 'POST',
+            data : formData,
+            async : true,
+            cache : false,
+            contentType : false,
+            processData : false,
+            success : function(result) {
+                if (result.code === 200){
+                    layer.msg("上传视频成功！", {icon: 6, time: 2000});
+                    var videoUrl=$(res).parent().parent().parent().parent().parent().parent().parent().find("input[name=videoUrl]").val(result.data.videoUrl);//找到对应的videoUrl进行赋值
+                    var time=$(res).parent().parent().parent().parent().parent().parent().parent().find("input[name=time]").val(result.data.time);//找到对应的time进行赋值
+                   //$(res).attr('disabled',"true");
+                    layer.close(loadindex);
+                }else if(result.code === 404){
+                    layer.msg("请选择上传的视频！", {icon: 5, time: 2000});
+                    layer.close(loadindex);
+                }else{
+                    layer.msg("未知error！", {icon: 5, time: 2000});
+                    layer.close(loadindex);
+                }
+            },
+            error : function(result) {
+                layer.msg("error失败！", {icon: 5, time: 2000});
+                layer.close(loadindex);
+            }
+
+        });
+    }
+
     //选择图片
     function doUpload(){
         $('#pictureImg').click();
     }
+
     //选择图片
     function photoImgChange(){
         var img = $('#pictureImg').val();
@@ -250,30 +358,62 @@
             $('#imgErrSpan').html('');
             return;
         }else{
-            $('#imgErrSpan').html('&nbsp;请选择png,jpeg,jpg格式图片');
+
+            //$('#imgErrSpan').html('&nbsp;请选择png,jpeg,jpg格式图片');
+            layer.msg("请选择png,jpeg,jpg格式图片", {icon: 5, time: 2000});
             $('#coursePicture').val('');
         }
     }
 
-    //保存
+    //保存课程基本信息
     function doSave(){
-        $('#courseForm').ajaxSubmit({
-            datatype : 'json',
-            success : function(resp) {
-                var resp = $.parseJSON(resp);
-                if (resp.errcode == 0) {
-                    $("#successAlert").show().fadeOut(2500);//显示模态框
-                    var id = resp.data.id;
-                    $('#courseId').val(id);
+
+        var loadindex=layer.load(3);//打开加载框
+
+        if($("#courseId").val()){
+            layer.msg("已添加课程，请勿重新添加！", {icon: 5, time: 2000});
+            layer.close(loadindex);
+            return;
+        }
+
+        if($("#name").val()===""){
+            layer.msg("请填写课程名称！", {icon: 5, time: 2000});
+            layer.close(loadindex);
+            return;
+        }
+
+        var fd = new FormData($("#courseForm")[0]);
+
+        $.ajax({
+            url : "/admin/course/addCourse",
+            type : "post",
+            data : fd,
+            dataType : "json",
+            async : true,
+            processData : false, // 告诉jQuery不要去处理发送的数据
+            contentType : false, // 告诉jQuery不要去设置Content-Type请求头
+            success: function(data){
+                if (data.code === 200){
+                    layer.msg("课程添加成功！请继续添加章节信息！", {icon: 6, time: 3000});
+                    $('#courseId').val(data.data);
                     $('#failureMsg').html('');
-                } else if(resp.errcode == 1) {
-                    $('#failureMsg').html('保存失败，请输入正确的 教师登录名 (如 wangyangming )');
+                    layer.close(loadindex);
+                }else if(data.code === 40005){
+                    layer.msg("请选择照片！", {icon: 5, time: 2000});
+                    layer.close(loadindex);
+                }else{
+                    layer.msg("添加失败！", {icon: 5, time: 2000});
+                    layer.close(loadindex);
                 }
             },
-            error : function(xhr) {
+            error : function(data) {
+                layer.msg("添加失败！", {icon: 5, time: 2000});
+                layer.close(loadindex);
             }
         });
+
     }
+
 
     //批量添加
     //添加章
@@ -281,6 +421,16 @@
         var tmpDiv = $('#demoSection4Clone').clone().html();
         tmpDiv = tmpDiv.replace('display:none','display:block');
         $('#myTabContent').append(tmpDiv);
+
+        //debugger;
+        var temp1="video_"+video;
+        var temp2="click_"+click;
+        var temp3="photoCover_"+photoCover
+        video++;click++;photoCover++;
+        $("#demoSection4Clone input[id="+temp1+"]").attr("id","video_"+video);//视频文件id
+        $("#demoSection4Clone input[id="+temp3+"]").attr("id","photoCover_"+photoCover);//视频名字id
+        $("#demoSection4Clone span[id="+temp2+"]").attr("onclick","$(\"input[id=video_"+video+"]\").click(); ").attr("id","click_"+click);//点击事件id
+
     }
 
     //删除章
@@ -290,8 +440,16 @@
 
     //添加节
     function addSection(el){
-        var sectionDiv = $('#demoSectionDiv').clone();
+        var sectionDiv = $('#demoSection4Clone div[id=demoSectionDiv]').clone();
         $(el).parent().parent().parent().append(sectionDiv);
+
+        var temp1="video_"+video;
+        var temp2="click_"+click;
+        var temp3="photoCover_"+photoCover
+        video++;click++;photoCover++;
+        $("#demoSection4Clone input[id="+temp1+"]").attr("id","video_"+video);//视频文件id
+        $("#demoSection4Clone input[id="+temp3+"]").attr("id","photoCover_"+photoCover);//视频名字id
+        $("#demoSection4Clone span[id="+temp2+"]").attr("onclick","$(\"input[id=video_"+video+"]\").click(); ").attr("id","click_"+click);//点击事件id
     }
 
     //删除节
@@ -301,10 +459,11 @@
 
     //保存章节信息
     function saveCourseSection(){
-        var courseId = $('#courseId').val();
+
+        //var courseId = $('#courseId').val(1);//TODO
+        courseId=$('#courseId').val();
         if(courseId == ''){
-            $("#sectionTipsAlert").show().fadeOut(3000);//显示模态框
-            $("#sectionTipsAlert_msg").html('请先保存课程基本信息');
+            layer.msg("请先保存课程基本信息！", {icon: 5, time: 2000});
             return;
         }
 
@@ -341,23 +500,27 @@
             }
         });
         if(batchSections.length == 0){
-            $("#sectionTipsAlert").show().fadeOut(3000);//显示模态框
-            $("#sectionTipsAlert_msg").html('请填写章节信息');
+            layer.msg("请填写章节信息！", {icon: 5, time: 2000});
             return;
         }
-        //JSON.stringify(batchSections);
+        debugger;
+        var a=JSON.stringify(batchSections);
         $.ajax({
-            url:'${s.base}/courseSection/batchAdd.html',
+            url:'/admin/courseSection/addCourseSection',
             type:'POST',
             contentType: "application/json",
             dataType:'json',
             data:JSON.stringify(batchSections),
-            success:function(resp){
-                var errcode = resp.errcode;
-                if(errcode == 0){
-                    //保存成功，跳转到详情页
-                    window.location.href='${s.base}/course/read.html?id=' + courseId;
+            success:function(result){
+                if (result.code === 200){
+                    layer.msg("课程新增成功！", {icon: 6, time: 2000});
+                    window.location.href='/admin/course/courseDetail/'+courseId;
                 }
+
+            },
+            error : function(result) {
+                layer.msg("error失败！", {icon: 5, time: 2000});
+                layer.close(loadindex);
             }
         });
     }
@@ -405,6 +568,7 @@
             });
         }
     }
+
 
 </script>
 </body>
