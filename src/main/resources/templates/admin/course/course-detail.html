@@ -29,6 +29,7 @@
         <span style="background: #5bacb6">课程章节</span>
         <span style="background: #5bacb6">评论答疑</span>
     </div>
+
     <div class="tabCon" >
         <div class="pd-20">
         <table class="table">
@@ -36,7 +37,7 @@
 
             <tr>
                 <th class="text-r" width="80">简介：</th>
-                <td th:text="${course?.brief}"></td>
+                <td th:text="${course.brief}"></td>
             </tr>
             <tr>
                 <th class="text-r" width="80">时长：</th>
@@ -91,11 +92,11 @@
 
             <tr>
                 <th class="text-r" width="80">创建时间：</th>
-                <td th:text="${#dates.format(course?.createTime, 'yyyy-MM-dd HH:mm:ss')}"></td>
+                <td th:text="${#dates.format(course.createTime, 'yyyy-MM-dd HH:mm:ss')}"></td>
             </tr>
             <tr>
                 <th class="text-r" width="80">更新时间：</th>
-                <td th:text="${#dates.format(course?.updateTime, 'yyyy-MM-dd HH:mm:ss')}"></td>
+                <td th:text="${#dates.format(course.updateTime, 'yyyy-MM-dd HH:mm:ss')}"></td>
             </tr>
 
             <tr>
@@ -108,7 +109,16 @@
             </tbody>
         </table>
     </div></div>
-    <div class="tabCon">内容二</div>
+
+    <div class="tabCon">
+
+        <td ><span class="label label-success radius">
+					<a style="text-decoration:none" class="ml-5"
+                       th:onclick="|showVideo('视频详情','/admin/course/playVideo/111','800','700')|"
+                       href="javascript:;" title="视频详情">视频详情</a></span></td>
+
+    </div>
+
     <div class="tabCon">内容三</div>
 </div>
 
@@ -129,7 +139,10 @@
 <script type="text/javascript">
 
 
-
+    /*教师详情页面*/
+    function showVideo(title,url,w,h){
+        layer_show(title,url,w,h);
+    }
 
 
     jQuery.Huitab =function(tabBar,tabCon,class_name,tabEvent,i){

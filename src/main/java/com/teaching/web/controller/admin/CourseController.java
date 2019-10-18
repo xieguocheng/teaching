@@ -292,6 +292,23 @@ public class CourseController {
     }
 
 
+    /**
+     * 查看用户详情
+     * @param model
+     * @param videoUrl
+     * @return
+     */
+    @GetMapping(value="admin/course/playVideo/{videoUrl}")
+    public String userDetail(Model model,@PathVariable("videoUrl") String videoUrl){
+
+
+        model.addAttribute("videoUrl","http://learn.wushirui.cn/20191014_173145.mp4");
+
+
+        return "admin/course/video";
+    }
+
+
 
 
 

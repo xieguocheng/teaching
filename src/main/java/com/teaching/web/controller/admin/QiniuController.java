@@ -53,6 +53,7 @@ public class QiniuController {
     @ResponseBody
     public ApiResponse video(MultipartFile video){
 
+        //TODO
         String fileName = video.getOriginalFilename();//设置文件名路径名字：courseid/userid/文件名字IDUtils.getImageName()+"/"+
         QiNiuPutRet ret;
 
