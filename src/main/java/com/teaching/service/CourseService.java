@@ -14,6 +14,12 @@ import java.util.List;
 
 public interface CourseService {
 
+    /**
+     * 通过课程id查找一门课程
+     * @param id
+     * @return
+     */
+    public Course findCourseById(Integer id);
 
     /**
      * 查询所有免费课程 free-1，del-0 ,status-申请成功

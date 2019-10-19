@@ -6,10 +6,15 @@ import com.qiniu.common.QiniuException;
 import com.qiniu.http.Response;
 import com.qiniu.storage.model.DefaultPutRet;
 import com.teaching.dto.QiNiuPutRet;
+import com.teaching.enums.CommonStatus;
+import com.teaching.enums.CourseStatus;
 import com.teaching.mapper.ConstsClassifyMapper;
 import com.teaching.mapper.CourseMapper;
+import com.teaching.mapper.CourseSectionMapper;
 import com.teaching.pojo.ConstsClassify;
 import com.teaching.pojo.Course;
+import com.teaching.pojo.CourseSection;
+import com.teaching.service.CourseSectionService;
 import com.teaching.service.CourseService;
 import com.teaching.service.QiNiuService;
 import com.teaching.utils.ApiResponse;
@@ -23,10 +28,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import tk.mybatis.mapper.entity.Example;
 
@@ -57,6 +59,9 @@ public class CourseController {
     private CourseService courseService;
 
     @Autowired
+    private CourseSectionService courseSectionService;
+
+    @Autowired
     private QiNiuService qiNiuService;
 
     @Autowired
@@ -68,9 +73,12 @@ public class CourseController {
     @Autowired
     private CourseMapper courseMapper;
 
+    @Autowired
+    private CourseSectionMapper courseSectionMapper;
 
 
-/******************************查询课程一些列操作************************************/
+
+/***************************************查询课程表格页面一些列显示*****************************************************/
 
     /**
      *  免费课程页面
@@ -183,7 +191,7 @@ public class CourseController {
 
 
 
-    /***********************************************修改课程信息一系列操作*****************************************************************/
+    /********************************************课程表格信息ajax一系列操作*******************************************/
 
 
     /**
@@ -215,7 +223,64 @@ public class CourseController {
 
     }
 
+    /**
+     * 课程下架
+     * @param id
+     * @return
+     */
+    @PostMapping(value="admin/course/courseStop")
+    @ResponseBody
+    public ApiResponse courseStop(Integer id){
+        try{
+            Course course=courseService.findCourseById(id);
+            course.setOnsale(CourseStatus.ONSALE_NO.getValue());
+            courseMapper.updateByPrimaryKey(course);
+            return ApiResponse.ofSuccess(null);
+        }catch (Exception e) {
+            e.printStackTrace();
+            return ApiResponse.ofStatus(ApiResponse.Status.BAD_REQUEST);
+        }
+    }
 
+    /**
+     * 课程上架
+     * @param id
+     * @return
+     */
+    @PostMapping(value="admin/course/courseStart")
+    @ResponseBody
+    public ApiResponse courseStart(Integer id){
+        try{
+            Course course=courseService.findCourseById(id);
+            course.setOnsale(CourseStatus.ONSALE_YES.getValue());
+            courseMapper.updateByPrimaryKey(course);
+            return ApiResponse.ofSuccess(null);
+        }catch (Exception e) {
+            e.printStackTrace();
+            return ApiResponse.ofStatus(ApiResponse.Status.BAD_REQUEST);
+        }
+    }
+
+    /**
+     * 逻辑删除一门课程，status=0
+     * @param id
+     * @return
+     */
+    @PostMapping(value="admin/course/logicDelete")
+    @ResponseBody
+    public ApiResponse courseLogicDelete(String id){
+        try{
+            Course course=courseService.findCourseById(Integer.valueOf(id));
+            course.setDel(CommonStatus.DEL_YES.getValue());
+            courseMapper.updateByPrimaryKey(course);
+            return ApiResponse.ofSuccess(null);
+        }catch (Exception e) {
+            e.printStackTrace();
+            return ApiResponse.ofStatus(ApiResponse.Status.BAD_REQUEST);
+        }
+    }
+
+/***************************************************课程-章节一系列操作**********************************************/
 
     /**
      *  添加课程-基本信息页面
@@ -293,19 +358,18 @@ public class CourseController {
 
 
     /**
-     * 查看用户详情
+     * 通过课程id查找所有课程章节
      * @param model
-     * @param videoUrl
+     * @param courseId
      * @return
      */
-    @GetMapping(value="admin/course/playVideo/{videoUrl}")
-    public String userDetail(Model model,@PathVariable("videoUrl") String videoUrl){
+    @RequestMapping("admin/course/courseSection/{courseId}")
+    @ResponseBody
+    public ApiResponse courseSectionList(Model model,@PathVariable("courseId") String courseId) {
 
+        List<CourseSection> list=courseSectionService.findCourseSectionByCourseId(Integer.valueOf(courseId));
 
-        model.addAttribute("videoUrl","http://learn.wushirui.cn/20191014_173145.mp4");
-
-
-        return "admin/course/video";
+        return new ApiResponse(0,"ok",list);
     }
 
 

@@ -9,6 +9,7 @@ import com.teaching.service.CourseSectionService;
 import com.teaching.utils.UtilFuns;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import tk.mybatis.mapper.entity.Example;
 
 import java.util.Date;
 import java.util.List;
@@ -92,6 +93,15 @@ public class CourseSectionServiceImpl implements CourseSectionService {
 
                 }
 
+        }
+
+        @Override
+        public List<CourseSection> findCourseSectionByCourseId(Integer courseId) {
+                Example example=new Example(CourseSection.class);
+                example.createCriteria().andEqualTo("courseId",courseId);
+                example.orderBy("sort").asc();
+                List<CourseSection> courseSectionList=courseSectionMapper.selectByExample(example);
+                return courseSectionList;
         }
 
 

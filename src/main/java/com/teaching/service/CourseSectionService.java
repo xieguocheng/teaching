@@ -1,6 +1,7 @@
 package com.teaching.service;
 
 import com.teaching.dto.CourseSectionVO;
+import com.teaching.pojo.CourseSection;
 
 import java.util.List;
 
@@ -17,5 +18,12 @@ public interface CourseSectionService {
      * @param courseSections
      */
     public void batchAdd(List<CourseSectionVO> courseSections);
+
+    /**
+     * 通过课程id查看章节
+     * @param courseId
+     * @return
+     */
+    public List<CourseSection> findCourseSectionByCourseId(Integer courseId);
 
 }

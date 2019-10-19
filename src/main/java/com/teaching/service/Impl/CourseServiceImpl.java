@@ -30,14 +30,19 @@ public class CourseServiceImpl implements CourseService {
 
 
     @Override
+    public Course findCourseById(Integer id) {
+        return courseMapper.selectByPrimaryKey(new Course(id));
+    }
+
+    @Override
     public List<Course> findAllCourseFree() {
         //查询所有免费课程 free-1，del-0 ,status-2申请成功
         Example courseExample=new Example(Course.class);
         courseExample.createCriteria()
                 .andEqualTo("free",CourseStatus.FREE_YES.getValue())
                 .andEqualTo("del",CommonStatus.DEL_NO.getValue())
-                .andEqualTo("status",CourseStatus.STATUS_VERIFY_SUCC.getValue())
-        ;
+                .andEqualTo("status",CourseStatus.STATUS_VERIFY_SUCC.getValue());
+        courseExample.orderBy("weight").desc();
         List<Course> courseList=courseMapper.selectByExample(courseExample);
 
         return courseList;
@@ -50,8 +55,8 @@ public class CourseServiceImpl implements CourseService {
         courseExample.createCriteria()
                 .andEqualTo("free",CourseStatus.FREE_NO.getValue())
                 .andEqualTo("del",CommonStatus.DEL_NO.getValue())
-                .andEqualTo("status",CourseStatus.STATUS_VERIFY_SUCC.getValue())
-        ;
+                .andEqualTo("status",CourseStatus.STATUS_VERIFY_SUCC.getValue());
+        courseExample.orderBy("weight").desc();
         List<Course> courseList=courseMapper.selectByExample(courseExample);
 
         return courseList;
@@ -63,8 +68,8 @@ public class CourseServiceImpl implements CourseService {
         Example courseExample=new Example(Course.class);
         courseExample.createCriteria()
                 .andEqualTo("del",CommonStatus.DEL_YES.getValue())
-                .andEqualTo("status",CourseStatus.STATUS_VERIFY_SUCC.getValue())
-        ;
+                .andEqualTo("status",CourseStatus.STATUS_VERIFY_SUCC.getValue());
+        courseExample.orderBy("weight").desc();
         List<Course> courseList=courseMapper.selectByExample(courseExample);
 
         return courseList;

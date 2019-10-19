@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <link rel="stylesheet" type="text/css" href="/static/lib/datatables/1.10.15/jquery.dataTables.css">
+   <!-- <link rel="stylesheet" type="text/css" href="/static/lib/datatables/1.10.15/jquery.dataTables.css">-->
     <div th:include="admin/common :: head"></div>
 
 
@@ -12,6 +12,7 @@
 <div class="cl pd-20" style=" background-color:#5bacb6">
     <!-- 教师头像默认保存在home/teacherImg -->
     <img class="avatar size-XL l" th:src="${course?.picture}">
+    <input id="courseId" name="courseId" th:value="${course.id}" hidden/>
     <dl style="margin-left:80px; color:#fff">
         <dt>
             <span class="f-18" th:text="${course?.name}" ></span>
@@ -111,16 +112,20 @@
     </div></div>
 
     <div class="tabCon">
-
-        <td ><span class="label label-success radius">
-					<a style="text-decoration:none" class="ml-5"
-                       th:onclick="|showVideo('视频详情','/admin/course/playVideo/111','800','700')|"
-                       href="javascript:;" title="视频详情">视频详情</a></span></td>
-
+        <div class="pd-20">
+            <table id="table1" class="layui-table" lay-filter="table1"></table>
+        </div>
     </div>
 
-    <div class="tabCon">内容三</div>
+    <div class="tabCon">
+        <div class="pd-20">
+            <table id="table2" class="layui-table" lay-filter="table1"></table>
+        </div>
+
+    </div>
 </div>
+
+
 
 
 
@@ -136,11 +141,93 @@
 <script type="text/javascript" src="/static/lib/h-ui/js/H-ui.js"></script>
 <script type="text/javascript" src="/static/lib/jquery/1.9.1/jquery.min.js"></script>
 
+<script type="text/javascript" src="/static/lib/myLayui/layui.js"></script>
+<link rel="stylesheet" type="text/css" href="/static/lib/myLayui/css/layui.css"/>
+
+
 <script type="text/javascript">
+
+    layui.config({
+        base: '/static/lib/module/'    /* 修改为你module文件夹地址*/
+    }).extend({
+        treetable: 'treetable-lay/treetable'
+    }).use(['table', 'treetable'], function () {
+        var $ = layui.jquery;
+        var table = layui.table;
+        var treetable = layui.treetable;
+        var courseId=$("#courseId").val();
+
+        // 渲染表格
+        var renderTable = function () {
+            layer.load(2);
+            treetable.render({
+                size: 'lg', //尺寸
+                limit:10,
+                treeColIndex: 0, //设置下拉箭头在第几列
+                treeSpid: "0",   //最上级的父级id
+                treeIdName: 'id', //id字段的名称(自己的id)
+                treePidName: 'parentId', //pid字段的名称（父亲的id）
+                treeDefaultClose: false, //是否默认折叠
+                treeLinkage: false, //父级展开时是否自动展开所有子级
+                elem: '#table1', //表格的id
+                url: '/admin/course/courseSection/'+courseId, //数据请求地址，返回json格式数据（映射路径）
+                page: false,
+                cols: [   //列数和列名可根据需要更改
+                    [
+                        {field: 'name', width:"30%",align:'left' , title: '章节名称'}, //filed:json数据的key
+                        {field: 'time', width:"10%",align:'center' , title: '时长',templet: function(res){
+                                return res.time+"h";
+                            }},
+                        {field: 'createTime',width:"20%",align:'center' , title: '创建时间 ',templet : "<div>{{layui.util.toDateString(d.createTime, 'yyyy年MM月dd日 HH:mm:ss')}}</div>"},
+                        {field: 'updateTime',align:'center' , title: '修改时间 ',templet : "<div>{{layui.util.toDateString(d.updateTime, 'yyyy年MM月dd日 HH:mm:ss')}}</div>"},
+                        {field: 'videoUrl',align:'center', title: '操作',templet: function(res){
+                            var temp=res.id;
+
+                            var deleteButton = '<button class=\"layui-btn layui-btn-danger layui-btn-xs\" onclick=\'showVideo(\"删除\", "/admin/courseSection/playVideo/", \"'+temp+'\","800\", \"500\")\'>删除</button>';
+                            if(res.videoUrl){
+
+                                var playButton = '<button class=\"layui-btn layui-btn-xs\" onclick=\'showVideo(\"查看视频\", "/admin/courseSection/playVideo/", \"'+temp+'\","800\", \"500\")\'>查看视频</button>';
+                                return playButton+"&nbsp"+deleteButton;
+                            }
+                            var addButton = '<button class=\"layui-btn layui-btn-primary layui-btn-xs \" onclick=\'showVideo(\"编辑\", "/admin/courseSection/playVideo/", \"'+temp+'\","800\", \"500\")\'>编辑</button>';
+                            return addButton;
+
+                          //var addButton = '<button class=\"layui-btn layui-btn-xs\" onclick=\'showVideo(\"新增编辑\", "/admin/course/playVideo/\"+temp, \"800\", \"500\")\'>查看视频</button>';
+                        }
+                        }
+                    ]
+                ],
+                done: function () {
+                    layer.closeAll('loading');
+                }
+            });
+        };
+        renderTable();
+
+        //监听工具条
+        /*table.on('tool(table1)', function(obj){ //注：tool是工具条事件名，table1是table表格的属性 lay-filter="对应的值"
+            var data = obj.data; //获得当前行数据
+            var layEvent = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
+            var tr = obj.tr; //获得当前行 tr 的DOM对象
+
+            if(layEvent === 'del'){ //删除
+                layer.confirm('真的删除行么', function(index){
+                    obj.del(); //删除对应行（tr）的DOM结构，并更新缓存
+                    layer.close(index);
+                    //向服务端发送删除指令
+                });
+            } else if(layEvent === 'edit'){ //编辑
+                //do something
+
+            }
+        });*/
+    });
 
 
     /*教师详情页面*/
-    function showVideo(title,url,w,h){
+    function showVideo(title,url,id,w,h){
+        debugger;
+        var url=url+id;
         layer_show(title,url,w,h);
     }
 
