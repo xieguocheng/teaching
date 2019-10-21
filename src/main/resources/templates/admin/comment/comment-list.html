@@ -1,0 +1,134 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+
+    <link rel="stylesheet" type="text/css" href="/static/lib/datatables/1.10.15/jquery.dataTables.css">
+    <div th:include="admin/common :: head"></div>
+    <title>评论列表</title>
+</head>
+
+<body>
+
+<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;
+    </span> 评论答疑管理 <span class="c-gray en">&gt;</span> 所有评论
+    <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新">
+        <i class="Hui-iconfont">&#xe68f;</i></a>
+</nav>
+
+<div class="Hui-article">
+    <article class="cl pd-20">
+
+        <div class="text-c"> 日期范围：
+            <input type="text" onfocus="WdatePicker({maxDate:'#F{$dp.$D(\'datemax\')||\'%y-%M-%d\'}'})" id="datemin" class="input-text Wdate" style="width:120px;">
+            -
+            <input type="text" onfocus="WdatePicker({minDate:'#F{$dp.$D(\'datemin\')}',maxDate:'%y-%M-%d'})" id="datemax" class="input-text Wdate" style="width:120px;">
+            <input type="text" class="input-text" style="width:250px" placeholder="输入关键词" id="" name="">
+            <button type="submit" class="btn btn-success radius" id="" name=""><i class="Hui-iconfont">&#xe665;</i> 搜意见</button>
+        </div>
+
+
+        <div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l">
+            <a class="btn btn-danger-outline radius"  onclick="datadel()" href="javascript:;" >
+                <i class="Hui-iconfont">&#xe6e2;</i>批量删除</a>
+        </span> <span class="r">共有数据：<strong>2</strong> 条</span>
+        </div>
+
+        <div class="mt-20">
+            <table class="table table-border table-bordered table-hover table-bg table-sort">
+                <thead>
+                <tr class="text-c">
+                    <th width="25"><input type="checkbox" name="" value=""></th>
+                    <th width="60">ID</th>
+                    <th width="60">用户</th>
+                    <th>评论内容</th>
+                    <th width="100">操作</th>
+                </tr>
+                </thead>
+                <tbody>
+
+                <tr class="text-c" th:each="courseComment, courseCommentList: ${courseCommentList}" >
+                    <td><input type="checkbox" th:value="${courseComment.id}"  name=""></td>
+                    <td>1</td>
+                    <td><a href="javascript:;" onclick="member_show('谢国城','member-show.html','10001','360','400')"><i class="avatar size-L radius">
+                        <img alt="" src="https://wx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTJCNLAkIDTOwbA9dD4jvRYMfgJKxKB2Tqa4s6yDXiabxROrxc1C5WhKI9u0VibnEEgyiblsWKsCdLgEw/132"></i></a>
+                    </td>
+                    <td class="text-l">
+                        <div class="c-999 f-12">
+                            <u style="cursor:pointer" th:text="${courseComment.username}" class="text-primary"
+                               onclick="member_show('谢国城','member-show.html','10001','360','400')"></u>
+                            &nbsp;-->
+                            <time title="2014年8月31日 下午3:20" th:text="${#dates.format(courseComment.createTime, 'yyyy-MM-dd')}"></time>
+                            评论 -->
+                            <span class="ml-20" th:text="${courseComment.sectionTitle}"></span>
+                            <span class="ml-20" th:text="${courseComment.content}"></span>
+                        </div>
+                        <div class="f-12 c-999" th:text="'回复对象:'+${courseComment.toUsername}"></div>
+                        <div th:text="${courseComment.refContent}"></div>
+                    </td>
+                    <td class="td-manage">
+                        <a title="删除" href="javascript:;" onclick="member_del(this,'1')" class="ml-5" style="text-decoration:none">
+                            <i class="Hui-iconfont">&#xe6e2;</i></a>
+                    </td>
+                </tr>
+
+
+
+
+                </tbody>
+            </table>
+        </div>
+    </article>
+</div>
+
+
+
+
+
+
+
+
+<footer th:include="admin/common :: footer"></footer>
+<!--请在下方写此页面业务相关的脚本-->
+<script type="text/javascript" src="/static/lib/My97DatePicker/4.8/WdatePicker.js"></script>
+<script type="text/javascript" src="/static/lib/datatables/1.10.15/jquery.dataTables.js"></script>
+<script type="text/javascript" src="/static/lib/laypage/1.2/laypage.js"></script>
+
+<script type="text/javascript">
+    $(function(){
+        $('.table-sort').dataTable({
+            "aaSorting": [
+                [
+                    1, "desc"
+                ]
+            ],//默认第几个排序
+            "bStateSave": true,//状态保存
+            "aoColumnDefs": [
+                //{"bVisible": false, "aTargets": [ 3 ]} //控制列的隐藏显示
+                {"orderable":false,"aTargets":[0,2,4]}// 制定列不参与排序
+            ]
+        });
+        $('.table-sort tbody').on( 'click', 'tr', function () {
+            if ( $(this).hasClass('selected') ) {
+                $(this).removeClass('selected');
+            }
+            else {
+                table.$('tr.selected').removeClass('selected');
+                $(this).addClass('selected');
+            }
+        });
+    });
+    /*用户-添加*/
+    function member_add(title,url,w,h){
+        layer_show(title,url,w,h);
+    }
+    /*用户-查看*/
+    function member_show(title,url,id,w,h){
+        layer_show(title,url,w,h);
+    }
+    /*用户-编辑*/
+    function question_edit(title,url,id,w,h){
+        layer_show(title,url,w,h);
+    }
+</script>
+</body>
+</html>

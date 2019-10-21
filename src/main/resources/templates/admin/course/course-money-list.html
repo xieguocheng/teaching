@@ -19,13 +19,14 @@
 <body>
 <nav class="breadcrumb">
     <i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span>课程管理
-    <span class="c-gray en">&gt;</span> 免费课程
+    <span class="c-gray en">&gt;</span> 实战课程
     <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px"
        href="javascript:location.replace(location.href);" title="刷新">
         <i class="Hui-iconfont">&#xe68f;</i>
     </a>
 </nav>
-<div class="Huialert Huialert-info"><i class="Hui-iconfont">&#xe6a6;</i>表格呈现的数据,课程状态-审核通过,课程-收费,课程未删除</div>
+
+<div class="Huialert Huialert-info"><i class="Hui-iconfont">&#xe6a6;</i>表格呈现的数据,课程状态-审核通过,课程-免费,课程未删除</div>
 
 <div class="cl pd-5 bg-1 bk-gray mt-20">
 
@@ -33,7 +34,7 @@
 		<a class="btn btn-danger-outline radius"  onclick="datadel()" href="javascript:;" >
 		<i class="Hui-iconfont">&#xe6e2;</i>批量删除</a>
 
-        <a class="btn btn-secondary-outline radius" onclick="product_add('添加课程','product-add.html')" href="javascript:;">
+        <a class="btn btn-secondary-outline radius" th:href="@{/admin/course/courseAdd}">
         <i class="Hui-iconfont">&#xe600;</i>添加课程</a></span>
 
     <a class="btn btn-success-outline radius"onclick="product_add()" href="javascript:;">
@@ -80,7 +81,7 @@
 
                 <td ><span class="label label-success radius">
 					<a style="text-decoration:none" class="ml-5"
-                       th:onclick="|userDetail('教师详情','/admin/course/userDetail/${course.userId }')|"
+                       th:onclick="|userDetail('教师详情','/admin/user/userDetail/${course.userId }','450','450')|"
                        href="javascript:;" title="教师详情">教师详情</a></span>
                 </td>
 
@@ -92,18 +93,24 @@
 
                 <th class="text-c" th:text="${#dates.format(course.createTime, 'yyyy-MM-dd HH:mm:ss')}"></th>
 
-                <td th:if="${course.onsale}==0" >
+                <td th:if="${course.onsale}==0" class="td-status">
                     <span class="label label-info radius">未上架</span>
                 </td>
-                <td th:if="${course.onsale}==1" >
+                <td th:if="${course.onsale}==1" class="td-status" >
                     <span class="label label-success radius">已上架</span>
                 </td>
 
 
                 <td class="td-manage">
-                    <a title="停用" style="text-decoration:none" onClick="member_stop(this,'10001')" href="javascript:;" >
-                        <i class="Hui-iconfont">&#xe631;</i></a>
-                    <a title="编辑"  th:onclick="|javascript:question_edit('编辑','/admin/course/courseEditPage/${course.id}','4','','510')|"
+
+                    <a title="下架" style="text-decoration:none" href="javascript:;"
+                       th:onclick="|javascript:course_stop(this,'${course.id }')|"  >
+                        <i class="Hui-iconfont" th:if="${course.onsale}==1">&#xe6de;</i></a>
+                    <a title="上架" style="text-decoration:none" href="javascript:;"
+                       th:onclick="|javascript:course_start(this,'${course.id }')|"  >
+                        <i class="Hui-iconfont"th:if="${course.onsale}==0">&#xe603;</i></a>
+
+                    <a title="编辑"  th:onclick="|javascript:course_edit('编辑课程基本信息','/admin/course/courseEditPage/${course.id}','4','800','600')|"
                        class="ml-5" style="text-decoration:none">
                         <i class="Hui-iconfont">&#xe6df;</i></a>
                     <a title="删除" href="javascript:;"class="ml-5" style="text-decoration:none"
@@ -128,19 +135,15 @@
 
 
 <script type="text/javascript">
+
     $(function(){
         //渲染表格
         $('.table-sort').dataTable({
-            "aaSorting":
-                [
-                    [
-                        1,"desc"
-                    ]
-                ],//默认第几个排序
+
             "bStateSave": true,//状态保存
             "aoColumnDefs": [
                 //{"bVisible": false, "aTargets": [ 3 ]} //控制列的隐藏显示
-                {"orderable":false,"aTargets":[0,2]}// 制定列不参与排序
+                {"orderable":false,"aTargets":[0,2,3,6,8,9]}// 制定列不参与排序
             ]
         });
 
@@ -169,22 +172,103 @@
 
     });
 
-    /*课程详情页面*/
-    function course_show(title,url,w,h){
+    /*课程基本信息-编辑*/
+    function course_edit(title,url,id,w,h){
         layer_show(title,url,w,h);
     }
-    /*教师详情页面*/
+
+    /*课程详情页面*/
+    function course_show(title,url,w,h){
+        var index = layer.open({
+            type: 2,
+            title: title,
+            content: url
+        });
+        layer.full(index);
+    }
+
+    /*用户详情页面*/
     function userDetail(title,url,w,h){
         layer_show(title,url,w,h);
     }
 
+    /*用户-停用*/
+    function course_stop(obj,id){
+        layer.confirm('确认下架吗？',function(index){
+            $.ajax({
+                type: "POST",
+                url: "/admin/course/courseStop",
+                data: {
+                    id:id,
+                },
+                success: function(data){
+                    //var data = eval('(' + data + ')');
+                    if (data.code === 200){
+                        $(obj).parents("tr").find(".td-manage").prepend('<a style="text-decoration:none" ' +
+                            'onClick="course_start(this,'+id+')" href="javascript:;" title="上架">' +
+                            '<i class="Hui-iconfont">&#xe603;</i></a>');
+                        $(obj).parents("tr").find(".td-status").html('<span class="label label-defaunt radius">已下架</span>');
+                        $(obj).remove();
+                        layer.msg('已下架!',{icon: 5,time:2000});
+                        //location.replace(location.href);
+                    }else{
+                        alert("发生错误!请重新操作");
+                    }
+                }
+            });
+        });
 
+    }
 
+    /*用户-启用*/
+    function course_start(obj,id){
 
-    /*用户-查看*/
-    function member_show(title,url,id,w,h){
-        layer_show(title,url,w,h);
+        layer.confirm('确认上架吗？',function(index){
+            $.ajax({
+                type: "POST",
+                url: "/admin/course/courseStart",
+                data: {
+                    id:id,
+                },
+                success: function(data){
+                    //var data = eval('(' + data + ')');
+                    if (data.code === 200){
+                        $(obj).parents("tr").find(".td-manage").prepend('<a style="text-decoration:none" ' +
+                            'onClick="course_stop(this,'+id+')" href="javascript:;" title="下架"><i class="Hui-iconfont">&#xe6de;</i></a>');
+                        $(obj).parents("tr").find(".td-status").html('<span class="label label-success radius">已上架</span>');
+                        $(obj).remove();
+                        layer.msg('已上架!',{icon: 6,time:2000});
+                        //location.replace(location.href);
+                    }else{
+                        alert("发生错误!请重新操作");
+                    }
+                }
+            });
+        });
+    }
 
+    /*用户-删除*/
+    function course_del(obj,id){
+        layer.confirm('逻辑删除一门课程，确认要删除吗？',function(index){
+            $.ajax({
+                type: "POST",
+                url: "/admin/course/logicDelete",
+                data: {
+                    id:id,
+                },
+                success: function(data){
+                    //var data = eval('(' + data + ')');
+                    if (data.code === 200){
+                        $(obj).parents("tr").remove();
+                        layer.msg('已删除!',{icon:1,time:2000});
+                        /* location.href="${pageContext.request.contextPath}/teacher/teacherList" */
+                        reloadTable();
+                    }else{
+                        alert("发生错误!请重新操作");
+                    }
+                }
+            });
+        });
     }
 
 
@@ -209,32 +293,6 @@
     }
 
 
-
-
-    /*用户-删除*/
-    function course_del(obj,id){
-        layer.confirm('逻辑删除一门课程，确认要删除吗？',function(index){
-            $.ajax({
-                type: "POST",
-                url: "/admin/course/logicDelete",
-                data: {
-                    courseId:id,
-                },
-                success: function(data){
-                    //var data = eval('(' + data + ')');
-                    if (data.code === 200){
-                        $(obj).parents("tr").remove();
-                        layer.msg('已删除!',{icon:1,time:1000});
-                        /* 不需要重新请求链接 */
-                        /* location.href="${pageContext.request.contextPath}/teacher/teacherList" */
-                        reloadTable();
-                    }else{
-                        alert("发生错误!请重新操作");
-                    }
-                }
-            });
-        });
-    }
 </script>
 
 </body>

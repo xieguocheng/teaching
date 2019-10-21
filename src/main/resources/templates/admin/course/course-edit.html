@@ -10,7 +10,7 @@
 <article class="page-container">
     <form action="/admin/course/courseEdit" class="form form-horizontal" id="form-teacher-add" method="POST">
         <div class="row cl">
-            <label class="form-label col-xs-4 col-sm-2">照片：</label>
+            <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>照片：</label>
             <div class="formControls col-xs-8 col-sm-9">
                 <input id="doc-form-file" type="file" name="picture" th:src="${course.picture}" multiple required />
             </div>
@@ -50,7 +50,7 @@
 
 
         <div class="row cl">
-            <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>级别：</label>
+            <label class="form-label col-xs-4 col-sm-2">级别：</label>
             <div class="formControls col-xs-8 col-sm-9 skin-minimal">
                 <div class="radio-box">
                     <input name="level" type="radio" id="sex-1" value="1" checked>
@@ -69,7 +69,7 @@
         </div>
 
         <div class="row cl">
-            <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>免费：</label>
+            <label class="form-label col-xs-4 col-sm-2">免费：</label>
             <div class="formControls col-xs-8 col-sm-9 skin-minimal">
                 <div class="radio-box">
                     <input name="free" type="radio" id="free-1" value="1" checked>
@@ -83,14 +83,14 @@
             </div>
         </div>
         <div class="row cl">
-            <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>价格：</label>
+            <label class="form-label col-xs-4 col-sm-2">价格：</label>
             <div class="formControls col-xs-8 col-sm-9">
                 <input type="text" class="input-text" value="" placeholder="" id="price" name="price" th:value="${course.price }">
             </div>
         </div>
 
         <div class="row cl">
-            <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>权重：</label>
+            <label class="form-label col-xs-4 col-sm-2">权重：</label>
             <div class="formControls col-xs-8 col-sm-9">
                 <input type="text" class="input-text" value="" placeholder="" id="weight" name="weight" th:value="${course.weight }">
             </div>
