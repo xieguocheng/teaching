@@ -21,14 +21,17 @@
         </dt>
         <dd class="pt-10 f-12" style="margin-left:0" th:text="课程类型【+${course.subClassifyName}+】"></dd>
     </dl>
+
 </div>
 
 
 <div id="tab_demo" class="HuiTab">
-    <div class="tabBar clearfix">
-        <span style="background: #5bacb6">课程详情</span>
-        <span style="background: #5bacb6">课程章节</span>
-        <span style="background: #5bacb6">评论答疑</span>
+    <div class="tabBar clearfix" style="background: #5bacb6">
+        <span style="background: #5bacb6" title="课程详情">课程详情</span>
+        <span style="background: #5bacb6" title="课程章节">课程章节</span>
+        <span style="background: #5bacb6" title="在学用户">在学用户</span>
+        <span style="background: #5bacb6" title="评论详情">评论详情</span>
+        <span style="background: #5bacb6" title="答疑详情">答疑详情</span>
     </div>
 
     <div class="tabCon" >
@@ -119,7 +122,20 @@
 
     <div class="tabCon">
         <div class="pd-20">
-            <table id="table2" class="layui-table" lay-filter="table1"></table>
+           <table id="demo" lay-filter="test" lay-skin="line" class="layui-table" ></table>
+        </div>
+    </div>
+
+    <div class="tabCon">
+        <div class="pd-20">
+            <table id="table2" class="layui-table" lay-filter="table2"></table>
+        </div>
+
+    </div>
+
+    <div class="tabCon">
+        <div class="pd-20">
+            <table id="table3" class="layui-table" lay-filter="table3"></table>
         </div>
 
     </div>
@@ -132,11 +148,11 @@
 
 <footer th:include="admin/common :: footer"></footer>
 <!--请在下方写此页面业务相关的脚本-->
-<script type="text/javascript" src="/static/lib/jquery.validation/1.14.0/jquery.validate.js"></script>
+<!--<script type="text/javascript" src="/static/lib/jquery.validation/1.14.0/jquery.validate.js"></script>
 <script type="text/javascript" src="/static/lib/datatables/1.10.15/jquery.dataTables.js"></script>
 <script type="text/javascript" src="/static/lib/jquery.validation/1.14.0/validate-methods.js"></script>
 <script type="text/javascript" src="/static/lib/jquery.validation/1.14.0/messages_zh.js"></script>
-<script type="text/javascript" src="/static/lib/webuploader/0.1.5/webuploader.min.js"></script>
+<script type="text/javascript" src="/static/lib/webuploader/0.1.5/webuploader.min.js"></script>-->
 
 <script type="text/javascript" src="/static/lib/h-ui/js/H-ui.js"></script>
 <script type="text/javascript" src="/static/lib/jquery/1.9.1/jquery.min.js"></script>
@@ -144,8 +160,53 @@
 <script type="text/javascript" src="/static/lib/myLayui/layui.js"></script>
 <link rel="stylesheet" type="text/css" href="/static/lib/myLayui/css/layui.css"/>
 
+<!--layui.table图片显示不全，需重新定义CSS  -->
+<style type="text/css">
+    .layui-table-cell{
+        height:auto!important;
+        white-space:normal;
+    }
 
+</style>
 <script type="text/javascript">
+
+    layui.use('table', function(){
+        var table = layui.table;
+        var courseId=$("#courseId").val();
+        //第一个实例
+        table.render({
+            elem: '#demo'
+            ,height: 'full'
+            ,cellMinWidth: 80 //全局定义常规单元格的最小宽度
+            ,limit:10
+            ,url: '/admin/course/courseUserList/'+courseId //数据接口
+            ,page: true //开启分页
+            ,cols: [
+                [ //表头
+                /*{field: 'id', title: 'ID', width:80, fixed: 'center'}*/
+                {field: 'username', title: '用户名（账号）',width:200,align:'center'}
+                ,{field: 'realname', title: '真实姓名',align:'center',width:100 }
+                ,{field: 'hearder', title: '头像', align:'center' ,width:150,templet: function(res){
+                        return '<image href="javascript:void(0)" src=\''+res.hearder+'\' style="width:100px; height:100px; border-radius:50%;class="avatar size-XL l"  ">';
+                    }}
+                    ,{field: 'username', title: '性别',align:'center',width:100,templet: function(res){
+                        if(res.gender==0){
+                            return "未知"
+                        }else if(res.gender==1){
+                            return "男"
+                        }else {
+                            return "女"
+                        }
+                    } }
+                    ,{field: 'sign', title: '签名',align:'center' }
+                    ,{field: 'hobby', title: '兴趣爱好',align:'center' }
+                    ,{field: 'createTime', title: '开始学习时间',align:'center',templet : "<div>{{layui.util.toDateString(d.createTime, 'yyyy年MM月dd日 HH:mm:ss')}}</div>"},
+
+                 ]
+            ]
+        });
+
+    });
 
     layui.config({
         base: '/static/lib/module/'    /* 修改为你module文件夹地址*/
@@ -183,13 +244,13 @@
                         {field: 'videoUrl',align:'center', title: '操作',templet: function(res){
                             var temp=res.id;
 
-                            var deleteButton = '<button class=\"layui-btn layui-btn-danger layui-btn-xs\" onclick=\'showVideo(\"删除\", "/admin/courseSection/playVideo/", \"'+temp+'\","800\", \"500\")\'>删除</button>';
+                            var deleteButton = '<button class=\"layui-btn layui-btn-danger layui-btn-xs\" onclick=\'removeCourseSection(\"删除\", "/admin/courseSection/playVideo/", \"'+temp+'\","800\", \"500\")\'>删除</button>';
                             if(res.videoUrl){
 
                                 var playButton = '<button class=\"layui-btn layui-btn-xs\" onclick=\'showVideo(\"查看视频\", "/admin/courseSection/playVideo/", \"'+temp+'\","800\", \"500\")\'>查看视频</button>';
                                 return playButton+"&nbsp"+deleteButton;
                             }
-                            var addButton = '<button class=\"layui-btn layui-btn-primary layui-btn-xs \" onclick=\'showVideo(\"编辑\", "/admin/courseSection/playVideo/", \"'+temp+'\","800\", \"500\")\'>编辑</button>';
+                            var addButton = '<button class=\"layui-btn layui-btn-primary layui-btn-xs \" onclick=\'editCourseSection(\"编辑\", "/admin/courseSection/playVideo/", \"'+temp+'\","800\", \"500\")\'>编辑</button>';
                             return addButton;
 
                           //var addButton = '<button class=\"layui-btn layui-btn-xs\" onclick=\'showVideo(\"新增编辑\", "/admin/course/playVideo/\"+temp, \"800\", \"500\")\'>查看视频</button>';
@@ -224,6 +285,104 @@
     });
 
 
+
+    layui.config({
+        base: '/static/lib/module/'
+    }).extend({
+        treetable: 'treetable-lay/treetable'
+    }).use(['table', 'treetable'], function () {
+        var $ = layui.jquery;
+        var table = layui.table;
+        var treetable = layui.treetable;
+        var courseId=$("#courseId").val();
+
+        // 渲染表格
+        var renderTable = function () {
+            layer.load(2);
+            treetable.render({
+                size: 'lg', //尺寸
+                limit:10,
+                treeColIndex: 0, //设置下拉箭头在第几列
+                treeSpid: "0",   //最上级的父级id
+                treeIdName: 'id', //id字段的名称(自己的id)
+                treePidName: 'refId', //pid字段的名称（父亲的id）
+                treeDefaultClose: true, //是否默认折叠
+                treeLinkage: false, //父级展开时是否自动展开所有子级
+                elem: '#table2', //表格的id
+                url: '/admin/course/courseCommentList/'+courseId,
+                page: true,
+                cols: [
+                    [
+                        {field: 'sectionTitle', minWidth:"100",align:'left' , title: '章节名称'},
+                        {field: 'username', title: '评论者',minwidth:"100",align:'center' },
+                        {field: 'content', title: '内容', minWidth:"400",align:'center' },
+                        {field: 'createTime',align:'center' , minWidth:"150",title: '评论时间 ',templet : "<div>{{layui.util.toDateString(d.createTime, 'yyyy:MM:dd HH:mm:ss')}}</div>"},
+                        {field: '',align:'center', width:"100",title: '操作',templet: function(res){
+                                var temp=res.id;
+
+                                var deleteButton = '<button class=\"layui-btn layui-btn-danger layui-btn-xs\" onclick=\'remove(\"删除\", "/admin/courseSection/playVideo/", \"'+temp+'\","800\", \"500\")\'>删除</button>';
+
+                                return deleteButton;
+                            }
+                        }
+                    ]
+                ],
+                done: function () {
+                    layer.closeAll('loading');
+                }
+            });
+        };
+        renderTable();
+    });
+
+    layui.config({
+        base: '/static/lib/module/'
+    }).extend({
+        treetable: 'treetable-lay/treetable'
+    }).use(['table', 'treetable'], function () {
+        var $ = layui.jquery;
+        var table = layui.table;
+        var treetable = layui.treetable;
+        var courseId=$("#courseId").val();
+
+        // 渲染表格
+        var renderTable = function () {
+            layer.load(2);
+            treetable.render({
+                size: 'lg', //尺寸
+                limit:10,
+                treeColIndex: 0, //设置下拉箭头在第几列
+                treeSpid: "0",   //最上级的父级id
+                treeIdName: 'id', //id字段的名称(自己的id)
+                treePidName: 'refId', //pid字段的名称（父亲的id）
+                treeDefaultClose: false, //是否默认折叠
+                treeLinkage: false, //父级展开时是否自动展开所有子级
+                elem: '#table3', //表格的id
+                url: '/admin/course/courseAnswerList/'+courseId, //数据请求地址，返回json格式数据（映射路径）
+                page: false,
+                cols: [   //列数和列名可根据需要更改
+                    [
+                        {field: 'sectionTitle', minWidth:"100",align:'left' , title: '章节名称'},
+                        {field: 'username', title: '答疑者',minwidth:"100",align:'center' },
+                        {field: 'content', title: '内容', minWidth:"400",align:'center' },
+                        {field: 'createTime',align:'center' , minWidth:"150",title: '答疑时间 ',templet : "<div>{{layui.util.toDateString(d.createTime, 'yyyy:MM:dd HH:mm:ss')}}</div>"},
+                        {field: '',align:'center', width:"100",title: '操作',templet: function(res){
+                                var temp=res.id;
+                                var deleteButton = '<button class=\"layui-btn layui-btn-danger layui-btn-xs\" onclick=\'remove(\"删除\", "/admin/courseSection/playVideo/", \"'+temp+'\","800\", \"500\")\'>删除</button>';
+                                return deleteButton;
+                            }
+                        }
+                    ]
+                ],
+                done: function () {
+                    layer.closeAll('loading');
+                }
+            });
+        };
+        renderTable();
+    });
+
+
     /*教师详情页面*/
     function showVideo(title,url,id,w,h){
         debugger;
@@ -231,7 +390,7 @@
         layer_show(title,url,w,h);
     }
 
-
+    /*控制跳转*/
     jQuery.Huitab =function(tabBar,tabCon,class_name,tabEvent,i){
         var $tab_menu=$(tabBar);
         // 初始化操作
@@ -246,11 +405,17 @@
             var index=$tab_menu.index(this);
             $(tabCon).hide();
             $(tabCon).eq(index).show()})}
+
+
     $(function(){
-
         $.Huitab("#tab_demo .tabBar span","#tab_demo .tabCon","current","click","0")
-
     });
+
+
+
+
+
+
 </script>
 </body>
 </html>

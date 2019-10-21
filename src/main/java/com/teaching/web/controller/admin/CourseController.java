@@ -8,15 +8,12 @@ import com.qiniu.storage.model.DefaultPutRet;
 import com.teaching.dto.QiNiuPutRet;
 import com.teaching.enums.CommonStatus;
 import com.teaching.enums.CourseStatus;
+import com.teaching.mapper.AuthUserMapper;
 import com.teaching.mapper.ConstsClassifyMapper;
 import com.teaching.mapper.CourseMapper;
 import com.teaching.mapper.CourseSectionMapper;
-import com.teaching.pojo.ConstsClassify;
-import com.teaching.pojo.Course;
-import com.teaching.pojo.CourseSection;
-import com.teaching.service.CourseSectionService;
-import com.teaching.service.CourseService;
-import com.teaching.service.QiNiuService;
+import com.teaching.pojo.*;
+import com.teaching.service.*;
 import com.teaching.utils.ApiResponse;
 import com.teaching.utils.IDUtils;
 import com.teaching.utils.UtilFuns;
@@ -62,6 +59,12 @@ public class CourseController {
     private CourseSectionService courseSectionService;
 
     @Autowired
+    private AuthUserService authUserService;
+
+    @Autowired
+    private CourseCommentService courseCommentService;
+
+    @Autowired
     private QiNiuService qiNiuService;
 
     @Autowired
@@ -75,6 +78,10 @@ public class CourseController {
 
     @Autowired
     private CourseSectionMapper courseSectionMapper;
+
+    @Autowired
+    private AuthUserMapper authUserMapper ;
+
 
 
 
@@ -280,7 +287,55 @@ public class CourseController {
         }
     }
 
-/***************************************************课程-章节一系列操作**********************************************/
+    /**
+     * 修改课程基本信息-页面
+     * @param model
+     * @param id
+     * @return
+     */
+    @GetMapping(value="admin/course/courseEditPage/{id}")
+    public String courseEditPage(Model model,@PathVariable("id") Integer id){
+
+        Example example=new Example(ConstsClassify.class);
+        example.createCriteria().andEqualTo("parentId",0);
+        List<ConstsClassify> classifyList=constsClassifyMapper.selectByExample(example);
+        model.addAttribute("classifyList",classifyList);
+
+        Example example2=new Example(ConstsClassify.class);
+        example2.createCriteria().andNotEqualTo("parentId",0);
+        List<ConstsClassify> subClassifyList=constsClassifyMapper.selectByExample(example2);
+        model.addAttribute("subClassifyList",subClassifyList);
+
+        Course course=courseService.findCourseById(id);
+        model.addAttribute("course", course);
+
+        return "admin/course/course-edit";
+    }
+
+    /**
+     * 修改课程基本信息
+     * @param course
+     */
+    @PostMapping(value="admin/course/courseEdit")
+    @ResponseBody
+    public ApiResponse courseEdit(Course course){
+        /*try{
+            Question existQuestion=questionService.findQuestionById(question.getQuestionId());
+            existQuestion.setQuestionDesc(question.getQuestionDesc());
+            existQuestion.setChoice(question.getChoice());
+            existQuestion.setType(question.getType());
+            //修改记录
+            questionService.updateQuestion(existQuestion);
+            return ApiResponse.ofSuccess(null);
+        }catch (Exception e) {
+            e.printStackTrace();
+            return ApiResponse.ofStatus(ApiResponse.Status.BAD_REQUEST);
+        }*/
+        return null;
+
+    }
+
+/***************************************************课程-章节信息一系列操作**********************************************/
 
     /**
      *  添加课程-基本信息页面
@@ -368,6 +423,50 @@ public class CourseController {
     public ApiResponse courseSectionList(Model model,@PathVariable("courseId") String courseId) {
 
         List<CourseSection> list=courseSectionService.findCourseSectionByCourseId(Integer.valueOf(courseId));
+
+        return new ApiResponse(0,"ok",list);
+    }
+
+
+    /**
+     * 通过课程id查找所有课程用户
+     * @param model
+     * @param courseId
+     * @return
+     */
+    @RequestMapping("admin/course/courseUserList/{courseId}")
+    @ResponseBody
+    public ApiResponse courseUserList(Model model,@PathVariable("courseId") String courseId) {
+
+        List<AuthUser> list=authUserService.findUserByCourseId(Integer.valueOf(courseId));
+
+        return new ApiResponse(0,"ok",list);
+    }
+    /**
+     * 通过课程id查找所有课程评论
+     * @param model
+     * @param courseId
+     * @return
+     */
+    @RequestMapping("admin/course/courseCommentList/{courseId}")
+    @ResponseBody
+    public ApiResponse courseCommentList(Model model,@PathVariable("courseId") String courseId) {
+
+        List<CourseComment> list=courseCommentService.findCourseCommentByCourseId(Integer.valueOf(courseId));
+
+        return new ApiResponse(0,"ok",list);
+    }
+    /**
+     * 通过课程id查找所有课程答疑
+     * @param model
+     * @param courseId
+     * @return
+     */
+    @RequestMapping("admin/course/courseAnswerList/{courseId}")
+    @ResponseBody
+    public ApiResponse courseAnswerList(Model model,@PathVariable("courseId") String courseId) {
+
+        List<CourseComment> list=courseCommentService.findCourseAnswerByCourseId(Integer.valueOf(courseId));
 
         return new ApiResponse(0,"ok",list);
     }

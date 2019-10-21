@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 
 /**
  * @Author： XO
- * @Description：
+ * @Description： 通用service
  * @Date： 2019/9/28 11:11
  */
 

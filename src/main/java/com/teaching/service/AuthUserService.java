@@ -29,4 +29,11 @@ public interface AuthUserService {
      * @return
      */
     public List<AuthUser> findAdminUser();
+
+    /**
+     * 根据课程id查询所有学生
+     * @param courseId
+     * @return
+     */
+    public List<AuthUser> findUserByCourseId(Integer courseId);
 }

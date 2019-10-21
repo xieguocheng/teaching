@@ -1,0 +1,184 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link rel="stylesheet" type="text/css" href="/static/lib/datatables/1.10.15/jquery.dataTables.css">
+    <div th:include="admin/common :: head"></div>
+    <title>课程基本详情页面</title>
+</head>
+<body>
+
+<article class="page-container">
+    <form action="/admin/course/courseEdit" class="form form-horizontal" id="form-teacher-add" method="POST">
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2">照片：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input id="doc-form-file" type="file" name="picture" th:src="${course.picture}" multiple required />
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>ID：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" class="input-text" value="" placeholder="" id="id" name="id" th:value="${course.id }"  readonly="readonly" >
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>课程名称：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" class="input-text" value="" placeholder="" id="name" name="name" th:value="${course.name }">
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2">一级类型：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+				<span class="select-box">
+					<select name="classify" class="select">
+						<option th:each="classify,classifyList:${classifyList}" th:value="${classify.id}" th:text="${classify.name}"></option>
+					</select>
+				</span>
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2">二级类型：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+				<span class="select-box">
+					<select name="subClassify" class="select">
+						<option th:each="subClassify,subClassifyList:${subClassifyList}" th:value="${subClassify.id}" th:text="${subClassify.name}"></option>
+					</select>
+				</span>
+            </div>
+        </div>
+
+
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>级别：</label>
+            <div class="formControls col-xs-8 col-sm-9 skin-minimal">
+                <div class="radio-box">
+                    <input name="level" type="radio" id="sex-1" value="1" checked>
+                    <label for="sex-1">初级</label>
+                </div>
+                <div class="radio-box">
+                    <input type="radio" id="sex-2" name="level" value="2">
+                    <label for="sex-2">中级</label>
+                </div>
+                <div class="radio-box">
+                    <input type="radio" id="sex-3" name="level" value="2">
+                    <label for="sex-3">高级</label>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>免费：</label>
+            <div class="formControls col-xs-8 col-sm-9 skin-minimal">
+                <div class="radio-box">
+                    <input name="free" type="radio" id="free-1" value="1" checked>
+                    <label for="free-1">是</label>
+                </div>
+                <div class="radio-box">
+                    <input type="radio" id="free-2" name="free" value="2">
+                    <label for="free-2">否</label>
+                </div>
+
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>价格：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" class="input-text" value="" placeholder="" id="price" name="price" th:value="${course.price }">
+            </div>
+        </div>
+
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>权重：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" class="input-text" value="" placeholder="" id="weight" name="weight" th:value="${course.weight }">
+            </div>
+        </div>
+
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2">简介：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <textarea name="userIntro" cols="" rows="" class="textarea" th:value="${course.brief}"
+                          placeholder="说点什么...最少输入10个字符"
+                          onKeyUp="$.Huitextarealength(this,100)">
+                </textarea>
+                <p class="textarea-numberbar"><em class="textarea-length">0</em>/100</p>
+            </div>
+        </div>
+
+
+        <div class="row cl">
+            <div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-2">
+                <input class="btn btn-primary radius" type="submit" value="&nbsp;&nbsp;提交&nbsp;&nbsp;">
+            </div>
+        </div>
+
+
+    </form>
+</article>
+
+
+<footer th:include="admin/common :: footer"></footer>
+<!--请在下方写此页面业务相关的脚本-->
+<script type="text/javascript" src="/static/lib/My97DatePicker/4.8/WdatePicker.js"></script>
+<script type="text/javascript" src="/static/lib/datatables/1.10.15/jquery.dataTables.js"></script>
+<script type="text/javascript" src="/static/lib/laypage/1.2/laypage.js"></script>
+
+<script type="text/javascript" src="/static/lib/jquery.validation/1.14.0/jquery.validate.js"></script>
+<script type="text/javascript" src="/static/lib/jquery.validation/1.14.0/validate-methods.js"></script>
+<script type="text/javascript" src="/static/lib/jquery.validation/1.14.0/messages_zh.js"></script>
+
+
+
+<script type="text/javascript">
+    $(function(){
+        $('.skin-minimal input').iCheck({
+            checkboxClass: 'icheckbox-blue',
+            radioClass: 'iradio-blue',
+            increaseArea: '20%'
+        });
+
+        $("#form-teacher-add").validate({
+            rules:{
+                id:{
+                    required:true,
+                },
+                name:{
+                    required:true,
+                }
+            },
+            onkeyup:false,
+            focusCleanup:true,
+            success:"valid",
+            submitHandler:function(form){
+                var index = parent.layer.getFrameIndex(window.name);
+                parent.$('.btn-refresh').click();
+                //parent.layer.close(index);
+
+                var fd = new FormData($("#form-teacher-add")[0]);
+                $.ajax({
+                    url : "/admin/userSuper/add",
+                    type : "post",
+                    data : fd,
+                    dataType : "json",
+                    processData : false, // 告诉jQuery不要去处理发送的数据
+                    contentType : false, // 告诉jQuery不要去设置Content-Type请求头
+                    success: function(data){
+                        if (data.code === 200){
+                            alert("添加成功");
+                            parent.layer.close(index);
+                        }else if(data.code === 400){
+                            alert("请选择照片！");
+                        }else{
+                            alert("添加失败！");
+                        }
+                    }
+                });
+            }
+        });
+    });
+</script>
+<!--/请在上方写此页面业务相关的脚本-->
+</body>
+</html>
