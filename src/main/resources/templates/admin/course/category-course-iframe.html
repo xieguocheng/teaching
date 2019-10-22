@@ -133,23 +133,6 @@
             ]
         });
 
-
-
-        //复选框类型查询
-        $('.type').change(function(){
-            $.ajax({
-                url: 'admin/question/singleChoiceList',
-                data: 'examType=' + $('.type').val(),
-                type: 'get',
-                success: function(data){
-                    $('#sheetList').html(data);
-                },
-                error: function(){
-                    alert('网络出错');
-                }
-            })
-        })
-
     });
 
 

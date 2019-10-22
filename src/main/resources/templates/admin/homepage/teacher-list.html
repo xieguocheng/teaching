@@ -1,0 +1,287 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+
+    <link rel="stylesheet" type="text/css" href="/static/lib/datatables/1.10.15/jquery.dataTables.css">
+    <div th:include="admin/common :: head"></div>
+    <style type="text/css">
+
+
+        th {
+            text-align: center;
+        }
+
+        .table td {
+            text-align: center;
+        }
+    </style>
+    <title>教师推荐</title>
+</head>
+
+<body>
+<nav class="breadcrumb">
+    <i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span>首页管理
+    <span class="c-gray en">&gt;</span> 教师推荐
+    <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px"
+       href="javascript:location.replace(location.href);" title="刷新">
+        <i class="Hui-iconfont">&#xe68f;</i>
+    </a>
+</nav>
+
+<div class="cl pd-5 bg-1 bk-gray mt-20">
+
+    <span class="l">
+		<a class="btn btn-danger-outline radius"  onclick="datadel()" href="javascript:;" >
+		<i class="Hui-iconfont">&#xe6e2;</i>批量删除</a>
+
+        <a class="btn btn-secondary-outline radius" >
+        <i class="Hui-iconfont">&#xe600;</i>添加名师</a>
+
+    </span>
+    <span class="r" >共有数据：
+        <div style="display:inline;line-height:31px" th:text="${constsSiteCarouselList.size()}+'&nbsp条' "></div>
+    </span>
+</div>
+
+
+<div class="page-container">
+    <div class="mt-20">
+        <table id="sheetList" class="table table-border table-bordered table-bg table-hover table-sort">
+            <thead>
+            <tr class="text-c">
+                <th width="5"><input type="checkbox" name="" value=""></th>
+                <th width="100">教师名称</th>
+                <th width="100">教师图一</th>
+                <th width="100">教师图二</th>
+                <th width="100">内容</th>
+                <th width="40">权重</th>
+                <th width="100">创建时间</th>
+                <th width="40">是否使用</th>
+                <th width="80">操作</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            <tr th:each="constsSiteCarousel,constsSiteCarouselList : ${constsSiteCarouselList}" >
+                <td><input type="checkbox" th:value="${constsSiteCarousel.id}"  name=""></td>
+
+                <td  >
+                    <u style="cursor:pointer" class="text-primary" th:text="${constsSiteCarousel.name}"
+                       th:onclick="|userDetail('教师详情','/admin/user/userDetail/${constsSiteCarousel.url }','450','450')|">
+                    </u>
+                </td>
+
+                <td><img width="100" height="100" class="picture-thumb"th:src="${constsSiteCarousel.picture}"></td>
+                <td><img width="100" height="100" class="picture-thumb"th:src="${constsSiteCarousel.column1}"></td>
+
+                <td th:text="${constsSiteCarousel.content}"></td>
+
+                <td><input type="text" th:id="'weight_'+${constsSiteCarousel.id}" class="input-text text-c" th:value="${constsSiteCarousel.weight}"></td>
+
+                <th class="text-c" th:text="${#dates.format(constsSiteCarousel.createTime, 'yyyy-MM-dd HH:mm:ss')}"></th>
+
+                <td th:if="${constsSiteCarousel.status}==0" class="td-status">
+                    <span class="label label-success  radius">正常</span>
+                </td>
+                <td th:if="${constsSiteCarousel.status}==1" class="td-status" >
+                    <span class="label label-info radius">弃用</span>
+                </td>
+
+
+                <td class="td-manage">
+
+                    <a title="下架" style="text-decoration:none" href="javascript:;"
+                       th:onclick="|javascript:course_stop(this,'${constsSiteCarousel.id }')|"  >
+                        <i class="Hui-iconfont" th:if="${constsSiteCarousel.status}==0">&#xe6de;</i></a>
+                    <a title="上架" style="text-decoration:none" href="javascript:;"
+                       th:onclick="|javascript:course_start(this,'${constsSiteCarousel.id }')|"  >
+                        <i class="Hui-iconfont"th:if="${constsSiteCarousel.status}==1">&#xe603;</i></a>
+
+                    <a title="编辑"  th:onclick="|javascript:course_edit('编辑课程基本信息','/admin/course/courseEditPage/${constsSiteCarousel.id}','4','800','600')|"
+                       class="ml-5" style="text-decoration:none">
+                        <i class="Hui-iconfont">&#xe6df;</i></a>
+                    <a title="删除" href="javascript:;"class="ml-5" style="text-decoration:none"
+                       th:onclick="|javascript:course_del(this,'${constsSiteCarousel.id }')|">
+                        <i class="Hui-iconfont">&#xe6e2;</i></a>
+                </td>
+
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+</div>
+
+
+<footer th:include="admin/common :: footer"></footer>
+<!--请在下方写此页面业务相关的脚本-->
+<script type="text/javascript" src="/static/lib/My97DatePicker/4.8/WdatePicker.js"></script>
+<script type="text/javascript" src="/static/lib/datatables/1.10.15/jquery.dataTables.js"></script>
+<script type="text/javascript" src="/static/lib/laypage/1.2/laypage.js"></script>
+
+
+
+<script type="text/javascript">
+
+    $(function(){
+        //渲染表格
+        $('.table-sort').dataTable({
+
+            "bStateSave": true,//状态保存
+            "aoColumnDefs": [
+                //{"bVisible": false, "aTargets": [ 3 ]} //控制列的隐藏显示
+                {"orderable":false,"aTargets":[0]}// 制定列不参与排序
+            ]
+        });
+
+        //监听权重input改变事件
+        $(".input-text").on("change",function(){
+            debugger;
+            var weight =this.value;
+            var id=this.id.substring(7);
+            $.ajax({
+                url : "/admin/course/updateWeight/"+id+"/"+weight,
+                type : "get",
+                //dataType : "json",
+                processData : false, // 告诉jQuery不要去处理发送的数据
+                contentType : false, // 告诉jQuery不要去设置Content-Type请求头
+                success: function(data){
+                    if (data.code === 200){
+                        layer.msg('修改成功!',{icon: 6,time:1000})
+                    }else{
+                        layer.msg("修改失败,请输入正确的格式!", {icon: 5, time: 2000});
+                    }
+                }
+            });
+        })
+
+
+
+
+    });
+
+    /*课程基本信息-编辑*/
+    function course_edit(title,url,id,w,h){
+        layer_show(title,url,w,h);
+    }
+
+    /*课程详情页面*/
+    function course_show(title,url,w,h){
+        var index = layer.open({
+            type: 2,
+            title: title,
+            content: url
+        });
+        layer.full(index);
+    }
+
+    /*用户详情页面*/
+    function userDetail(title,url,w,h){
+        layer_show(title,url,w,h);
+    }
+
+    /*用户-停用*/
+    function course_stop(obj,id){
+        layer.confirm('确认弃用吗？',function(index){
+            $.ajax({
+                type: "POST",
+                url: "/admin/course/courseStop",
+                data: {
+                    id:id,
+                },
+                success: function(data){
+                    //var data = eval('(' + data + ')');
+                    if (data.code === 200){
+                        $(obj).parents("tr").find(".td-manage").prepend('<a style="text-decoration:none" ' +
+                                'onClick="course_start(this,'+id+')" href="javascript:;" title="上架">' +
+                            '<i class="Hui-iconfont">&#xe603;</i></a>');
+                        $(obj).parents("tr").find(".td-status").html('<span class="label label-defaunt radius">弃用</span>');
+                        $(obj).remove();
+                        layer.msg('弃用!',{icon: 5,time:2000});
+                        //location.replace(location.href);
+                    }else{
+                        alert("发生错误!请重新操作");
+                    }
+                }
+            });
+        });
+
+    }
+
+    /*用户-启用*/
+    function course_start(obj,id){
+
+        layer.confirm('确认使用吗？',function(index){
+            $.ajax({
+                type: "POST",
+                url: "/admin/course/courseStart",
+                data: {
+                    id:id,
+                },
+                success: function(data){
+                    //var data = eval('(' + data + ')');
+                    if (data.code === 200){
+                        $(obj).parents("tr").find(".td-manage").prepend('<a style="text-decoration:none" ' +
+                            'onClick="course_stop(this,'+id+')" href="javascript:;" title="下架"><i class="Hui-iconfont">&#xe6de;</i></a>');
+                        $(obj).parents("tr").find(".td-status").html('<span class="label label-success radius">正常</span>');
+                        $(obj).remove();
+                        layer.msg('已使用!',{icon: 6,time:2000});
+                        //location.replace(location.href);
+                    }else{
+                        alert("发生错误!请重新操作");
+                    }
+                }
+            });
+        });
+    }
+
+    /*用户-删除*/
+    function course_del(obj,id){
+        layer.confirm('逻辑删除一门课程，确认要删除吗？',function(index){
+            $.ajax({
+                type: "POST",
+                url: "/admin/course/logicDelete",
+                data: {
+                    id:id,
+                },
+                success: function(data){
+                    //var data = eval('(' + data + ')');
+                    if (data.code === 200){
+                        $(obj).parents("tr").remove();
+                        layer.msg('已删除!',{icon:1,time:2000});
+                        /* location.href="${pageContext.request.contextPath}/teacher/teacherList" */
+                        reloadTable();
+                    }else{
+                        alert("发生错误!请重新操作");
+                    }
+                }
+            });
+        });
+    }
+
+
+
+    /*课程task页面*/
+    function course_show_task(title,url,id,w,h){
+        var index = layer.open({
+            type: 2,
+            title: title,
+            content: url
+        });
+        layer.full(index);
+    }
+    /*课程experiment页面*/
+    function course_show_experiment(title,url,id,w,h){
+        var index = layer.open({
+            type: 2,
+            title: title,
+            content: url
+        });
+        layer.full(index);
+    }
+
+
+</script>
+
+</body>
+</html>
