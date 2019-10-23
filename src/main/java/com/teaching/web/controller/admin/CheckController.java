@@ -5,6 +5,7 @@ import com.teaching.mapper.AuthTeacherMapper;
 import com.teaching.pojo.AuthTeacher;
 import com.teaching.pojo.Course;
 import com.teaching.utils.ApiResponse;
+import com.teaching.utils.MailUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -83,7 +84,10 @@ public class CheckController {
     @GetMapping("admin/check/checkTeacher/{id}")
     public String checkTeacher(Model model,@PathVariable(name = "id") String id) {
 
-
+        AuthTeacher authTeacher=new AuthTeacher(Integer.valueOf(id));
+        authTeacher=authTeacherMapper.selectByPrimaryKey(authTeacher);
+        model.addAttribute("email",authTeacher.getEmail());
+        model.addAttribute("id",authTeacher.getId());
 
         return "admin/check/check";
     }
@@ -96,18 +100,22 @@ public class CheckController {
      */
     @PostMapping(value="admin/check/doCheck")
     @ResponseBody
-    public ApiResponse courseLogicDelete(String id){
-
-        /*try{
-            Course course=courseService.findCourseById(Integer.valueOf(id));
-            course.setDel(CommonStatus.DEL_YES.getValue());
-            courseMapper.updateByPrimaryKey(course);
+    public ApiResponse courseLogicDelete(String id,String email,String brief,String status){
+        try{
+            //查询记录
+            AuthTeacher authTeacher=new AuthTeacher(Integer.valueOf(id));
+            authTeacher=authTeacherMapper.selectByPrimaryKey(authTeacher);
+            //更新
+            authTeacher.setStatus(Integer.valueOf(status));
+            authTeacherMapper.updateByPrimaryKey(authTeacher);
+            //发送邮件
+            //MailUtil.sendMessage(email,"智慧教学视频网站审核通知",brief);
             return ApiResponse.ofSuccess(null);
         }catch (Exception e) {
             e.printStackTrace();
             return ApiResponse.ofStatus(ApiResponse.Status.BAD_REQUEST);
-        }*/
-        return null;
+        }
+
     }
 
 

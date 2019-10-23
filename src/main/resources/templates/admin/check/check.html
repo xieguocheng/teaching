@@ -9,21 +9,12 @@
 </head>
 <body>
 
-<!--<div class="cl pd-20" style=" background-color:#5bacb6">
-
-    <video width="100%" height="100%" controls style="align:center">
-        <source th:src="${video}" type="video/mp4">
-    </video>
-
-</div>-->
-
-    <input type="hidden" id="id" name="id" value=""/>
-    <input type="hidden" id="email" name="email" value=""/>
+    <input type="hidden" id="id" name="id" th:value="${id}"/>
+    <input type="hidden" id="email" name="email" th:value="${email}"/>
 
     <div class="cl pd-20" style=" background-color:#ffffff">
-            <textarea id="content" name="content" style="display: none;">
+            <textarea id="brief" name="brief" style="display: none;" >
 
-                adfs
 
             </textarea>
     </div>
@@ -53,40 +44,89 @@
 
     layui.use('layedit', function(){
         var layedit = layui.layedit;
-        layedit.build('content'); //建立编辑器
+        layedit.build('brief'); //建立编辑器
     });
 
 
     $(function() {
 
+        var index = parent.layer.getFrameIndex(window.name);
+
+
         $("#yes").click( function () {
             debugger;
-            var index = parent.layer.getFrameIndex(window.name);
+            var loadindex=layer.load(3);//打开加载框
             var id=$("#id").val();
             var email=$("#email").val();
-            var content=$("#content").val();
+            var brief=$("#brief").text();
             $.ajax({
                 type: "POST",
-                url: "/admin/check/checkTeacher",
+                url: "/admin/check/doCheck",
+                async : true,
                 data: {
                     id:id,
                     email:email,
-                    content:content
+                    brief:brief,
+                    status:1
                 },
                 success: function(data){
-                    //var data = eval('(' + data + ')');
                     if (data.code === 200){
-                        $(obj).parents("tr").remove();
-                        layer.msg('已删除!',{icon:1,time:2000});
-                        /* location.href="${pageContext.request.contextPath}/teacher/teacherList" */
-                        reloadTable();
+                        parent_reload();//重新加载
+                        layer.close(loadindex);//关闭加载框
+                        parent.layer.close(index);//关闭弹出层
+                        layer.msg('审核通过,邮件已经发送!',{icon:1,time:2000});
                     }else{
-                        alert("发生错误!请重新操作");
+                        layer.msg('错误!',{icon:1,time:2000});
+                        parent_reload();//重新加载
+                        layer.close(loadindex);//关闭加载框
+                        parent.layer.close(index);//关闭弹出层
                     }
                 },
                 error : function(result) {
                     layer.msg("error失败！", {icon: 5, time: 2000});
-                    parent.layer.close(index);
+                    parent_reload();//重新加载
+                    layer.close(loadindex);//关闭加载框
+                    parent.layer.close(index);//关闭弹出层
+                }
+            });
+        });
+
+
+        $("#no").click( function () {
+            var loadindex=layer.load(3);//打开加载框
+            debugger;
+            var id=$("#id").val();
+            var email=$("#email").val();
+            var brief=$("#brief").val();
+            $.ajax({
+                type: "POST",
+                url: "/admin/check/doCheck",
+                async : true,
+                data: {
+                    id:id,
+                    email:email,
+                    brief:brief,
+                    status:2
+                },
+                success: function(data){
+                    if (data.code === 200){
+                        parent_reload();//重新加载
+                        layer.close(loadindex);//关闭加载框
+                        parent.layer.close(index);//关闭弹出层
+                        layer.msg('审核不通过,邮件已经发送!',{icon:1,time:2000});
+                    }else{
+                        parent_reload();//重新加载
+                        layer.close(loadindex);//关闭加载框
+                        parent.layer.close(index);//关闭弹出层
+                        layer.msg('错误!',{icon:1,time:2000});
+                    }
+                },
+                error : function(result) {
+                    parent_reload();//重新加载
+                    layer.close(loadindex);//关闭加载框
+                    parent.layer.close(index);//关闭弹出层
+                    layer.msg("error失败！", {icon: 5, time: 2000});
+
                 }
             });
 
@@ -95,7 +135,6 @@
     })
 
 
-    $("no").click( function () { $(this).hide(); });
 
 </script>
 </body>

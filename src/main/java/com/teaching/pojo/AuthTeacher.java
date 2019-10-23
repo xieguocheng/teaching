@@ -80,6 +80,12 @@ public class AuthTeacher {
      */
     private Boolean del;
 
+    public AuthTeacher(Integer id) {
+        this.id = id;
+    }
+    public AuthTeacher() {
+    }
+
     /**
      * 获取id
      *
