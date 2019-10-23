@@ -43,7 +43,7 @@ public class ConstsSiteCarouselController {
     @RequestMapping(value="admin/homepage/courseList")
     public String courselList(Model model,String type){
 
-        if(type==null){
+        if(type==null||type.equals("")){
             type="1";//默认查询免费课程
         }
 

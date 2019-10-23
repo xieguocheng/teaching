@@ -55,7 +55,7 @@ public class CourseSectionController {
         courseSection.setId(Integer.valueOf(id));
 
         CourseSection section=courseSectionMapper.selectByPrimaryKey(courseSection);
-        model.addAttribute("section",section);
+        model.addAttribute("video",section.getVideoUrl());
 
         return "admin/course/video";
     }

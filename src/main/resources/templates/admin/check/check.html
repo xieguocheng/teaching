@@ -1,0 +1,102 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link rel="stylesheet" type="text/css" href="/static/lib/datatables/1.10.15/jquery.dataTables.css">
+    <div th:include="admin/common :: head"></div>
+
+
+    <title>审核页面</title>
+</head>
+<body>
+
+<!--<div class="cl pd-20" style=" background-color:#5bacb6">
+
+    <video width="100%" height="100%" controls style="align:center">
+        <source th:src="${video}" type="video/mp4">
+    </video>
+
+</div>-->
+
+    <input type="hidden" id="id" name="id" value=""/>
+    <input type="hidden" id="email" name="email" value=""/>
+
+    <div class="cl pd-20" style=" background-color:#ffffff">
+            <textarea id="content" name="content" style="display: none;">
+
+                adfs
+
+            </textarea>
+    </div>
+
+    <div class="row cl">
+        <div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-2">
+
+            <input class="layui-btn" type="submit" id="yes" value="&nbsp;&nbsp;通过&nbsp;&nbsp;">
+
+            <input class="layui-btn layui-btn-danger" id="no" type="submit" value="&nbsp;&nbsp;不通过&nbsp;&nbsp;">
+
+        </div>
+    </div>
+
+
+
+<footer th:include="admin/common :: footer"></footer>
+<!--请在下方写此页面业务相关的脚本-->
+<script type="text/javascript" src="/static/lib/My97DatePicker/4.8/WdatePicker.js"></script>
+<script type="text/javascript" src="/static/lib/datatables/1.10.15/jquery.dataTables.js"></script>
+<script type="text/javascript" src="/static/lib/laypage/1.2/laypage.js"></script>
+
+<script type="text/javascript" src="/static/lib/myLayui/layui.js"></script>
+<link rel="stylesheet" type="text/css" href="/static/lib/myLayui/css/layui.css"/>
+
+<script type="text/javascript">
+
+    layui.use('layedit', function(){
+        var layedit = layui.layedit;
+        layedit.build('content'); //建立编辑器
+    });
+
+
+    $(function() {
+
+        $("#yes").click( function () {
+            debugger;
+            var index = parent.layer.getFrameIndex(window.name);
+            var id=$("#id").val();
+            var email=$("#email").val();
+            var content=$("#content").val();
+            $.ajax({
+                type: "POST",
+                url: "/admin/check/checkTeacher",
+                data: {
+                    id:id,
+                    email:email,
+                    content:content
+                },
+                success: function(data){
+                    //var data = eval('(' + data + ')');
+                    if (data.code === 200){
+                        $(obj).parents("tr").remove();
+                        layer.msg('已删除!',{icon:1,time:2000});
+                        /* location.href="${pageContext.request.contextPath}/teacher/teacherList" */
+                        reloadTable();
+                    }else{
+                        alert("发生错误!请重新操作");
+                    }
+                },
+                error : function(result) {
+                    layer.msg("error失败！", {icon: 5, time: 2000});
+                    parent.layer.close(index);
+                }
+            });
+
+        });
+
+    })
+
+
+    $("no").click( function () { $(this).hide(); });
+
+</script>
+</body>
+</html>

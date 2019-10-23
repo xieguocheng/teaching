@@ -269,7 +269,7 @@ public class CourseController {
     }
 
     /**
-     * 逻辑删除一门课程，status=0
+     * 逻辑删除一门课程，status=1
      * @param id
      * @return
      */
@@ -279,6 +279,25 @@ public class CourseController {
         try{
             Course course=courseService.findCourseById(Integer.valueOf(id));
             course.setDel(CommonStatus.DEL_YES.getValue());
+            courseMapper.updateByPrimaryKey(course);
+            return ApiResponse.ofSuccess(null);
+        }catch (Exception e) {
+            e.printStackTrace();
+            return ApiResponse.ofStatus(ApiResponse.Status.BAD_REQUEST);
+        }
+    }
+
+    /**
+     * 还原门课程，status=0
+     * @param id
+     * @return
+     */
+    @PostMapping(value="admin/course/huanyuan")
+    @ResponseBody
+    public ApiResponse huanyuanCourse(String id){
+        try{
+            Course course=courseService.findCourseById(Integer.valueOf(id));
+            course.setDel(CommonStatus.DEL_NO.getValue());
             courseMapper.updateByPrimaryKey(course);
             return ApiResponse.ofSuccess(null);
         }catch (Exception e) {
