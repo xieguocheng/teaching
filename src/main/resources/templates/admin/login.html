@@ -1,256 +1,253 @@
-<!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
+<!DOCTYPE html>
+<html>
 <head>
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-
-	<link rel="Bookmark" href="../../static/favicon.ico" type="image/x-icon" >
-	<link rel="shortcut Icon" href="../../static/favicon.ico" type="image/x-icon"/>
-	<title>子鹿班课-LOGIN</title>
-	<link rel="stylesheet" href="/static/css/admin/login.css">
-
-	<script type="text/javascript">
-		window.onload=function()
-		{
-
-			var
-				weekday=['Mon','Tue','Wed','Thur','Fri','Sun','Sat'],
-				t=new Date();
-
-            $("h1#timer") .html(t.getFullYear()+"/"+two((t.getMonth()+1))+"/"+two(t.getDate())+" "+weekday[t.getDay()-1]+" "+two(t.getHours())+":"+two(t.getMinutes())+":"+two(t.getSeconds()));
-
-			setInterval(function()
-			{
-				t=new Date();
-                $("h1#timer").html(t.getFullYear()+"/"+two((t.getMonth()+1))+"/"+two(t.getDate())+" "+weekday[t.getDay()-1]+" "+two(t.getHours())+":"+two(t.getMinutes())+":"+two(t.getSeconds()));
-			},1000);
-
-			var login_btn=$("#login-btn"),
-				loginframe=$("#loginframe"),
-				login_close=$("#login-close"),
-				phone_switch=$("#phone-swtich"),
-				login=$("#login"),
-				login_phe=$("#phone-login"),
-				account_swtich=$("#account-swtich");
-
-            login_btn.click(function(){
-                loginframe.css("left","calc(50% - 12em)");
-            });
-			login_close.click(function(){
-                loginframe.css("left","-30em");
-			});
-			phone_switch.click(function(){
-				login.css("animation","ToOpacity 1.2s forwards");
-				loginframe.css("animation","ToForward 2.2s forwards");
-				setTimeout(function(){
-					login.css("display","none");
-					login_phe.css("display","block");
-					login_phe.css("animation","ToVisible 1.2s forwards");
-					setTimeout(function(){
-						loginframe.css("animation","none");
-					},1200);
-				},1000);
-
-			});
-			account_swtich.click(function(){
-				login_phe.css("animation","ToOpacity 1.2s forwards");
-				loginframe.css("animation","ToForward 2.2s forwards");
-				setTimeout(function(){
-					login_phe.css("display","none");
-					login.css("display","block");
-					login.css("animation","ToVisible 1.2s forwards");
-					setTimeout(function(){
-						loginframe.css("animation","none");
-					},1200);
-				},1000);
-			});
-		}
-		function two(x)
-		{
-			return x<10?"0"+x:x;
-		}
-	</script>
-
+	<meta charset="UTF-8">
+	<title>登录</title>
+	<script src="/static/lib/jquery/1.9.1/jquery.min.js"></script>
+	<link rel="stylesheet" href="/static/css/admin/adminLogin.css">
+	<link rel="stylesheet" href="/static/lib/myLayui/css/layui.css">
 </head>
 <body>
-	<div class="pencil"></div>
-	<div class="logo"></div>
-	<section class="welcome" id="welcome">
-		<div  class="timer"><h1 id="timer"></h1></div>
-		<h2>Mobile Intelligent Learning Platform</h2>
-		<p>The greater the capacity<br>The greater the responsibility.</p>
-	</section>
-	<main class="main">
-		<div class="main-content">
-			<button id="login-btn">Log In</button>
-		</div>
-	</main>
-	<div class="loginframe" id="loginframe">
-		<button id="login-close">X</button>
-		<div class="login" id="login">
-			<h2>Login to your account</h2>
-<!------------------------------------表单提交开始---------------------------------->
-			<form action="#" th:action="@{/login}" method="post">
-				<div class="login-t">
-					<label for="account" class="iconfont icon-user"></label>
-					<input type="text" id="account" autocomplete="off"
-						   placeholder="account number" name="username" class="first_line">
-					<label for="password" class="iconfont icon-lock"></label>
-					<input type="password" id="password" placeholder="password" name="password">
+<div class="wrap">
+	<img src="/static/images/admin/login/bg.jpg" class="imgStyle">
+	<div class="loginForm">
+		<form>
+			<div class="logoHead">
+				<!--<h2 style="margin-top: 15px">房产销售平台管理系统</h2>-->
+			</div>
+			<div class="usernameWrapDiv">
+				<div class="usernameLabel">
+					<label>用户名:</label>
 				</div>
-
-				<div th:if="${param.error}" style="
-				     position: absolute;
-				     top: 34.5%;
-				     left: 12%;
-    				font-size: 90%;" >
-					非法的账号或密码
+				<div class="usernameDiv">
+					<i class="layui-icon layui-icon-username adminIcon"></i>
+					<input id="loginUsername" class="layui-input adminInput" type="text" name="username" placeholder="输入用户名" >
 				</div>
-				<input type="submit" value="Login" class="submit">
-			</form>
-
-<!------------------手机号登录--------------------------------->
-			<button id="phone-swtich" class="phone-swtich">Login with mobile phone number</button>
-		</div>
-		<div id="phone-login" class="phone-login">
-			<h2>Login with phone number</h2>
-
-			<form th:action="@{/login}" method="post">
-				<div class="login-p">
-					<label for="phonenum" class="iconfont icon-user"></label>
-					<input type="text" id="Phonenum" autocomplete="off" name="telephone"  class="first_line">
-					<label for="code" class="iconfont icon-lock"></label>
-					<input type="text" id="code" autocomplete="off" name="smsCode">
-
-					<div th:if="${param.error}"
-						 style="position: absolute;
-						 top: 34.5%;
-						 left: 12%;
-						 font-size: 90%;">
-						验证码出错
-					</div>
-
-					<button id="smsCodeBtn" type="button"
-							class="">
-						获取验证码
-					</button>
-
-
+			</div>
+			<div class="usernameWrapDiv">
+				<div class="usernameLabel">
+					<label>密码:</label>
 				</div>
-				<input type="submit" value="Login" class="submit" id="submit-btn">
-			</form>
-
-
-			<button id="account-swtich" class="phone-swtich">Login with your account and password</button>
-		</div>
+				<div class="passwordDiv">
+					<i class="layui-icon layui-icon-password adminIcon"></i>
+					<input id="loginPassword" class="layui-input adminInput" type="password" name="password" placeholder="输入密码">
+				</div>
+			</div>
+			<div class="usernameWrapDiv">
+				<div class="usernameLabel">
+					<label>验证码:</label>
+				</div>
+				<div class="cardDiv">
+					<input id="loginCard" class="layui-input cardInput" type="text" name="card" placeholder="输入验证码">
+				</div>
+				<div class="codeDiv">
+					<input id="loginCode" class="layui-input codeInput"  type="button">
+				</div>
+			</div>
+			<div class="usernameWrapDiv">
+				<div class="submitLabel">
+					<label>没有账号？<a href="#" id="loginRegister">点击注册</a></label>
+				</div>
+				<div class="submitDiv">
+					<input id="loginBtn" type="button" class="submit layui-btn layui-btn-primary" value="登录"></input>
+				</div>
+			</div>
+		</form>
 	</div>
-
-
-<footer th:include="admin/common :: footer"></footer>
-<script type="text/javascript" src="/static/lib/jquery/1.9.1/jquery.min.js"></script>
-<script type="text/javascript" src="/static/lib/layui/layui.js"></script>
-<script type="text/javascript">
-
+</div>
+<script src="/static/lib/myLayui/layui.js" type="text/javascript"></script>
+<script>
+    layui.use(['layer'],function () {
+        var layer = layui.layer;
+    })
     $(function () {
-
-
-    $('#smsCodeBtn').on('click', function () {
-
-        var telephone=$('.login-p').find('input[name="telephone"]').val();
-
-        /*var telephone = $('.login-form form').find('input[name="telephone"]').val(),
-            phonePattern = /^((13[0-9])|(14[5|7])|(15([0-3]|[5-9]))|(18[0,5-9]))\d{8}$/;
-        var n = telephone.search(phonePattern);
-        if (n < 0) {
-            layer.msg('请输入正确的手机号', {icon: 5, time: 2000});
+        // 页面初始化生成验证码
+        window.onload = createCode('#loginCode');
+        // 验证码切换
+        $('#loginCode').click(function () {
+            createCode('#loginCode');
+        });
+        // 登陆事件
+        $('#loginBtn').click(function () {
+            login();
+        });
+        // 注册事件
+        $('#loginRegister').click(function () {
+            register();
+        });
+    });
+    // 生成验证码
+    function createCode(codeID) {
+        var code = "";
+        // 验证码长度
+        var codeLength = 4;
+        // 验证码dom元素
+        var checkCode = $(codeID);
+        // 验证码随机数
+        var random = [0,1,2,3,4,5,6,7,8,9,'A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R',
+            'S','T','U','V','W','X','Y','Z'];
+        for (var i = 0;i < codeLength; i++){
+            // 随机数索引
+            var index = Math.floor(Math.random()*36);
+            code += random[index];
+        }
+        // 将生成的随机验证码赋值
+        checkCode.val(code);
+    }
+    // 校验验证码、用户名、密码
+    function validateCode(inputID,codeID) {
+        var inputCode = $(inputID).val().toUpperCase();
+        var cardCode = $(codeID).val();
+        var loginUsername = $('#loginUsername').val();
+        var loginPassword = $('#loginPassword').val();
+        if ($.trim(loginUsername) == '' || $.trim(loginUsername).length<=0){
+            layer.alert("用户名不能为空");
             return false;
         }
-        $(this).attr('readonly', 'readonly');*/
-
-
-        $.ajax({
-            url: '/sms/code?telephone=' + telephone,
-            type: 'GET',
-            success: function (data) {
-                if (data.code === 200) {
-                    var smsBtn = $('#smsCodeBtn');
-                    smsBtn.attr('disabled', 'disabled');
-                    smsBtn.css("background-color", "#b4b2b3");
-
-                    var time = 60;
-                    var clock = setInterval(function () {
-                        if (time-- <= 0) {
-                            smsBtn.removeAttr('disabled');
-                            smsBtn.css('background-color', '#00b4ef');
-                            smsBtn.text('获取验证码');
-                            clearInterval(clock);
-                        } else {
-                            smsBtn.text(time + 's 重新发送');
-                        }
-                    }, 1000);
-                    layer.msg('获取验证码成功', {icon: 6, time: 2000});
-                } else {
-                    layer.msg('获取失败: ' + data.message, {icon: 5, time: 2000});
+        if ($.trim(loginPassword) == '' || $.trim(loginPassword).length<=0){
+            layer.alert("密码不能为空");
+            return false;
+        }
+        if (inputCode.length<=0){
+            layer.alert("验证码不能为空");
+            return false;
+        }
+        if (inputCode != cardCode){
+            layer.alert("请输入正确验证码");
+            return false;
+        }
+        return true;
+    }
+    // 登录流程
+    function login() {
+        if (!validateCode('#loginCard','#loginCode')){
+            //阻断提示
+        }else {
+            var loginUsername = $('#loginUsername').val();
+            var loginPassword = $('#loginPassword').val();
+            var params = {};
+            params.loginUsername = loginUsername;
+            params.loginPassword = loginPassword;
+            var loginLoadIndex = layer.load(2);
+            $('#loginBtn').val("正在登录...");
+            $.ajax({
+                type:'post',
+                url:window.location.protocol+'//'+window.location.host+'/security-web/login.do',
+                dataType:'html',
+                data:JSON.stringify(params),
+                contentType:'application/json',
+                success:function (data) {
+                    layer.close(loginLoadIndex);
+                    var jsonData = JSON.parse(data);
+                    if (jsonData.code == '999'){
+                        window.location.href = './static/templates/main.html';
+                    }
+                },
+                error:function () {
+                    layer.close(loginLoadIndex);
+                    $('#loginBtn').val("登录");
                 }
+            });
+        }
+
+    }
+    // 注册流程
+    function register() {
+        layer.open({
+            type:'1',
+            content:$('.registerPage'),
+            title:'注册',
+            area:['430px','400px'],
+            btn:['注册','重置','取消'],
+            closeBtn:'1',
+            btn1:function (index,layero) {
+                //注册回调
+                layer.close(index);
+                var registerUsername = $('#registerUsername').val();
+                var registerPassword = $('#registerPassword').val();
+                var registerWellPassword = $('#registerWellPassword').val();
+                var selectValue = $('#roleSelect option:selected').val();
+                var params = {};
+                params.registerUsername = registerUsername;
+                params.registerPassword = registerPassword;
+                params.registerWellPassword = registerWellPassword;
+                params.selectValue = selectValue;
+                var registerLoadIndex = layer.load(2);
+                $.ajax({
+                    type:'post',
+                    url:window.location.protocol+'//'+window.location.host+'/security-web/register.do',
+                    dataType:'json',
+                    data:JSON.stringify(params),
+                    contentType:'application/json',
+                    success:function (data) {
+                        layer.close(registerLoadIndex);
+                        layer.msg(data);
+                    },
+                    error:function () {
+                        layer.close(registerLoadIndex);
+                        layer.alert("请求超时！")
+                    }
+                });
             },
-            error: function (xhr, response, error) {
-                layer.msg('服务器错误: ' + response, {icon: 5, time: 2000});
+            btn2:function (index,layero) {
+                //重置回调
+                var registerUsername = $('#registerUsername').val("");
+                var registerPassword = $('#registerPassword').val("");
+                var registerWellPassword = $('#registerWellPassword').val("");
+                // 防止注册页面关闭
+                return false;
+            },
+            btn3:function (index,layero) {
+                //取消回调
             }
-        });
-    });
-
-
-
-
-
-
-
-
-
-        $('#submit-btn').on('click', function () {
-            var bind = $('.login-form .heading span.select').attr('data-bind');
-
-            if (bind === 'phone') {
-                var telephone = $('.login-form form').find('input[name="telephone"]').val(),
-                    phonePattern = /^((13[0-9])|(14[5|7])|(15([0-3]|[5-9]))|(18[0,5-9]))\d{8}$/;
-                var n = telephone.search(phonePattern);
-                if (n < 0) {
-                    layer.msg('请输入正确的手机号', {icon: 5, time: 2000});
-                    return false;
-                }
-
-                var smsCode = $('.login-form form').find('input[name="smsCode"]').val();
-                if (smsCode.length !== 6) {
-                    layer.msg('请输入4位验证码', {icon: 5, time: 2000});
-                    return false;
-                }
-            } else {
-                var username = $('.login-form form').find('input[name="username"]').val();
-                if (username.length < 1) {
-                    layer.msg('请输入用户名/手机号', {icon: 5, time: 2000});
-                    return false;
-                }
-                var password = $('.login-form form').find('input[name="password"]').val();
-                if (password.length < 1) {
-                    layer.msg('请输入密码', {icon: 5, time: 2000});
-                    return false;
-                }
-
-            }
-            return true;
-        });
-
-
-
-
-
-
-
-
-    });
-
-
-
+        })
+    }
 </script>
 
 </body>
+<div class="registerPage">
+	<div class="registerDiv">
+		<form>
+			<div class="usernameWrapDiv">
+				<div class="usernameLabel">
+					<label>用户名:</label>
+				</div>
+				<div class="usernameDiv">
+					<i class="layui-icon layui-icon-username adminIcon"></i>
+					<input id="registerUsername" class="layui-input adminInput" type="text" name="username" placeholder="输入用户名" >
+				</div>
+			</div>
+			<div class="usernameWrapDiv">
+				<div class="usernameLabel">
+					<label>密码:</label>
+				</div>
+				<div class="passwordDiv">
+					<i class="layui-icon layui-icon-password adminIcon"></i>
+					<input id="registerPassword" class="layui-input adminInput" type="password" name="password" placeholder="输入密码">
+				</div>
+			</div>
+			<div class="usernameWrapDiv">
+				<div class="usernameLabel">
+					<label>确认密码:</label>
+				</div>
+				<div class="passwordDiv">
+					<i class="layui-icon layui-icon-password adminIcon"></i>
+					<input id="registerWellPassword" class="layui-input adminInput" type="password" name="password" placeholder="输入密码">
+				</div>
+			</div>
+			<div class="usernameWrapDiv">
+				<div class="usernameLabel">
+					<label>角色类型:</label>
+				</div>
+				<div class="passwordDiv">
+					<select id="roleSelect" class="layui-select">
+						<option value="">请选择...</option>
+						<option value="0">经纪人</option>
+						<option value="1">房东</option>
+					</select>
+				</div>
+			</div>
+		</form>
+	</div>
+</div>
 </html>

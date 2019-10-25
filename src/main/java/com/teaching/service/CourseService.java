@@ -40,6 +40,12 @@ public interface CourseService {
     public List<Course> findAllCourseDelete();
 
     /**
+     * 查询所有被删除的课程 del-0 status-待审核
+     * @return
+     */
+    public List<Course> findAllCheckCourse();
+
+    /**
      * 根据类目id查询所有课程
      * @param id
      * @return

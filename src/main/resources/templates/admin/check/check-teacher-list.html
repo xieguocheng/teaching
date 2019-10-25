@@ -77,7 +77,7 @@
                 <td class="td-manage">
                     <a title="审核" style="text-decoration:none" href="javascript:;"
                        th:onclick="|showVideo('审核-->通过发送邮件通知用户是否审核成功','/admin/check/checkTeacher/${authTeacher.id}','800','500')|"  >
-                        <i class="Hui-iconfont">&#xe603;</i></a>
+                        <i class="Hui-iconfont">&#xe63c;</i></a>
                 </td>
 
 
@@ -117,160 +117,11 @@
         layer_show(title,url,w,h);
     }
 
-    /*用户审核*/
-    function check(obj,id){
-        layer.confirm('审核教师资格？',{btn: ['通过','不通过','取消'], shade: false, closeBtn: 0},
-            function(index){//通过走这里
-                $.ajax({
-                type: "POST",
-                url: "/admin/check/checkTeacherYes",
-                data: {
-                    id:id,
-                },
-                success: function(data){
-                    //var data = eval('(' + data + ')');
-                    if (data.code === 200){
-                        $(obj).parents("tr").remove();
-                        layer.msg('已通过审核，请到教师列表查看!',{icon:1,time:2000});
-                    }
-                    else{
-                        alert("发生错误!请重新操作");
-                    }
-                },
-                error : function(result) {
-                        layer.msg("error失败！", {icon: 5, time: 2000});
-                        layer.close(loadindex);
-                    }
-            });
-        },
-         function(index){//不通过走这里
-                $.ajax({
-                    type: "POST",
-                    url: "/admin/check/checkTeacherNo",
-                    data: {
-                        id:id,
-                    },
-                    success: function(data){
-                        if (data.code === 200){
-                            $(obj).parents("tr").remove();
-                            layer.msg('不通过审核!',{icon:5,time:2000});
-                        }
-                        else{
-                            alert("发生错误!请重新操作");
-                        }
-                    },
-                    error : function(result) {
-                        layer.msg("error失败！", {icon: 5, time: 2000});
-                        layer.close(loadindex);
-                    }
-                });
-            }
-
-        );
-
-    }
-
-
-
-
-
-
-
-
-
-
-    /*课程详情页面*/
-    function course_show(title,url,w,h){
-        var index = layer.open({
-            type: 2,
-            title: title,
-            content: url
-        });
-        layer.full(index);
-    }
-
     /*用户详情页面*/
     function userDetail(title,url,w,h){
         layer_show(title,url,w,h);
     }
 
-    /*用户-停用*/
-    function course_stop(obj,id){
-        layer.confirm('确认弃用吗？',function(index){
-            $.ajax({
-                type: "POST",
-                url: "/admin/course/courseStop",
-                data: {
-                    id:id,
-                },
-                success: function(data){
-                    //var data = eval('(' + data + ')');
-                    if (data.code === 200){
-                        $(obj).parents("tr").find(".td-manage").prepend('<a style="text-decoration:none" ' +
-                            'onClick="course_start(this,'+id+')" href="javascript:;" title="上架">' +
-                            '<i class="Hui-iconfont">&#xe603;</i></a>');
-                        $(obj).parents("tr").find(".td-status").html('<span class="label label-defaunt radius">弃用</span>');
-                        $(obj).remove();
-                        layer.msg('弃用!',{icon: 5,time:2000});
-                        //location.replace(location.href);
-                    }else{
-                        alert("发生错误!请重新操作");
-                    }
-                }
-            });
-        });
-
-    }
-
-    /*用户-启用*/
-    function chek(obj,id){
-
-        layer.confirm('确认使用吗？',function(index){
-            $.ajax({
-                type: "POST",
-                url: "/admin/course/courseStart",
-                data: {
-                    id:id,
-                },
-                success: function(data){
-                    //var data = eval('(' + data + ')');
-                    if (data.code === 200){
-                        $(obj).parents("tr").find(".td-manage").prepend('<a style="text-decoration:none" ' +
-                            'onClick="course_stop(this,'+id+')" href="javascript:;" title="下架"><i class="Hui-iconfont">&#xe6de;</i></a>');
-                        $(obj).parents("tr").find(".td-status").html('<span class="label label-success radius">正常</span>');
-                        $(obj).remove();
-                        layer.msg('已使用!',{icon: 6,time:2000});
-                        //location.replace(location.href);
-                    }else{
-                        alert("发生错误!请重新操作");
-                    }
-                }
-            });
-        });
-    }
-
-
-
-
-
-    /*课程task页面*/
-    function course_show_task(title,url,id,w,h){
-        var index = layer.open({
-            type: 2,
-            title: title,
-            content: url
-        });
-        layer.full(index);
-    }
-    /*课程experiment页面*/
-    function course_show_experiment(title,url,id,w,h){
-        var index = layer.open({
-            type: 2,
-            title: title,
-            content: url
-        });
-        layer.full(index);
-    }
 
 
 </script>

@@ -76,6 +76,19 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
+    public List<Course> findAllCheckCourse() {
+        //查询所有待审核的课程 del-0,status-0待审核
+        Example courseExample=new Example(Course.class);
+        courseExample.createCriteria()
+                .andEqualTo("del",CommonStatus.DEL_NO.getValue())
+                .andEqualTo("status",CourseStatus.STATUS_DEFULT.getValue());
+        courseExample.orderBy("createTime").desc();
+        List<Course> courseList=courseMapper.selectByExample(courseExample);
+
+        return courseList;
+    }
+
+    @Override
     public List<Course> findCourseByClassify(Integer id) {
 
         //根据类目id搜索所有课程

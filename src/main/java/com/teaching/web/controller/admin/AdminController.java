@@ -8,6 +8,7 @@ import com.teaching.mapper.CourseMapper;
 import com.teaching.pojo.AuthUser;
 import com.teaching.pojo.BbsArticle;
 import com.teaching.pojo.Course;
+import com.teaching.service.ChartService;
 import com.teaching.service.CommonService;
 import com.teaching.utils.ServiceResult;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @Author： XO
@@ -28,6 +33,9 @@ public class AdminController {
 
     @Autowired
     private CommonService commonService;
+
+    @Autowired
+    private ChartService chartService;
 
 
 
@@ -129,8 +137,22 @@ public class AdminController {
         model.addAttribute("authUserVisit",authUserVisit.getResult());
         model.addAttribute("bbsVisit",bbsVisit.getResult());
 
+        //柱状图
+        Integer course[]=chartService.getChartCourse();
+        model.addAttribute("course",course);
+
+        Integer user[]=chartService.getChartUser();
+        model.addAttribute("user",user);
+
+
 
         return "admin/welcome";
+    }
+
+    @GetMapping("admin/feedback/feedbackList")
+    public String questionListPage(){
+
+        return "admin/feedback/feedback-list";
     }
 
 

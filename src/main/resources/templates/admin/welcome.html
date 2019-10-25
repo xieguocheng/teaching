@@ -173,7 +173,7 @@
     <br><br>
     <article class="cl pd-20">
         <div class="f-14 c-error" style="text-align: center;">
-            用户折线图
+            柱状图
         </div>
         <div id="container" style="min-width:700px;height:400px"></div>
     </article>
@@ -320,49 +320,67 @@
     /*<![CDATA[*/
     $(function () {
         $('#container').highcharts({
+            chart: {
+                type: 'column'
+            },
             title: {
-                text: '月平均用户增长量',
-                x: -20 //center
+                text: '网站浏览量/用户量/课程量/BBS文章量数据分析'
             },
             subtitle: {
-                text: '来源：智慧教学网站系统后台大数据统计',
-                x: -20
+                text: 'Source: intelligence.com'
             },
             xAxis: {
-                categories: ['一月', '二月', '三月', '四月', '五月', '六月','七月', '八月', '九月', '十月', '十一月', '十二月']
+                categories: [
+                    '一月',
+                    '二月',
+                    '三月',
+                    '四月',
+                    '五月',
+                    '六月',
+                    '七月',
+                    '八月',
+                    '九月',
+                    '十月',
+                    '十一月',
+                    '十二月'
+                ]
             },
             yAxis: {
+                min: 0,
                 title: {
-                    text: '人数/个'
-                },
-                plotLines: [{
-                    value: 0,
-                    width: 1,
-                    color: '#808080'
-                }]
+                    text: '个 '
+                }
             },
             tooltip: {
-                valueSuffix: '个'
+                headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+                pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                '<td style="padding:0"><b>{point.y:.1f} 个</b></td></tr>',
+                footerFormat: '</table>',
+                shared: true,
+                useHTML: true
             },
-            legend: {
-                layout: 'vertical',
-                align: 'right',
-                verticalAlign: 'middle',
-                borderWidth: 0
+            plotOptions: {
+                column: {
+                    pointPadding: 0.2,
+                    borderWidth: 0
+                }
             },
             series: [{
-                name: '2016年',
-                data: [7.0, 6.9, 9.5, 14.5, 18.2, 21.5, 25.2, 26.5, 23.3, 18.3, 13.9, 9.6]
+                name: '网站浏览量',
+                data: [49.9, 71.5, 106.4, 129.2, 144.0, 176.0, 135.6, 148.5, 216.4, 194.1, 95.6, 54.4]
+
             }, {
-                name: '2017年',
-                data: [-0.2, 0.8, 5.7, 11.3, 17.0, 22.0, 24.8, 24.1, 20.1, 14.1, 8.6, 2.5]
+                name: '用户量',
+                data: [[${user}]]
+
             }, {
-                name: '2018年',
-                data: [-0.9, 0.6, 3.5, 8.4, 13.5, 17.0, 18.6, 17.9, 14.3, 9.0, 3.9, 1.0]
+                name: '课程量',
+                data: [[${course}]]
+
             }, {
-                name: '2019年',
-                /*data: [3.9, 4.2, 5.7, 8.5, 11.9, 15.2, 17.0, 16.6, 14.2, 10.3, 6.6, 4.8]*/
-                data:[[${time}]]
+                name: 'BBS论坛文章量',
+                data: [42.4, 33.2, 34.5, 39.7, 52.6, 75.5, 57.4, 60.4, 47.6, 39.1, 46.8, 51.1]
+
             }]
         });
     });

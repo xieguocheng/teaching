@@ -1,0 +1,298 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+   <!-- <link rel="stylesheet" type="text/css" href="/static/lib/datatables/1.10.15/jquery.dataTables.css">-->
+    <div th:include="admin/common :: head"></div>
+
+
+    <title>基本详情页面</title>
+</head>
+<body>
+
+<div class="cl pd-20" style=" background-color:#5bacb6">
+    <!-- 教师头像默认保存在home/teacherImg -->
+    <img class="avatar size-XL l" th:src="${course?.picture}">
+    <input id="courseId" name="courseId" th:value="${course.id}" hidden/>
+    <dl style="margin-left:80px; color:#fff">
+        <dt>
+            <span class="f-18" th:text="${course?.name}" ></span>
+            <!--<span class="pl-10 f-12" th:text="教师【+${course?.user_id}+】"></span>-->
+
+        </dt>
+        <dd class="pt-10 f-12" style="margin-left:0" th:text="课程类型【+${course.subClassifyName}+】"></dd>
+    </dl>
+
+</div>
+
+
+<div id="tab_demo" class="HuiTab">
+    <div class="tabBar clearfix" style="background: #5bacb6">
+        <span style="background: #5bacb6" title="课程详情">课程详情</span>
+        <span style="background: #5bacb6" title="课程章节">课程章节</span>
+    </div>
+
+    <div class="tabCon" >
+        <div class="pd-20">
+        <table class="table">
+            <tbody>
+
+            <tr>
+                <th class="text-r" width="80">简介：</th>
+                <td th:text="${course.brief}"></td>
+            </tr>
+            <tr>
+                <th class="text-r" width="80">时长：</th>
+                <td th:text="${course.time}+'/h'"></td>
+            </tr>
+            <tr>
+                <th class="text-r" width="80">学习人数：</th>
+                <td th:text="${course.studyCount}+'人'"></td>
+            </tr>
+
+            <tr th:if="${course.free==0}">
+                <th class="text-r" width="80">价格：</th>
+                <td th:text="${course.price}+'美元'"></td>
+            </tr>
+
+            <tr>
+                <th class="text-r" width="80">是否免费：</th>
+                <td th:if="${course.free==1}"><span  class="label label-secondary radius">免费</span></td>
+                <td th:if="${course.free==0}"><span  class="label label-danger radius">收费</span></td>
+            </tr>
+
+            <tr>
+                <th class="text-r" width="80">课程级别：</th>
+                <td th:if="${course.level==1}"><span  class="label label-secondary radius">初级课程</span></td>
+                <td th:if="${course.level==2}"><span  class="label label-success radius">中级课程</span></td>
+                <td th:if="${course.level==3}"><span  class="label label-danger radius">高级课程</span></td>
+            </tr>
+
+            <tr>
+                <th class="text-r" width="80">课程状态：</th>
+                <td th:if="${course.status==0}"><span  class="label label-secondary radius">默认</span></td>
+                <td th:if="${course.status==1}"><span  class="label label-success  radius">审核中</span></td>
+                <td th:if="${course.status==2}"><span  class="label label-danger radius">审核成功</span></td>
+                <td th:if="${course.status==3}"><span  class="label label-info  radius">审核失败</span></td>
+            </tr>
+
+            <tr>
+                <th class="text-r" width="80">是否上架：</th>
+                <td th:if="${course.onsale==0}"><span  class="label label-info radius">未上架</span></td>
+                <td th:if="${course.onsale==1}"><span  class="label label-secondary radius">已上架</span></td>
+            </tr>
+
+            <tr>
+                <th class="text-r" width="80">是否被推荐：</th>
+                <td th:if="${course.recommend==0}"><span  class="label label-info radius">未推荐</span></td>
+                <td th:if="${course.recommend==1}"><span  class="label label-secondary radius">推荐</span></td>
+            </tr>
+            <tr>
+                <th class="text-r" width="80">创建人：</th>
+                <td th:text="${course.createUser}"></td>
+            </tr>
+
+            <tr>
+                <th class="text-r" width="80">创建时间：</th>
+                <td th:text="${#dates.format(course.createTime, 'yyyy-MM-dd HH:mm:ss')}"></td>
+            </tr>
+            <tr>
+                <th class="text-r" width="80">更新时间：</th>
+                <td th:text="${#dates.format(course.updateTime, 'yyyy-MM-dd HH:mm:ss')}"></td>
+            </tr>
+
+            <tr>
+                <th class="text-r" width="80">删除状态：</th>
+                <td th:if="${course.del==0}"><span  class="label label-secondary radius">正常</span></td>
+                <td th:if="${course.del==1}"><span  class="label label-danger radius">已删除</span></td>
+            </tr>
+
+
+            </tbody>
+        </table>
+    </div></div>
+
+    <div class="tabCon">
+        <div class="pd-20">
+            <table id="table1" class="layui-table" lay-filter="table1"></table>
+        </div>
+    </div>
+
+    <div class="tabCon">
+        <div class="pd-20">
+           <table id="demo" lay-filter="test" lay-skin="line" class="layui-table" ></table>
+        </div>
+    </div>
+
+    <div class="tabCon">
+        <div class="pd-20">
+            <table id="table2" class="layui-table" lay-filter="table2"></table>
+        </div>
+
+    </div>
+
+    <div class="tabCon">
+        <div class="pd-20">
+            <table id="table3" class="layui-table" lay-filter="table3"></table>
+        </div>
+
+    </div>
+</div>
+
+
+
+
+
+
+<footer th:include="admin/common :: footer"></footer>
+<!--请在下方写此页面业务相关的脚本-->
+<script type="text/javascript" src="/static/lib/h-ui/js/H-ui.js"></script>
+<script type="text/javascript" src="/static/lib/jquery/1.9.1/jquery.min.js"></script>
+
+<script type="text/javascript" src="/static/lib/myLayui/layui.js"></script>
+<link rel="stylesheet" type="text/css" href="/static/lib/myLayui/css/layui.css"/>
+
+<!--layui.table图片显示不全，需重新定义CSS  -->
+<style type="text/css">
+    .layui-table-cell{
+        height:auto!important;
+        white-space:normal;
+    }
+
+</style>
+<script type="text/javascript">
+
+    layui.use('table', function(){
+        var table = layui.table;
+        var courseId=$("#courseId").val();
+        //第一个实例
+        table.render({
+            elem: '#demo'
+            ,height: 'full'
+            ,cellMinWidth: 80 //全局定义常规单元格的最小宽度
+            ,limit:10
+            ,url: '/admin/course/courseUserList/'+courseId //数据接口
+            ,page: true //开启分页
+            ,cols: [
+                [ //表头
+                /*{field: 'id', title: 'ID', width:80, fixed: 'center'}*/
+                {field: 'username', title: '用户名（账号）',width:200,align:'center'}
+                ,{field: 'realname', title: '真实姓名',align:'center',width:100 }
+                ,{field: 'hearder', title: '头像', align:'center' ,width:150,templet: function(res){
+                        return '<image href="javascript:void(0)" src=\''+res.hearder+'\' style="width:100px; height:100px; border-radius:50%;class="avatar size-XL l"  ">';
+                    }}
+                    ,{field: 'username', title: '性别',align:'center',width:100,templet: function(res){
+                        if(res.gender==0){
+                            return "未知"
+                        }else if(res.gender==1){
+                            return "男"
+                        }else {
+                            return "女"
+                        }
+                    } }
+                    ,{field: 'sign', title: '签名',align:'center' }
+                    ,{field: 'hobby', title: '兴趣爱好',align:'center' }
+                    ,{field: 'createTime', title: '开始学习时间',align:'center',templet : "<div>{{layui.util.toDateString(d.createTime, 'yyyy年MM月dd日 HH:mm:ss')}}</div>"},
+
+                 ]
+            ]
+        });
+
+    });
+
+    layui.config({
+        base: '/static/lib/module/'    /* 修改为你module文件夹地址*/
+    }).extend({
+        treetable: 'treetable-lay/treetable'
+    }).use(['table', 'treetable'], function () {
+        var $ = layui.jquery;
+        var table = layui.table;
+        var treetable = layui.treetable;
+        var courseId=$("#courseId").val();
+
+        // 渲染表格
+        var renderTable = function () {
+            layer.load(2);
+            treetable.render({
+                size: 'lg', //尺寸
+                limit:10,
+                treeColIndex: 0, //设置下拉箭头在第几列
+                treeSpid: "0",   //最上级的父级id
+                treeIdName: 'id', //id字段的名称(自己的id)
+                treePidName: 'parentId', //pid字段的名称（父亲的id）
+                treeDefaultClose: false, //是否默认折叠
+                treeLinkage: false, //父级展开时是否自动展开所有子级
+                elem: '#table1', //表格的id
+                url: '/admin/course/courseSection/'+courseId, //数据请求地址，返回json格式数据（映射路径）
+                page: false,
+                cols: [   //列数和列名可根据需要更改
+                    [
+                        {field: 'name', width:"30%",align:'left' , title: '章节名称'}, //filed:json数据的key
+                        {field: 'time', width:"10%",align:'center' , title: '时长',templet: function(res){
+                                return res.time+"h";
+                            }},
+                        {field: 'createTime',width:"20%",align:'center' , title: '创建时间 ',templet : "<div>{{layui.util.toDateString(d.createTime, 'yyyy年MM月dd日 HH:mm:ss')}}</div>"},
+                        {field: 'updateTime',align:'center' , title: '修改时间 ',templet : "<div>{{layui.util.toDateString(d.updateTime, 'yyyy年MM月dd日 HH:mm:ss')}}</div>"},
+                        {field: 'videoUrl',align:'center', title: '操作',templet: function(res){
+                            var temp=res.id;
+
+                            var deleteButton = '<button class=\"layui-btn layui-btn-danger layui-btn-xs\" onclick=\'removeCourseSection(\"删除\", "/admin/courseSection/playVideo/", \"'+temp+'\","800\", \"500\")\'>删除</button>';
+                            if(res.videoUrl){
+
+                                var playButton = '<button class=\"layui-btn layui-btn-xs\" onclick=\'showVideo(\"查看视频\", "/admin/courseSection/playVideo/", \"'+temp+'\","800\", \"500\")\'>查看视频</button>';
+                                return playButton+"&nbsp"+deleteButton;
+                            }
+                            var addButton = '<button class=\"layui-btn layui-btn-primary layui-btn-xs \" onclick=\'editCourseSection(\"编辑\", "/admin/courseSection/playVideo/", \"'+temp+'\","800\", \"500\")\'>编辑</button>';
+                            return addButton;
+
+                          //var addButton = '<button class=\"layui-btn layui-btn-xs\" onclick=\'showVideo(\"新增编辑\", "/admin/course/playVideo/\"+temp, \"800\", \"500\")\'>查看视频</button>';
+                        }
+                        }
+                    ]
+                ],
+                done: function () {
+                    layer.closeAll('loading');
+                }
+            });
+        };
+        renderTable();
+    });
+
+
+
+
+    /*详情页面*/
+    function showVideo(title,url,id,w,h){
+        debugger;
+        var url=url+id;
+        layer_show(title,url,w,h);
+    }
+
+    /*控制跳转*/
+    jQuery.Huitab =function(tabBar,tabCon,class_name,tabEvent,i){
+        var $tab_menu=$(tabBar);
+        // 初始化操作
+        $tab_menu.removeClass(class_name);
+        $(tabBar).eq(i).addClass(class_name);
+        $(tabCon).hide();
+        $(tabCon).eq(i).show();
+
+        $tab_menu.bind(tabEvent,function(){
+            $tab_menu.removeClass(class_name);
+            $(this).addClass(class_name);
+            var index=$tab_menu.index(this);
+            $(tabCon).hide();
+            $(tabCon).eq(index).show()})}
+
+
+    $(function(){
+        $.Huitab("#tab_demo .tabBar span","#tab_demo .tabCon","current","click","0")
+    });
+
+
+
+
+
+
+</script>
+</body>
+</html>

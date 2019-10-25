@@ -16,6 +16,7 @@
             <textarea id="brief" name="brief" style="display: none;" >
 
 
+
             </textarea>
     </div>
 
@@ -42,9 +43,11 @@
 
 <script type="text/javascript">
 
+    var build;
+    var layedit;
     layui.use('layedit', function(){
-        var layedit = layui.layedit;
-        layedit.build('brief'); //建立编辑器
+       layedit = layui.layedit;
+        build=layedit.build('brief'); //建立编辑器
     });
 
 
@@ -54,14 +57,15 @@
 
 
         $("#yes").click( function () {
-            debugger;
             var loadindex=layer.load(3);//打开加载框
             var id=$("#id").val();
             var email=$("#email").val();
-            var brief=$("#brief").text();
+            var brief=layedit.getContent(build);
+
+            debugger;
             $.ajax({
                 type: "POST",
-                url: "/admin/check/doCheck",
+                url: "/admin/check/doCheckTeacher",
                 async : true,
                 data: {
                     id:id,
@@ -100,7 +104,7 @@
             var brief=$("#brief").val();
             $.ajax({
                 type: "POST",
-                url: "/admin/check/doCheck",
+                url: "/admin/check/doCheckTeacher",
                 async : true,
                 data: {
                     id:id,
