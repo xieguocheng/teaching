@@ -1,10 +1,7 @@
 package com.teaching.config;
 
 
-import com.teaching.security.AuthFilter;
-import com.teaching.security.AuthProvider;
-import com.teaching.security.LoginAuthFailHandler;
-import com.teaching.security.LoginUrlEntryPoint;
+import com.teaching.security.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -56,15 +53,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
                 .and()
                 .formLogin()
                 .loginPage("/admin/login")
-               /* .successHandler((httpServletRequest, httpServletResponse, authentication) -> {
+               /*.successHandler((httpServletRequest, httpServletResponse, authentication) -> {
                     System.out.println("succeed!!!!!!!");
                     httpServletResponse.setContentType("application/json;charset=utf-8");
                     PrintWriter out = httpServletResponse.getWriter();
                     out.write("{\"status\":\"ok\",\"msg\":\"登录成功\"}");
                     out.flush();
                     out.close();
-                })
-                .failureHandler(new AuthenticationFailureHandler() {
+                })*/
+                /* .failureHandler(new AuthenticationFailureHandler() {
                     @Override
                     public void onAuthenticationFailure(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, AuthenticationException e)
                             throws IOException, ServletException {
@@ -76,7 +73,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
                     }
                 })*/
                 .loginProcessingUrl("/login") // 配置角色登录处理入口
-                //.failureHandler(authFailHandler())          //登录失败处理跳转user登录界面
+                .failureHandler(authFailHandler())          //登录失败处理
+                .successHandler(authSuccessHandler())       //登录成功处理
                 .failureUrl("/admin/login?error=true")    //登录失败处理跳转admin登录界面
                 .and()
                 .logout()
@@ -136,6 +134,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 
         return new LoginAuthFailHandler(urlEntryPoint());
     }
+    /**
+     * 调用自己注入的LoginAuthSuccessHandler
+     * @return
+     */
+    @Bean
+    public LoginAuthSuccessHandler authSuccessHandler() {
+
+        return new LoginAuthSuccessHandler(urlEntryPoint());
+    }
 
     /**
      * 调用自己注入的AuthFilter
@@ -146,7 +153,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
     public AuthFilter authFilter() {
         AuthFilter authFilter = new AuthFilter();
         authFilter.setAuthenticationManager(authenticationManager());
-        authFilter.setAuthenticationFailureHandler(authFailHandler());
+        authFilter.setAuthenticationFailureHandler(authFailHandler());//
+        authFilter.setAuthenticationSuccessHandler(authSuccessHandler());//
         return authFilter;
     }
 

@@ -31,6 +31,7 @@ public class LoginAuthFailHandler extends SimpleUrlAuthenticationFailureHandler 
         targetUrl += "?" + exception.getMessage()+"&error=true";
         super.setDefaultFailureUrl(targetUrl);//设置失败跳转页面
         super.onAuthenticationFailure(request, response, exception);*/
+        System.out.println("失败了!!!!");
         response.setContentType("application/json;charset=utf-8");
         PrintWriter out = response.getWriter();
         out.write("{\"status\":\"error\",\"msg\":\"登录失败\"}");

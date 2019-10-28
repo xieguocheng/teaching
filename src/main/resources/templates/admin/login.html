@@ -252,19 +252,19 @@
         var loginUsername = $('#loginUsername').val();
         var loginPassword = $('#loginPassword').val();
         if ($.trim(loginUsername) == '' || $.trim(loginUsername).length<=0){
-            layer.alert("用户名不能为空");
+            layer.msg("用户名不能为空！", {icon: 5, time: 2000});
             return false;
         }
         if ($.trim(loginPassword) == '' || $.trim(loginPassword).length<=0){
-            layer.alert("密码不能为空");
+            layer.msg("密码不能为空！", {icon: 5, time: 2000});
             return false;
         }
         if (inputCode.length<=0){
-            layer.alert("验证码不能为空");
+            layer.msg("验证码不能为空！", {icon: 5, time: 2000});
             return false;
         }
         if (inputCode != cardCode){
-            layer.alert("请输入正确验证码");
+            layer.msg("请输入正确验证码！", {icon: 5, time: 2000});
             return false;
         }
         return true;
@@ -285,7 +285,6 @@
             $('#loginBtn').val("正在登录...");
             $.ajax({
                 type:'post',
-				//url:window.location.protocol+'//'+window.location.host+'/security-web/login.do',
                 url:"/login"+"?username="+loginUsername+"&password="+loginPassword,
                 dataType:'json',
                 //data:JSON.stringify(params),
@@ -294,15 +293,21 @@
                 success: function (data) {
                     debugger;
                     layer.close(loginLoadIndex);
-                    var jsonData = JSON.parse(data);
-                    if (jsonData.code == '999'){
-                        window.location.href = './static/templates/welcome.html';
+                    console.log(data);
+                    if(data.status=="ok"){
+                        console.log("ok")
+                        window.location.href = '/admin/center';
+					}else if(data.status=="error"){
+                        console.log("error")
+                        $('#loginBtn').val("登录");
+                        layer.msg("账号密码错误！", {icon: 5, time: 2000});
                     }
                 },
                 error:function () {
                     debugger;
                     layer.close(loginLoadIndex);
                     $('#loginBtn').val("登录");
+                    layer.msg("error！", {icon: 5, time: 2000});
                 }
             });
         }

@@ -76,17 +76,6 @@ public class AdminController {
         return "admin/center";
     }
 
-
-    /**
-     * 进入后台页面，测试用的，后面要删了
-     * @return
-     */
-    /*@PostMapping("login")
-    public String admin() {
-        return "admin/center";
-    }*/
-
-
     /*@GetMapping(value = "sms/code")
     @ResponseBody
     public ApiResponse smsCode(@RequestParam("telephone") String telephone) {
