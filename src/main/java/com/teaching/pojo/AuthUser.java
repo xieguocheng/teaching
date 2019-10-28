@@ -1,13 +1,17 @@
 package com.teaching.pojo;
 
 import lombok.Data;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.*;
 
 @Data
 @Table(name = "auth_user")
-public class AuthUser {
+public class AuthUser implements UserDetails {
     /**
      * id
      */
@@ -160,6 +164,37 @@ public class AuthUser {
      * 是否逻辑删除0-未删除，1-已删除
      */
     private Integer del;
+
+    /*******************************外加**********************************/
+    //非数据库字段添加注解transient
+    @Transient
+    private List<GrantedAuthority> authorityList;
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return this.authorityList;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return false;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return false;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return false;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return false;
+    }
+    /*******************************外加**********************************/
 
     public AuthUser(Integer id) {
         this.id = id;

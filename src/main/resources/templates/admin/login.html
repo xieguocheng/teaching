@@ -1,16 +1,164 @@
-<!DOCTYPE html>
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
 <html>
 <head>
 	<meta charset="UTF-8">
 	<title>登录</title>
 	<script src="/static/lib/jquery/1.9.1/jquery.min.js"></script>
-	<link rel="stylesheet" href="/static/css/admin/adminLogin.css">
 	<link rel="stylesheet" href="/static/lib/myLayui/css/layui.css">
+	<style>
+		/*登陆表单样式 start*/
+		.wrap{
+			width: 100%;
+			height: 100%;
+			background: url("/static/images/admin/login/bg.jpg") no-repeat;
+			background-size: cover;
+		}
+		.loginForm{
+			margin-left: 35%;
+			margin-top: 10%;
+			/*background-color: #cccccc;*/
+			background-color: #e7e7e7;
+			width: 400px;
+			height: 400px;
+			float: left;
+			z-index: 9999;
+			position: fixed;
+			opacity: 0.75;
+		}
+		.usernameDiv{
+			width: 300px;
+			height: 40px;
+			padding-left: 130px;
+			padding-top: 30px;
+
+		}
+		.adminInput{
+			width: 200px;
+			height: 40px;
+			font-size: 15px;
+			border-radius: 0.5em;
+			/*margin-left: auto;
+			border: 1px solid #cccccc;*/
+		}
+		.passwordDiv{
+			width: 300px;
+			height: 40px;
+			padding-left: 130px;
+			padding-top: 28px;
+		}
+		.cardDiv{
+			width: 120px;
+			height: 40px;
+			padding-top: 28px;
+			padding-left: 14px;
+			float: left;
+		}
+		.cardInput{
+			width: 124px;
+			height: 40px;
+			font-size: 15px;
+			border-radius: 0.5em 0em 0em 0.5em;
+		}
+		.codeDiv{
+			width: 100px;
+			height: 40px;
+			padding-top: 28px;
+			padding-right: 20px;
+			float: left;
+		}
+		.codeInput{
+			width: 80px;
+			height: 40px;
+			font-size: 15px;
+			border-radius: 0em 0.5em 0.5em 0em;
+			/*验证码样式*/
+			font-family: Arial;
+			font-style: italic;
+			font-weight: bold;
+			/*border: 0;*/
+			letter-spacing: 2px;
+			cursor: pointer;
+		}
+		i{
+			position: absolute;
+		}
+		.adminIcon{
+			font-size: 22px;
+			margin-top: 8px;
+			margin-left: 165px;
+		}
+		.logoHead{
+			width: 250px;
+			height: 60px;
+			padding-left: 90px;
+			padding-top: 25px;
+		}
+		.usernameLabel{
+			width: 60px;
+			height: 30px;
+			font-size: 16px;
+			float: left;
+			margin-left: 55px;
+			margin-top: 40px;
+		}
+		.submitLabel{
+			width: 160px;
+			height: 30px;
+			font-size: 13px;
+			float: left;
+			margin-left: 55px;
+			margin-top: 40px;
+			cursor: pointer;
+		}
+		.usernameWrapDiv{
+			width: 400px;
+			height: 70px;
+		}
+		.submitDiv{
+			width: 150px;
+			height: 40px;
+			padding-left: 10px;
+			padding-top: 28px;
+			float: left;
+		}
+		.submit{
+			width: 100px;
+			height: 40px;
+			border-radius: 0.5em;
+		}
+		img{
+			position: absolute;
+		}
+		.imgStyle{
+			width: 100%;
+			height: 100%;
+		}
+		/*登陆表单样式 end*/
+
+		/*注册页面样式 start*/
+		.registerPage{
+			width: 100%;
+			height: 100%;
+			/*background-color: #cccccc;*/
+			display: none;
+			opacity: 0.75;
+		}
+		.registerDiv{
+			width: 100%;
+			height: 100%;
+			z-index: 9999;
+			opacity: 0.75;
+		}
+		/*注册页面样式 end*/
+
+	</style>
 </head>
 <body>
 <div class="wrap">
 	<img src="/static/images/admin/login/bg.jpg" class="imgStyle">
 	<div class="loginForm">
+		<!--<form action="#" th:action="@{/login}" method="post">-->
 		<form>
 			<div class="logoHead">
 				<!--<h2 style="margin-top: 15px">房产销售平台管理系统</h2>-->
@@ -60,6 +208,7 @@
     layui.use(['layer'],function () {
         var layer = layui.layer;
     })
+
     $(function () {
         // 页面初始化生成验证码
         window.onload = createCode('#loginCode');
@@ -68,7 +217,7 @@
             createCode('#loginCode');
         });
         // 登陆事件
-        $('#loginBtn').click(function () {
+        $('#loginBtn').on('click', function () {
             login();
         });
         // 注册事件
@@ -76,6 +225,7 @@
             register();
         });
     });
+
     // 生成验证码
     function createCode(codeID) {
         var code = "";
@@ -94,6 +244,7 @@
         // 将生成的随机验证码赋值
         checkCode.val(code);
     }
+
     // 校验验证码、用户名、密码
     function validateCode(inputID,codeID) {
         var inputCode = $(inputID).val().toUpperCase();
@@ -118,6 +269,7 @@
         }
         return true;
     }
+
     // 登录流程
     function login() {
         if (!validateCode('#loginCard','#loginCode')){
@@ -126,24 +278,29 @@
             var loginUsername = $('#loginUsername').val();
             var loginPassword = $('#loginPassword').val();
             var params = {};
-            params.loginUsername = loginUsername;
-            params.loginPassword = loginPassword;
+            params.username = loginUsername;
+            params.password = loginPassword;
+            debugger;
             var loginLoadIndex = layer.load(2);
             $('#loginBtn').val("正在登录...");
             $.ajax({
                 type:'post',
-                url:window.location.protocol+'//'+window.location.host+'/security-web/login.do',
-                dataType:'html',
-                data:JSON.stringify(params),
+				//url:window.location.protocol+'//'+window.location.host+'/security-web/login.do',
+                url:"/login"+"?username="+loginUsername+"&password="+loginPassword,
+                dataType:'json',
+                //data:JSON.stringify(params),
+                data: "name="+loginUsername+"&password="+loginPassword,
                 contentType:'application/json',
-                success:function (data) {
+                success: function (data) {
+                    debugger;
                     layer.close(loginLoadIndex);
                     var jsonData = JSON.parse(data);
                     if (jsonData.code == '999'){
-                        window.location.href = './static/templates/main.html';
+                        window.location.href = './static/templates/welcome.html';
                     }
                 },
                 error:function () {
+                    debugger;
                     layer.close(loginLoadIndex);
                     $('#loginBtn').val("登录");
                 }
@@ -151,6 +308,7 @@
         }
 
     }
+
     // 注册流程
     function register() {
         layer.open({
@@ -202,6 +360,7 @@
             }
         })
     }
+
 </script>
 
 </body>

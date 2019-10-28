@@ -36,4 +36,11 @@ public interface AuthUserService {
      * @return
      */
     public List<AuthUser> findUserByCourseId(Integer courseId);
+
+    /**
+     * 通过username查询用户
+     * @param username
+     * @return
+     */
+    public AuthUser findAuthUserByUsername(String username);
 }

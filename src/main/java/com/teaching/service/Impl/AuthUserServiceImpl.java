@@ -13,6 +13,8 @@ import com.teaching.pojo.UserCourseSection;
 import com.teaching.service.AuthUserService;
 import com.teaching.utils.UtilFuns;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Service;
 import tk.mybatis.mapper.entity.Example;
 
@@ -88,6 +90,30 @@ public class AuthUserServiceImpl implements AuthUserService {
         List<AuthUser> authUserList=authUserMapper.selectByExample(example1);
 
         return authUserList;
+    }
+
+    @Override
+    public AuthUser findAuthUserByUsername(String username) {
+        Example userSuperExample=new Example(AuthUser.class);
+        userSuperExample.createCriteria().andEqualTo("username",username);
+        List<AuthUser> authUserList=authUserMapper.selectByExample(userSuperExample);
+
+        if(!UtilFuns.isNotEmpty(authUserList)){
+            return null;
+        }
+
+        List<GrantedAuthority> authorities = new ArrayList<>();
+        authorities.add(new SimpleGrantedAuthority("ROLE_"+authUserList.get(0).getRole()));
+
+        if(UtilFuns.isNotEmpty(authUserList)){
+            authUserList.get(0).setAuthorityList(authorities);
+            return authUserList.get(0);
+        }
+
+       /* //java8特性
+        roles.forEach(role -> authorities.add(
+                new SimpleGrantedAuthority("ROLE_" + role.getName())));*/
+        return null;
     }
 }
 
