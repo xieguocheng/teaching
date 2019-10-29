@@ -39,7 +39,6 @@ public class AuthFilter extends UsernamePasswordAuthenticationFilter {
 
         //【1】验证用户名不为空的话就是走：用户名密码登录步骤
         String name = obtainUsername(request);
-        System.out.println("username============="+name);
         if (UtilFuns.isNotEmpty(name)) {
             request.setAttribute("username", name);
             return super.attemptAuthentication(request, response);
