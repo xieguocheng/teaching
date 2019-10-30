@@ -39,7 +39,6 @@ public class LoginAuthSuccessHandler extends SimpleUrlAuthenticationSuccessHandl
             throws IOException, ServletException {
 
         String name=authentication.getName();
-        System.out.println(name);
         //登录成功添加systemlog日志
         //更新操作日志
         SystemLog systemLog=new SystemLog();
