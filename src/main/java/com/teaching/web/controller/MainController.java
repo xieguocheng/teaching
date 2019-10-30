@@ -16,7 +16,7 @@ public class MainController {
     public String index(Model model) {
         //TODO 待改善
         return "redirect:admin/center";
-        //return "index.html";
+        //return "index.ftl";
     }
 
     @GetMapping("/logout/page")
