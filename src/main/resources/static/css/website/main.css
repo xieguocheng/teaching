@@ -32,6 +32,7 @@ i{font-style: normal;}
 ;}
 /*end-header*/
 
+/*index*/
 .content .layui-fluid{padding: 0;}
 .content .inner-cont1{height: 36px; line-height: 36px;}
 .content .inner-cont2{padding-left: 208px;}
@@ -47,8 +48,8 @@ i{font-style: normal;}
 .content .category-tab-content .nav-con .nav-item  p a{font-size: 12px; color: #7d7e7f; margin-left: 4px; line-height: 18px;}
 .content .category-tab-content .nav-con .nav-item i{position: absolute; right: 2px; top: 16px; font-size: 12px; }
 .content .category-tab-content .nav-con .nav-item  p a:hover{color:#ff5500;}
-.content .category-banner{background:#ffc6dd;}
-.content .floors .sk{height: 300px; padding:80px 0 70px 0; background: #fff;}
+.content .category-banner{background:#322246;}
+.content .floors .sk{height: 250px; padding:80px 0 70px 0; background: #fff;}
 .content .floors .sk_hd{float: left; width: 225px; height: 300px;}
 .content .floors .sk_bd{float: left; width: 974px; height: 298px; border:1px solid #eaeaea; border-left: 0;}
 .content .floors  .sk_bd .item-box{background: #fff;}
@@ -108,7 +109,7 @@ i{font-style: normal;}
 .content-nav-base .main-nav .inner-cont2{padding-left: 40px;}
 .content-nav-base .main-nav .inner-cont2 a{padding:0; margin-right: 75px;}
 
-/*commodity*/
+/*course*/
 .commodity-content .commod-cont-wrap{background: whitesmoke; padding: 50px 0 90px 0;}
 .commodity-content .commod-cont .left-nav{width: 200px; line-height: 38px; background: #fff; float: left; margin-right: 58px;}
 .commodity-content .commod-cont .left-nav .list-box{border:1px solid #eeeeee;}
@@ -132,7 +133,7 @@ i{font-style: normal;}
 .commodity-content .commod-cont .right-cont .cont-list .price{position: relative;}
 .commodity-content .commod-cont .right-cont .cont-list .pri{color: #ee0000;}
 .commodity-content .commod-cont .right-cont .cont-list .nub{position: absolute; right: 13px; color:#999999;}
-/*end-commodity*/
+/*end-course*/
 
 /*login*/
 .login-content .login-bg{width: 100%; background: url(/static/images/admin/login/bg.jpg) no-repeat; background-size: cover;}
@@ -143,9 +144,9 @@ i{font-style: normal;}
 .login-content .login-bg .login-cont .layui-input-inline .iphone-icon{position: absolute; top: 8px; left: 10px; color: #d3d3d3; font-size: 20px;}
 .login-content .login-bg .login-cont .iphone{margin-bottom: 20px;}
 .login-content .login-bg .login-cont .iphone .layui-input{padding-left: 40px;}
-.login-content .login-bg .login-cont .veri-code .layui-btn{width: 102px; background: #eeeeee; text-align: center; color: #333; height: 36px; line-height: 36px; display: inline-block; border:none; cursor: pointer; position: absolute; top: 1px; right: 1px; font-size: 12px; padding:0 14px;}
+.login-content .login-bg .login-cont .veri-code .layui-btn{width: 102px; text-align: center; color: white; height: 36px; line-height: 36px; display: inline-block; border:none; cursor: pointer; position: absolute; top: 1px; right: 1px; font-size: 12px; padding:0 14px;}
 .login-content .login-bg .login-cont .login-btn .layui-input-block{margin-left: 0; padding-top: 25px;}
-.login-content .login-bg .login-cont .login-btn .layui-input-block button{width: 100%; background: #cfb2f6; font-size: 18px;}
+.login-content .login-bg .login-cont .login-btn .layui-input-block button{width: 100%;font-size: 18px;}
 /*end-login*/
 
 
@@ -206,7 +207,7 @@ i{font-style: normal;}
 
 
 /*information*/
-.information-content .info-list-box{padding:63px 0 84px 0; background: #f8f8f8;}
+/*.information-content .info-list-box{padding:63px 0 84px 0; background: #f8f8f8;}
 .information-content .info-list .item-box{width: 1250px;}
 .information-content .info-list .item-box .item{width: 590px; float: left; margin:0 22px 27px 0; background: #fff; height: 360px; padding:40px 30px; box-sizing: border-box;}
 .information-content .info-list .item-box .img{float: left; margin-right: 28px;}
@@ -216,19 +217,19 @@ i{font-style: normal;}
   display: -webkit-box;
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
- }
+ }*/
 /*end-information*/
 
 
 
-/*buytoday*/
+/*recommend*/
 .buytoday-content .banner{height: 380px; background: url(../img/tuan_img_banner.jpg) no-repeat; background-size: cover; cursor: pointer;}
 .buytoday-content .product-list-box{background: #f8f8f8; padding-bottom: 50px;}
 .buytoday-content .product-list .tab-title{padding:60px 0 66px 0;}
 .buytoday-content .product-list .tab-title a{line-height: 56px; color: #666666; font-size: 20px; display: inline-block;}
 .buytoday-content .product-list .tab-title a.tuang{margin-right: 70px;}
-.buytoday-content .product-list .tab-title a.active{color: #693ca4; border-bottom: 2px solid #cfb2f6;}
-.buytoday-content .list-cont .item{width: 290px; height: 420px; float: left; margin:0 12px 20px 0; text-align: left; background: #fff;}
+.buytoday-content .product-list .tab-title a.active{color: #009688; border-bottom: 2px solid #00b4a7;}
+.buytoday-content .list-cont .item{width: 290px; float: left; margin:0 12px 20px 0; text-align: left; background: #fff;}
 .buytoday-content .list-cont .item-box{width: 1220px; padding-bottom: 30px;}
 .buytoday-content .list-cont .item .text-box{ padding:12px; box-sizing: border-box;}
 .buytoday-content .list-cont .item .text-box .title{line-height: 24px; font-size: 16px; color: #666666; margin-bottom: 6px;}
@@ -236,6 +237,7 @@ i{font-style: normal;}
 .buytoday-content .list-cont .item .text-box .plic .ciur-pic{font-size: 20px; margin-right: 24px}
 .buytoday-content .list-cont .item .text-box .plic .Ori-pic{color: #666666;}
 .buytoday-content .list-cont .item .text-box .plic .discount{width: 60px; height: 26px; line-height: 26px; font-size: 16px; background: #cfb2f6; display: block; text-align: center; color: #fff; position: absolute; right: 0; top: 0; cursor: pointer;}
+/*
 .buytoday-content .footer{padding-bottom: 120px;}
 .buytoday-content .footer-wrap,.buytoday-content .footer{background: #877dd2;}
 .buytoday-content .footer-wrap,.buytoday-content .footer .title{font-size: 30px; color: #fffaea; text-align: center;}
@@ -246,19 +248,10 @@ i{font-style: normal;}
 .buytoday-content .footer .list-box .item .commod{padding:10px; width: 240px; float: left; box-sizing: border-box;}
 .buytoday-content .footer .list-box .item .commod p{font-size: 16px; color: #666666; line-height: 24px;}
 .buytoday-content .footer .list-box .item .commod span{font-size: 20px; color: #ee0000;}
-#footerList .item:last-child{margin-right: 0;}
-/*end-buytoday*/
-
-
-
-
-
-
-
-
-
+#footerList .item:last-child{margin-right: 0;}*/
+/*end-recommend*/
 /*about*/
-.about-content .banner-box .banner{height: 750px; width: 100%; background: url(../img/us_banner.jpg) no-repeat; background-size: cover;}
+/*.about-content .banner-box .banner{height: 750px; width: 100%; background: url(../img/us_banner.jpg) no-repeat; background-size: cover;}
 .about-content .brief-content{padding:198px 0 280px 0;}
 .about-content .brief-content .img-box{float: left; width: 630px; height: 640px; position: relative; padding-right: 100px;}
 .about-content .brief-content .img-box .top{position: absolute; right: 100px; bottom: 0;}
@@ -272,7 +265,7 @@ i{font-style: normal;}
 .about-content .after-sale .item p{font-size: 28px; color: #af9ce5; padding-top: 44px; text-align: center;}
 .about-content .after-sale .item.item1{position: absolute; left: 0;}
 .about-content .after-sale .item.item2{margin:0 auto;}
-.about-content .after-sale .item.item3{position: absolute; right: 0; top: 0;}
+.about-content .after-sale .item.item3{position: absolute; right: 0; top: 0;}*/
 /*end-about*/
 
 

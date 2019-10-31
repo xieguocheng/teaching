@@ -1,69 +1,17 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>首页</title>
+<html>
 
-    <link rel="stylesheet" type="text/css" href="/static/css/website/main.css">
-    <link rel="stylesheet" type="text/css" href="/static/lib/myLayui/css/layui.css">
-    <script type="text/javascript" src="/static/lib/myLayui/layui.js"></script>
+<#include "common/head.ftl">
 
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
-</head>
 <body>
 
-<div class="site-nav-bg">
-    <div class="site-nav w1200">
-        <p class="sn-back-home">
-            <i class="layui-icon layui-icon-home"></i>
-            <a href="#">首页</a>
-        </p>
-        <div class="sn-quick-menu">
-            <div class="login"><a href="login.html">登录</a></div>
-            <div class="sp-cart"><a href="shopcart.html">购物车</a><span>2</span></div>
-        </div>
-    </div>
-</div>
-
-
-
-<div class="header">
-    <div class="headerLayout w1200">
-        <div class="headerCon">
-            <h1 class="mallLogo">
-                <a href="#" title="母婴商城">
-                    <img src="../res/static/img/logo.png">
-                </a>
-            </h1>
-            <div class="mallSearch">
-                <form action="" class="layui-form" novalidate>
-                    <input type="text" name="title" required  lay-verify="required" autocomplete="off" class="layui-input" placeholder="请输入需要的商品">
-                    <button class="layui-btn" lay-submit lay-filter="formDemo">
-                        <i class="layui-icon layui-icon-search"></i>
-                    </button>
-                    <input type="hidden" name="" value="">
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
+<#include "common/header.ftl">
 
 
 <div class="content content-nav-base  login-content">
-    <div class="main-nav">
-        <div class="inner-cont0">
-            <div class="inner-cont1 w1200">
-                <div class="inner-cont2">
-                    <a href="/website/index" >首页</a>
-                    <a href="/website/index" class="active">所有课程</a>
-                    <a href="/website/index">智慧推荐</a>
-                    <a href="/website/index">BBS论坛文章</a>
-                    <a href="/website/index">关于我们</a>
-                </div>
-            </div>
-        </div>
-    </div>
+
+ <#include "common/main-nav.ftl">
+
     <div class="login-bg">
         <div class="login-cont w1200">
             <div class="form-box">
@@ -94,31 +42,8 @@
     </div>
 </div>
 
-<div class="footer">
-    <div class="ng-promise-box">
-        <div class="ng-promise w1200">
-            <p class="text">
-                <a class="icon1" href="javascript:;">7天无理由退换货</a>
-                <a class="icon2" href="javascript:;">满99元全场免邮</a>
-                <a class="icon3" style="margin-right: 0" href="javascript:;">100%品质保证</a>
-            </p>
-        </div>
-    </div>
-    <div class="mod_help w1200">
-        <p>
-            <a href="javascript:;">关于我们</a>
-            <span>|</span>
-            <a href="javascript:;">帮助中心</a>
-            <span>|</span>
-            <a href="javascript:;">售后服务</a>
-            <span>|</span>
-            <a href="javascript:;">母婴资讯</a>
-            <span>|</span>
-            <a href="javascript:;">关于货源</a>
-        </p>
-        <p class="coty">母婴商城版权所有 &copy; 2012-2020</p>
-    </div>
-</div>
+<#include "common/footer.ftl">
+
 <script type="text/javascript">
     layui.config({
         base: '/static/js/website/' //你存放新模块的目录，注意，不是layui的模块目录

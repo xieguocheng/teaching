@@ -1,12 +1,5 @@
 
 
-
-
-
-
-
-
-
 <div class="main-nav">
     <div class="inner-cont0">
         <div class="inner-cont1 w1200">
@@ -20,3 +13,18 @@
         </div>
     </div>
 </div>
+
+ <script type="text/javascript">
+
+     $(function(){
+
+         //监听click
+         $("a").on("click",function(){
+             $(this).addClass("active");
+            debugger;
+         })
+
+
+     })
+
+ </script>

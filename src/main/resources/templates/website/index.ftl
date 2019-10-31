@@ -18,7 +18,7 @@
    <div class="category-con">
        <div class="category-banner">
             <div class="w1200">
-                <img src="/static/images/website/banner1.jpg">
+                <img src="/static/images/website/banner.jpg" style="width: 1200px;px; height:400px;">
             </div>
         </div>
    </div>
@@ -44,7 +44,7 @@
                                         <a href="javascript:;">
                                             <img src="http://szimg.mukewang.com/58f57d200001461105400300-360-202.jpg">
                                         </a>
-                                        <div class="title">宝宝五彩袜棉质舒服</div>
+                                        <div class="title">JAVA从入门到精通</div>
                                         <div class="price">
                                             <span>￥49.00</span>
                                             <del>￥99.00</del>
@@ -52,24 +52,24 @@
                                     </div>
 
                                     <div class="item">
-                                        <a href="javascript:;"><img src="../res/static/img/s_img3.jpg"></a>
-                                        <div class="title">宝宝五彩袜棉质舒服</div>
+                                        <a href="javascript:;"><img src="http://szimg.mukewang.com/58f57d200001461105400300-360-202.jpg"></a>
+                                        <div class="title">JAVA从入门到精通</div>
                                         <div class="price">
                                             <span>￥49.00</span>
                                             <del>￥99.00</del>
                                         </div>
                                     </div>
                                     <div class="item">
-                                        <a href="javascript:;"><img src="../res/static/img/s_img4.jpg"></a>
-                                        <div class="title">宝宝五彩袜棉质舒服</div>
+                                        <a href="javascript:;"><img src="http://szimg.mukewang.com/58f57d200001461105400300-360-202.jpg"></a>
+                                        <div class="title">JAVA从入门到精通</div>
                                         <div class="price">
                                             <span>￥49.00</span>
                                             <del>￥99.00</del>
                                         </div>
                                     </div>
                                     <div class="item">
-                                        <a href="javascript:;"><img src="../res/static/img/s_img5.jpg"></a>
-                                        <div class="title">宝宝五彩袜棉质舒服</div>
+                                        <a href="javascript:;"><img src="http://szimg.mukewang.com/58f57d200001461105400300-360-202.jpg"></a>
+                                        <div class="title">JAVA从入门到精通</div>
                                         <div class="price">
                                             <span>￥49.00</span>
                                             <del>￥99.00</del>
@@ -79,37 +79,32 @@
 
                                 <div class="item-box">
                                     <div class="item">
-                                        <a href="javascript:;"><img src="../res/static/img/s_img2.jpg"></a>
-                                        <div class="title">宝宝五彩袜棉质舒服</div>
+                                        <a href="javascript:;"><img src="http://szimg.mukewang.com/58f57d200001461105400300-360-202.jpg"></a>
+                                        <div class="title">JAVA从入门到精通</div>
                                         <div class="price">
                                             <span>￥49.00</span>
                                             <del>￥99.00</del>
                                         </div>
                                     </div>
                                     <div class="item">
-                                        <a href="javascript:;"><img src="../res/static/img/s_img3.jpg"></a>
-                                        <div class="title">宝宝五彩袜棉质舒服</div>
+                                        <a href="javascript:;"><img src="http://szimg.mukewang.com/58f57d200001461105400300-360-202.jpg"></a>
+                                        <div class="title">JAVA从入门到精通</div>
                                         <div class="price">
                                             <span>￥49.00</span>
                                             <del>￥99.00</del>
                                         </div>
                                     </div>
                                     <div class="item">
-                                        <a href="javascript:;"><img src="../res/static/img/s_img4.jpg"></a>
-                                        <div class="title">宝宝五彩袜棉质舒服</div>
+                                        <a href="javascript:;">
+                                            <img src="http://szimg.mukewang.com/58f57d200001461105400300-360-202.jpg">
+                                        </a>
+                                        <div class="title">JAVA从入门到精通</div>
                                         <div class="price">
                                             <span>￥49.00</span>
                                             <del>￥99.00</del>
                                         </div>
                                     </div>
-                                    <div class="item">
-                                        <a href="javascript:;"><img src="../res/static/img/s_img5.jpg"></a>
-                                        <div class="title">宝宝五彩袜棉质舒服</div>
-                                        <div class="price">
-                                            <span>￥49.00</span>
-                                            <del>￥99.00</del>
-                                        </div>
-                                    </div>
+
                                 </div>
 
                             </div>
@@ -120,113 +115,184 @@
         </div>
 
 
+    <div class="floors">
+        <div class="sk">
+            <div class="sk_inner w1200">
 
-
-
-
-        <div class="hot-recommend-con">
-            <div class="hot-con1 w1200 layui-clear">
-                <div class="item">
-                    <h4>热销推荐</h4>
-                    <div class="big-img">
-                        <a href="javascript:;"><img src="../res/static/img/hot1.png"></a>
-                    </div>
-                    <div class="small-img">
-                        <a href="javascript:;"><img src="../res/static/img/hot2.png" alt=""></a>
-                    </div>
+                <div class="sk_hd">
+                    <a href="javascript:;">
+                        <img src="/static/images/website/s_img1.jpg">
+                    </a>
                 </div>
-                <div class="item">
-                    <div class="top-img">
-                        <a href="javascript:;"><img src="../res/static/img/hot5.jpg"></a>
+
+                <div class="sk_bd">
+                    <div class="layui-carousel" id="test2">
+                        <div carousel-item>
+
+                            <div class="item-box">
+
+                                <div class="item">
+                                    <a href="javascript:;">
+                                        <img src="http://szimg.mukewang.com/58f57d200001461105400300-360-202.jpg">
+                                    </a>
+                                    <div class="title">JAVA从入门到精通</div>
+                                    <div class="price">
+                                        <span>￥49.00</span>
+                                        <del>￥99.00</del>
+                                    </div>
+                                </div>
+
+                                <div class="item">
+                                    <a href="javascript:;"><img src="http://szimg.mukewang.com/58f57d200001461105400300-360-202.jpg"></a>
+                                    <div class="title">JAVA从入门到精通</div>
+                                    <div class="price">
+                                        <span>￥49.00</span>
+                                        <del>￥99.00</del>
+                                    </div>
+                                </div>
+                                <div class="item">
+                                    <a href="javascript:;"><img src="http://szimg.mukewang.com/58f57d200001461105400300-360-202.jpg"></a>
+                                    <div class="title">JAVA从入门到精通</div>
+                                    <div class="price">
+                                        <span>￥49.00</span>
+                                        <del>￥99.00</del>
+                                    </div>
+                                </div>
+                                <div class="item">
+                                    <a href="javascript:;"><img src="http://szimg.mukewang.com/58f57d200001461105400300-360-202.jpg"></a>
+                                    <div class="title">JAVA从入门到精通</div>
+                                    <div class="price">
+                                        <span>￥49.00</span>
+                                        <del>￥99.00</del>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="item-box">
+                                <div class="item">
+                                    <a href="javascript:;"><img src="http://szimg.mukewang.com/58f57d200001461105400300-360-202.jpg"></a>
+                                    <div class="title">JAVA从入门到精通</div>
+                                    <div class="price">
+                                        <span>￥49.00</span>
+                                        <del>￥99.00</del>
+                                    </div>
+                                </div>
+                                <div class="item">
+                                    <a href="javascript:;"><img src="http://szimg.mukewang.com/58f57d200001461105400300-360-202.jpg"></a>
+                                    <div class="title">JAVA从入门到精通</div>
+                                    <div class="price">
+                                        <span>￥49.00</span>
+                                        <del>￥99.00</del>
+                                    </div>
+                                </div>
+                                <div class="item">
+                                    <a href="javascript:;">
+                                        <img src="http://szimg.mukewang.com/58f57d200001461105400300-360-202.jpg">
+                                    </a>
+                                    <div class="title">JAVA从入门到精通</div>
+                                    <div class="price">
+                                        <span>￥49.00</span>
+                                        <del>￥99.00</del>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
                     </div>
-                    <div class="bottom-img">
-                        <a href="javascript:;"><img src="../res/static/img/hot6.jpg"></a>
-                        <a class="baby-cream" href="javascript:;"><img src="../res/static/img/hot7.jpg"></a>
-                    </div>
-                </div>
-                <div class="item item1 margin0 padding0">
-                    <a href="javascript:;"><img src="../res/static/img/hot8.jpg"></a>
-                    <a href="javascript:;"><img class="btm-img" src="../res/static/img/hot9.jpg"></a>
                 </div>
             </div>
         </div>
+    </div>
 
-
-
-        <div class="product-cont w1200" id="product-cont">
+<#--        <div class="product-cont w1200" id="product-cont">
             <div class="product-item product-item1 layui-clear">
                 <div class="left-title">
                     <h4><i>1F</i></h4>
-                    <img src="../res/static/img/icon_gou.png">
-                    <h5>宝宝服饰</h5>
+                    <img src="/static/images/website/icon_gou.png">
+                    <h5>课程推荐</h5>
                 </div>
                 <div class="right-cont">
-                    <a href="javascript:;" class="top-img"><img src="../res/static/img/img12.jpg" alt=""></a>
+                    <a href="javascript:;" class="top-img">
+                        <img src="/static/images/website/banner1.jpg" alt="" style="width: 1000px;px; height:200px;">
+                    </a>
                     <div class="img-box">
-                        <a href="javascript:;"><img src="../res/static/img/s_img7.jpg"></a>
-                        <a href="javascript:;"><img src="../res/static/img/s_img8.jpg"></a>
-                        <a href="javascript:;"><img src="../res/static/img/s_img9.jpg"></a>
-                        <a href="javascript:;"><img src="../res/static/img/s_img10.jpg"></a>
-                        <a href="javascript:;"><img src="../res/static/img/s_img11.jpg"></a>
+                        <a href="javascript:;"><img style="width: 199px;px; height:200px;"src="http://szimg.mukewang.com/58f57d200001461105400300-360-202.jpg"></a>
+                        <a href="javascript:;"><img style="width: 199px;px; height:200px;"src="http://szimg.mukewang.com/58f57d200001461105400300-360-202.jpg"></a>
+                        <a href="javascript:;"><img style="width: 199px;px; height:200px;"src="http://szimg.mukewang.com/58f57d200001461105400300-360-202.jpg"></a>
+                        <a href="javascript:;"><img style="width: 199px;px; height:200px;"src="http://szimg.mukewang.com/58f57d200001461105400300-360-202.jpg"></a>
+                        <a href="javascript:;"><img style="width: 199px;px; height:200px;"src="http://szimg.mukewang.com/58f57d200001461105400300-360-202.jpg"></a>
                     </div>
                 </div>
             </div>
-            <div class="product-item product-item2 layui-clear">
-                <div class="left-title">
-                    <h4><i>2F</i></h4>
-                    <img src="../res/static/img/icon_gou.png">
-                    <h5>奶粉辅食</h5>
-                </div>
-                <div class="right-cont">
-                    <a href="javascript:;" class="top-img"><img src="../res/static/img/img12.jpg" alt=""></a>
-                    <div class="img-box">
-                        <a href="javascript:;"><img src="../res/static/img/s_img7.jpg"></a>
-                        <a href="javascript:;"><img src="../res/static/img/s_img8.jpg"></a>
-                        <a href="javascript:;"><img src="../res/static/img/s_img9.jpg"></a>
-                        <a href="javascript:;"><img src="../res/static/img/s_img10.jpg"></a>
-                        <a href="javascript:;"><img src="../res/static/img/s_img11.jpg"></a>
-                    </div>
-                </div>
-            </div>
-            <div class="product-item product-item3 layui-clear">
-                <div class="left-title">
-                    <h4><i>3F</i></h4>
-                    <img src="../res/static/img/icon_gou.png">
-                    <h5>宝宝用品</h5>
-                </div>
-                <div class="right-cont">
-                    <a href="javascript:;" class="top-img"><img src="../res/static/img/img12.jpg" alt=""></a>
-                    <div class="img-box">
-                        <a href="javascript:;"><img src="../res/static/img/s_img7.jpg"></a>
-                        <a href="javascript:;"><img src="../res/static/img/s_img8.jpg"></a>
-                        <a href="javascript:;"><img src="../res/static/img/s_img9.jpg"></a>
-                        <a href="javascript:;"><img src="../res/static/img/s_img10.jpg"></a>
-                        <a href="javascript:;"><img src="../res/static/img/s_img11.jpg"></a>
-                    </div>
-                </div>
-            </div>
-        </div>
+        </div>-->
 
         <div class="product-list-box" id="product-list-box">
             <div class="product-list-cont w1200">
-                <h4>更多推荐</h4>
+                <h4>系统推荐</h4>
 
                 <div class="product-item-box layui-clear">
                     <div class="list-item">
-                        <a href="javascript:;"><img src="../res/static/img/more1.jpg"></a>
-                        <p>时尚宝宝小黄鸭T恤纯棉耐脏多色可选0-2岁宝宝</p>
+                        <a href="javascript:;">
+                            <img style="width: 160px;px; height:160px;"src="http://szimg.mukewang.com/58f57d200001461105400300-360-202.jpg">
+                        </a>
+                        <p>JAVA从入门到精通</p>
                         <span>￥100.00</span>
                     </div>
 
                     <div class="list-item">
-                        <a href="javascript:;"><img src="../res/static/img/more2.jpg"></a>
-                        <p>时尚宝宝小黄鸭T恤纯棉耐脏多色可选0-2岁宝宝</p>
+                        <a href="javascript:;">
+                            <img style="width: 160px;px; height:160px;"src="http://szimg.mukewang.com/58f57d200001461105400300-360-202.jpg">
+                        </a>
+                        <p>JAVA从入门到精通</p>
                         <span>￥100.00</span>
                     </div>
 
                     <div class="list-item">
-                        <a href="javascript:;"><img src="../res/static/img/more3.jpg"></a>
-                        <p>时尚宝宝小黄鸭T恤纯棉耐脏多色可选0-2岁宝宝</p>
+                        <a href="javascript:;">
+                            <img style="width: 160px;px; height:160px;"src="http://szimg.mukewang.com/58f57d200001461105400300-360-202.jpg">
+                        </a>
+                        <p>JAVA从入门到精通</p>
+                        <span>￥100.00</span>
+                    </div>
+
+                    <div class="list-item">
+                        <a href="javascript:;">
+                            <img style="width: 160px;px; height:160px;"src="http://szimg.mukewang.com/58f57d200001461105400300-360-202.jpg">
+                        </a>
+                        <p>JAVA从入门到精通</p>
+                        <span>￥100.00</span>
+                    </div>
+
+                    <div class="list-item">
+                        <a href="javascript:;">
+                            <img style="width: 160px;px; height:160px;"src="http://szimg.mukewang.com/58f57d200001461105400300-360-202.jpg">
+                        </a>
+                        <p>JAVA从入门到精通</p>
+                        <span>￥100.00</span>
+                    </div>
+
+                    <div class="list-item">
+                        <a href="javascript:;">
+                            <img style="width: 160px;px; height:160px;"src="http://szimg.mukewang.com/58f57d200001461105400300-360-202.jpg">
+                        </a>
+                        <p>JAVA从入门到精通</p>
+                        <span>￥100.00</span>
+                    </div>
+
+                    <div class="list-item">
+                        <a href="javascript:;">
+                            <img style="width: 160px;px; height:160px;"src="http://szimg.mukewang.com/58f57d200001461105400300-360-202.jpg">
+                        </a>
+                        <p>JAVA从入门到精通</p>
+                        <span>￥100.00</span>
+                    </div>
+
+                    <div class="list-item">
+                        <a href="javascript:;">
+                            <img style="width: 160px;px; height:160px;"src="http://szimg.mukewang.com/58f57d200001461105400300-360-202.jpg">
+                        </a>
+                        <p>JAVA从入门到精通</p>
                         <span>￥100.00</span>
                     </div>
 
@@ -241,7 +307,7 @@
     <script type="text/javascript">
 
         layui.config({
-            base: '../res/static/js/util/' //你存放新模块的目录，注意，不是layui的模块目录
+            base: '/static/js/website/' //你存放新模块的目录，注意，不是layui的模块目录
         }).use(['mm','carousel'],function(){
             var carousel = layui.carousel,
                     mm = layui.mm;
@@ -270,6 +336,22 @@
             //    }
             //  })
 
+
+        });
+
+        layui.config({
+            base: '/static/js/website/' //你存放新模块的目录，注意，不是layui的模块目录
+        }).use(['mm','carousel'],function(){
+            var carousel = layui.carousel,
+                    mm = layui.mm;
+            var option = {
+                elem: '#test2'
+                ,width: '100%' //设置容器宽度
+                ,arrow: 'always'
+                ,height:'298'
+                ,indicator:'none'
+            }
+            carousel.render(option);
 
         });
     </script>
