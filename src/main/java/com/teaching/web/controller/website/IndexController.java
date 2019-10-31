@@ -21,7 +21,7 @@ public class IndexController {
 
 
     /**
-     *
+     * 网站首页
      * @return
      */
     @GetMapping("/website/index")
@@ -32,9 +32,49 @@ public class IndexController {
         return new ModelAndView("website/index", map);
     }
 
+    /**
+     * 网站所有课程
+     * @return
+     */
+    @GetMapping("/website/course")
+    public ModelAndView course(Map<String, Object> map,Model model) {
+
+        return new ModelAndView("website/course", map);
+    }
 
     /**
-     *
+     * 网站课程智慧推荐
+     * @return
+     */
+    @GetMapping("/website/recommend")
+    public ModelAndView recommend(Map<String, Object> map,Model model) {
+
+        return new ModelAndView("website/recommend", map);
+    }
+
+    /**
+     * 网站课程智慧推荐
+     * @return
+     */
+    @GetMapping("/website/bbs")
+    public ModelAndView bbs(Map<String, Object> map,Model model) {
+
+        return new ModelAndView("website/bbs", map);
+    }
+
+    /**
+     * 网站课程智慧推荐
+     * @return
+     */
+    @GetMapping("/website/about")
+    public ModelAndView about(Map<String, Object> map,Model model) {
+
+        return new ModelAndView("website/about", map);
+    }
+
+
+    /**
+     * 网站登录页面
      * @return
      */
     @GetMapping("/website/login")

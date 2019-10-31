@@ -55,10 +55,11 @@
         <div class="inner-cont0">
             <div class="inner-cont1 w1200">
                 <div class="inner-cont2">
-                    <a href="/website/index" class="active">所有商品</a>
-                    <a href="buytoday.html">今日团购</a>
-                    <a href="information.html">母婴资讯</a>
-                    <a href="about.html">关于我们</a>
+                    <a href="/website/index" >首页</a>
+                    <a href="/website/index" class="active">所有课程</a>
+                    <a href="/website/index">智慧推荐</a>
+                    <a href="/website/index">BBS论坛文章</a>
+                    <a href="/website/index">关于我们</a>
                 </div>
             </div>
         </div>
