@@ -17,18 +17,17 @@
                 <div class="title">课程分类</div>
                 <div class="list-box">
                     <dl>
-                        <dt>奶粉辅食</dt>
-                        <dd><a href="javascript:;">进口奶粉</a></dd>
-                        <dd><a href="javascript:;">宝宝辅食</a></dd>
-                        <dd><a href="javascript:;">营养品</a></dd>
+                        <dt>后端开发</dt>
+                        <dd><a href="javascript:;">Java</a></dd>
+                        <dd><a href="javascript:;">PHP</a></dd>
+                        <dd><a href="javascript:;">C++</a></dd>
                     </dl>
                     <dl>
-                        <dt>儿童用品</dt>
-                        <dd><a href="javascript:;">纸尿裤</a></dd>
-                        <dd><a href="javascript:;">婴儿湿巾</a></dd>
-                        <dd><a href="javascript:;">婴儿车</a></dd>
-                        <dd><a href="javascript:;">婴儿床</a></dd>
-                        <dd><a href="javascript:;">儿童安全座椅</a></dd>
+                        <dt>前端开发</dt>
+                        <dd><a href="javascript:;">HTML</a></dd>
+                        <dd><a href="javascript:;">Javascript</a></dd>
+                        <dd><a href="javascript:;">jquery</a></dd>
+                        <dd><a href="javascript:;">boostrapt</a></dd>
                     </dl>
                 </div>
             </div>
@@ -36,7 +35,7 @@
             <div class="right-cont-wrap">
                 <div class="right-cont">
                     <div class="sort layui-clear">
-                        <a class="active" href="javascript:;" event = 'volume'>销量</a>
+                        <a class="active" href="javascript:;" event = 'volume'>流量</a>
                         <a href="javascript:;" event = 'price'>价格</a>
                         <a href="javascript:;" event = 'newprod'>新品</a>
                         <a href="javascript:;" event = 'collection'>收藏</a>

@@ -20,7 +20,7 @@
 
          //监听click
          $("a").on("click",function(){
-             $(this).addClass("active");
+             $(this).addClass('active').siblings().removeClass('active');
             debugger;
          })
 

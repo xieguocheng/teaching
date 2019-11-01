@@ -72,30 +72,46 @@
             <div class="main-about">
                 <div class="layui-container">
                     <div class="layui-row">
+
                         <ul class="aboutab">
-                            <li class="layui-this">公司简介</li><li>招贤纳士</li><li>发展历程</li>
+                            <li class="layui-this">网站简介</li><li>招贤纳士</li><li>录屏流程</li>
                         </ul>
+
                         <div class="tabIntro">
+
                             <div class="content">
-                                <div class="layui-inline img"><img src="../res/static/img/us_img1.jpg"></div><div class="layui-inline panel">
-                                <p>身处在前端社区的繁荣之下，我们都在有意或无意地追逐。而 layui 偏偏回望当初，奔赴在返璞归真的漫漫征途，自信并勇敢着，追寻于原生态的书写指令，试图以最简单的方式诠释高效。</p>
+                                <div class="layui-inline img">
+                                    <img style="width: 600px;height: 600px" src="http://szimg.mukewang.com/58f57d200001461105400300-360-202.jpg">
+                                </div>
+                                <div class="layui-inline panel">
+                                <p>身处在前端社区的繁荣之下，我们都在有意或无意地追逐。而 layui 偏偏回望当初，奔赴在返璞归真的漫漫征途，
+                                    自信并勇敢着，追寻于原生态的书写指令，试图以最简单的方式诠释高效。</p>
+                                 </div>
                             </div>
-                            </div>
+
                             <div class="content">
                                 <div class="layui-inline panel p_block">
-                                    <p>如果眼下还是一团零星之火，那运筹帷幄之后，迎面东风，就是一场烈焰燎原吧，那必定会是一番尽情的燃烧。待，秋风萧瑟时，散作满天星辰，你看那四季轮回，正是Layui不灭的执念。</p>
+                                    <p>如果眼下还是一团零星之火，那运筹帷幄之后，迎面东风，就是一场烈焰燎原吧，那必定会是一番尽情的
+                                        燃烧。待，秋风萧瑟时，散作满天星辰，你看那四季轮回，正是Layui不灭的执念。
+                                    </p>
                                 </div><div class="layui-inline img"><img src="../res/static/img/us_img2.jpg"></div>
                                 <p class="p_hidden">如果眼下还是一团零星之火，那运筹帷幄之后，迎面东风，就是一场烈焰燎原吧，那必定会是一番尽情的燃烧。待，秋风萧瑟时，散作满天星辰，你看那四季轮回，正是Layui不灭的执念。</p>
                             </div>
+
                             <div class="content">
-                                <div class="layui-inline img"><img src="../res/static/img/us_img3.jpg"></div><div class="layui-inline panel">
+                                <div class="layui-inline img">
+                                    <img src="../res/static/img/us_img3.jpg">
+                                </div>
+                                <div class="layui-inline panel">
                                 <p>拥有双面的不仅是人生，还有Layui。一面极简，一面丰盈。极简是视觉所见的外在，是开发所念的简易。丰盈是倾情雕琢的内在，是信手拈来的承诺。一切本应如此，简而全，双重体验。</p>
+                                </div>
                             </div>
-                            </div>
+
                         </div>
+
                         <div class="tabJob">
                             <div class="content">
-                                <p class="title">前端开发工程师</p>
+                                <p class="title">前端开发工程教师</p>
                                 <p>> 职位描述</p>
                                 <ol>
                                     <li>前端开发及维护工作；</li>
@@ -106,7 +122,7 @@
                                 </ol>
                             </div>
                             <div class="content">
-                                <p class="title">IOS 开发工程师</p>
+                                <p class="title">IOS 开发工程教师</p>
                                 <p>> 职位描述</p>
                                 <ol>
                                     <li>前端开发及维护工作；</li>
@@ -117,7 +133,7 @@
                                 </ol>
                             </div>
                             <div class="content">
-                                <p class="title">JAVA 工程师</p>
+                                <p class="title">JAVA 工程教师</p>
                                 <p>> 职位描述</p>
                                 <ol>
                                     <li>前端开发及维护工作；</li>
@@ -128,39 +144,42 @@
                                 </ol>
                             </div>
                         </div>
+
                         <div class="tabCour">
                             <p class="title">我们的蜕变</p>
                             <ul class="timeline">
+
                                 <li class="odd">
-                                    <div class="cour-img"><img src="../res/static/img/us_img4.png"></div>
+                                    <div class="cour-img"><img src="/static/images/website/us_img4.png"></div>
                                     <div class="cour-panel layui-col-sm4 layui-col-lg5">
                                         <p class="label">2017 年 6 月</p>
                                         <p>我们成立了，来到了杭州西湖这个美丽的地方。</p>
                                     </div>
                                 </li>
+
                                 <li>
-                                    <div class="cour-img"><img src="../res/static/img/us_img5.png"></div>
+                                    <div class="cour-img"><img src="/static/images/website/us_img4.png"></div>
                                     <div class="cour-panel layui-col-sm4 layui-col-sm-offset8 layui-col-lg5 layui-col-lg-offset7">
                                         <p class="label">2017 年 6 月</p>
                                         <p>我们成立了，来到了杭州西湖这个美丽的地方。</p>
                                     </div>
                                 </li>
                                 <li class="odd">
-                                    <div class="cour-img"><img src="../res/static/img/us_img6.png"></div>
+                                    <div class="cour-img"><img src="/static/images/website/us_img4.png"></div>
                                     <div class="cour-panel layui-col-sm4 layui-col-lg5">
                                         <p class="label">2017 年 6 月</p>
                                         <p>我们成立了，来到了杭州西湖这个美丽的地方。</p>
                                     </div>
                                 </li>
                                 <li>
-                                    <div class="cour-img"><img src="../res/static/img/us_img7.png"></div>
+                                    <div class="cour-img"><img src="/static/images/website/us_img4.png"></div>
                                     <div class="cour-panel layui-col-sm4 layui-col-sm-offset8 layui-col-lg5 layui-col-lg-offset7">
                                         <p class="label">2017 年 6 月</p>
                                         <p>我们成立了，来到了杭州西湖这个美丽的地方。</p>
                                     </div>
                                 </li>
                                 <li class="odd">
-                                    <div class="cour-img"><img src="../res/static/img/us_img8.png"></div>
+                                    <div class="cour-img"><img src="/static/images/website/us_img4.png"></div>
                                 </li>
                             </ul>
                         </div>
@@ -179,6 +198,9 @@
 
     <script type="text/javascript">
 
+        layui.config({
+            base: '/static/js/website/'
+        }).use('mm');
 
     </script>
 

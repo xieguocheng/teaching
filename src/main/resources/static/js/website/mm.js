@@ -36,5 +36,16 @@ layui.define(['jquery','element','laytpl','carousel','laypage'],function(exports
 	        return result;
 	    }
 	}
-  exports('mm',_mm)
+  exports('mm',_mm);
+
+    //关于内容
+    $('.main-about').find('.aboutab').children('li').each(function(index){
+        $(this).on('click', function(){
+            $(this).addClass('layui-this').siblings().removeClass('layui-this');
+            $('.aboutab').siblings().fadeOut("fast");
+            $('.aboutab').siblings().eq(index).fadeIn("");
+        });
+    });
+
+   /* exports('mm', {});*/
 });

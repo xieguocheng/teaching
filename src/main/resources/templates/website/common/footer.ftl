@@ -12,7 +12,9 @@
             <a href="javascript:;">讲师招募</a>
         </p>
         <div class="layui-row footer-contact">
-            <div class="layui-col-sm2 layui-col-lg1"><img src="/static/images/website/QrCode.jpg"></div>
+            <div class="layui-col-sm2 layui-col-lg1">
+                <img src="/static/images/website/QrCode.jpg" style="width: 86px;height: 86px">
+            </div>
             <div class="layui-col-sm10 layui-col-lg11">
                 <div class="layui-row">
                     <div class="layui-col-sm6 layui-col-md8 layui-col-lg9">
@@ -20,7 +22,7 @@
                         <p class="contact-bottom"><i class="layui-icon layui-icon-home"></i>&nbsp;88888888@163.com</span></p>
                     </div>
                     <div class="layui-col-sm6 layui-col-md4 layui-col-lg3">
-                        <p class="contact-top"><span class="right">该网站归 <a href="https://www.layui.com/" target="_blank">zhihui.com</a> 所有</span></p>
+                        <p class="contact-top"><span class="right">该网站归 <a href="https://www.layui.com/" target="_blank">XO.com</a> 所有</span></p>
                         <p class="contact-bottom"><span class="right">Copyright&nbsp;©&nbsp;2019-2020&nbsp;&nbsp;ICP&nbsp;备888888号</span></p>
                     </div>
                 </div>

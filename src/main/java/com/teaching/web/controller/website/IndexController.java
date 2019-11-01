@@ -84,7 +84,28 @@ public class IndexController {
         return new ModelAndView("website/login", map);
     }
 
+    /**
+     * 网站注册页面
+     * @return
+     */
+    @GetMapping("/website/register")
+    public ModelAndView register(Map<String, Object> map) {
 
+
+        return new ModelAndView("website/register", map);
+}
+
+
+    /**
+     * 网站注册页面
+     * @return
+     */
+    @GetMapping("/website/shopcart")
+    public ModelAndView shopcart(Map<String, Object> map) {
+
+
+        return new ModelAndView("website/shopcart", map);
+    }
 
 
 
