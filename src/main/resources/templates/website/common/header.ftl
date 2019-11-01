@@ -19,7 +19,7 @@
         <div class="headerCon">
             <h1 class="mallLogo">
                 <a href="#" title="智慧教学视频网站">
-                    <img src="/static/images/logo/32.ico">
+                    <img src="/static/images/website/logo.png" style="width: 200px;height: 50px">
                 </a>
             </h1>
             <div class="mallSearch">

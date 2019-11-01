@@ -30,7 +30,7 @@
 
                     <div class="sk_hd">
                         <a href="javascript:;">
-                            <img src="/static/images/website/s_img1.jpg">
+                            <img src="/static/images/website/s_img2.png">
                         </a>
                     </div>
 
@@ -121,7 +121,7 @@
 
                 <div class="sk_hd">
                     <a href="javascript:;">
-                        <img src="/static/images/website/s_img1.jpg">
+                        <img src="/static/images/website/s_img1.png">
                     </a>
                 </div>
 
