@@ -15,13 +15,24 @@
 
          <#include "common/main-nav.ftl">
 
-   <div class="category-con">
+  <#-- <div class="category-con">
        <div class="category-banner">
             <div class="w1200">
                 <img src="/static/images/website/banner.jpg" style="width: 1200px;px; height:400px;">
             </div>
         </div>
-   </div>
+   </div>-->
+
+    <div class="layui-carousel" id="xo">
+        <div carousel-item>
+            <div> <img src="/static/images/website/banner.jpg" style="width: 100%;height: 100%"></div>
+            <div> <img src="/static/images/website/bg.jpg" style="width: 100%;height: 100%"></div>
+            <div> <img src="/static/images/website/banner.jpg" style="width: 100%;height: 100%"></div>
+            <div> <img src="/static/images/website/bg.jpg" style="width: 100%;height: 100%"></div>
+            <div> <img src="/static/images/website/banner.jpg" style="width: 100%;height: 100%"></div>
+        </div>
+    </div>
+
 
 
         <div class="floors">
@@ -216,28 +227,6 @@
         </div>
     </div>
 
-<#--        <div class="product-cont w1200" id="product-cont">
-            <div class="product-item product-item1 layui-clear">
-                <div class="left-title">
-                    <h4><i>1F</i></h4>
-                    <img src="/static/images/website/icon_gou.png">
-                    <h5>课程推荐</h5>
-                </div>
-                <div class="right-cont">
-                    <a href="javascript:;" class="top-img">
-                        <img src="/static/images/website/banner1.jpg" alt="" style="width: 1000px;px; height:200px;">
-                    </a>
-                    <div class="img-box">
-                        <a href="javascript:;"><img style="width: 199px;px; height:200px;"src="http://szimg.mukewang.com/58f57d200001461105400300-360-202.jpg"></a>
-                        <a href="javascript:;"><img style="width: 199px;px; height:200px;"src="http://szimg.mukewang.com/58f57d200001461105400300-360-202.jpg"></a>
-                        <a href="javascript:;"><img style="width: 199px;px; height:200px;"src="http://szimg.mukewang.com/58f57d200001461105400300-360-202.jpg"></a>
-                        <a href="javascript:;"><img style="width: 199px;px; height:200px;"src="http://szimg.mukewang.com/58f57d200001461105400300-360-202.jpg"></a>
-                        <a href="javascript:;"><img style="width: 199px;px; height:200px;"src="http://szimg.mukewang.com/58f57d200001461105400300-360-202.jpg"></a>
-                    </div>
-                </div>
-            </div>
-        </div>-->
-
         <div class="product-list-box" id="product-list-box">
             <div class="product-list-cont w1200">
                 <h4>系统推荐</h4>
@@ -339,6 +328,19 @@
             }
             carousel.render(option);
 
+        });
+
+
+        layui.use('carousel', function(){
+            var carousel = layui.carousel;
+            //建造实例
+            carousel.render({
+                elem: '#xo'
+                ,width: '100%' //设置容器宽度
+                ,arrow: 'always' //始终显示箭头
+                ,height:'450'
+                //,anim: 'updown' //切换动画方式
+            });
         });
     </script>
 </body>

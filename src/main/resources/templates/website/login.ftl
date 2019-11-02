@@ -16,35 +16,77 @@
         <div class="login-cont w1200">
             <div class="form-box">
                 <form class="layui-form" action="">
-                    <legend>手机号登录</legend>
+                    <legend>账号密码/手机登录</legend>
                     <div class="layui-form-item">
+
                         <div class="layui-inline iphone">
                             <div class="layui-input-inline">
                                 <i class="layui-icon layui-icon-cellphone iphone-icon"></i>
-                                <input type="tel" name="phone" id="phone" lay-verify="required|phone" placeholder="请输入手机号" autocomplete="off" class="layui-input">
+                                <input type="tel" name="phone" id="phone" lay-verify="required|phone"
+                                       placeholder="请输入手机号" autocomplete="off" class="layui-input">
                             </div>
                         </div>
-                        <div class="layui-inline veri-code">
+
+                        <div class="layui-inline iphone" id="mima" >
                             <div class="layui-input-inline">
-                                <input id="pnum" type="text" name="pnum" lay-verify="required" placeholder="请输入验证码" autocomplete="off" class="layui-input">
+                                <i class="layui-icon layui-icon-password iphone-icon"></i>
+                                <input hidden type="tel" name="phone" id="phone"
+                                       placeholder="请输入密码" autocomplete="off" class="layui-input">
+                            </div>
+                        </div>
+
+                        <div class="layui-inline veri-code" id="duanxin" style="display: none">
+                            <div class="layui-input-inline">
+                                <i class="layui-icon layui-icon-vercode iphone-icon"></i>
+                                <input style="padding-left: 40px;" id="pnum" type="text" name="pnum" lay-verify="required"
+                                       placeholder="请输入验证码" autocomplete="off" class="layui-input">
                                 <input type="button" class="layui-btn" id="find"  value="验证码" />
                             </div>
                         </div>
+
                     </div>
+
                     <div class="layui-form-item login-btn">
                         <div class="layui-input-block">
                             <button class="layui-btn" lay-submit="" lay-filter="demo1" onclick="return false">登录</button>
                         </div>
                     </div>
+
+                    <div style="left: 15px; cursor: pointer;"  id="passwordLogin" onclick="passwordLogin()" hidden>
+                        账号密码登录
+                    </div>
+                    <div style="left: 15px; cursor: pointer;" id="smsLogin" onclick="smsLogin()" >
+                        短信登录
+                    </div>
+
                 </form>
             </div>
         </div>
     </div>
+
 </div>
 
 <#include "common/footer.ftl">
 
 <script type="text/javascript">
+
+   function passwordLogin(){
+       $("#smsLogin").show();
+       $("#passwordLogin").hide();
+       document.getElementById("mima").style.display = "block";
+       document.getElementById("duanxin").style.display = "none";
+   }
+    function smsLogin(){//短信登录
+        $("#smsLogin").hide();
+        $("#passwordLogin").show();
+
+        document.getElementById("mima").style.display = "none";
+        document.getElementById("duanxin").style.display = "block";
+    }
+
+
+
+
     layui.config({
         base: '/static/js/website/' //你存放新模块的目录，注意，不是layui的模块目录
     }).use(['jquery','form'],function(){

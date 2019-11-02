@@ -26,7 +26,8 @@
                         </div>
                         <div class="layui-inline veri-code">
                             <div class="layui-input-inline">
-                                <input id="pnum" type="text" name="pnum" lay-verify="required" placeholder="请输入验证码" autocomplete="off" class="layui-input">
+                                <i class="layui-icon layui-icon-vercode iphone-icon"></i>
+                                <input style="padding-left: 40px;" id="pnum" type="text" name="pnum" lay-verify="required" placeholder="请输入验证码" autocomplete="off" class="layui-input">
                                 <input type="button" class="layui-btn" id="find"  value="验证码" />
                             </div>
                         </div>
