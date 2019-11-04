@@ -2,11 +2,17 @@ package com.teaching.web.controller.website;
 
 
 
+import com.teaching.enums.ConstsSiteCarouselStatus;
+import com.teaching.mapper.ConstsSiteCarouselMapper;
+import com.teaching.pojo.ConstsSiteCarousel;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.servlet.ModelAndView;
+import tk.mybatis.mapper.entity.Example;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -18,7 +24,8 @@ import java.util.Map;
 @Controller
 public class IndexController {
 
-
+    @Autowired
+    private ConstsSiteCarouselMapper constsSiteCarouselMapper;
 
     /**
      * 网站首页
@@ -27,7 +34,19 @@ public class IndexController {
     @GetMapping("/website/index")
     public ModelAndView index(Map<String, Object> map,Model model) {
 
-        model.addAttribute("msg","fads");
+        Example example=new Example(ConstsSiteCarousel.class);
+        example.createCriteria().andEqualTo("type",ConstsSiteCarouselStatus.TYPE_FREE.getValue());//免费课程
+        example.orderBy("status").asc();
+        example.orderBy("weight").asc();
+        List<ConstsSiteCarousel> freeCourseList=constsSiteCarouselMapper.selectByExample(example);
+        model.addAttribute("freeCourseList",freeCourseList);
+
+        Example example1=new Example(ConstsSiteCarousel.class);
+        example.createCriteria().andEqualTo("type",3);//实战课程
+        example1.orderBy("status").asc();
+        example1.orderBy("weight").asc();
+        List<ConstsSiteCarousel> moneyCourseList=constsSiteCarouselMapper.selectByExample(example);
+        model.addAttribute("moneyCourseList",moneyCourseList);
 
         return new ModelAndView("website/index", map);
     }

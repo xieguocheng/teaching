@@ -52,7 +52,7 @@ public class ConstsSiteCarouselController {
             example.createCriteria().andEqualTo("type",ConstsSiteCarouselStatus.TYPE_FREE.getValue());//免费课程
         }
         if(type.equals("3")){
-            example.createCriteria().andEqualTo("type",3);
+            example.createCriteria().andEqualTo("type",3);//实战课程
         }
         example.orderBy("status").asc();
         example.orderBy("weight").asc();

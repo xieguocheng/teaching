@@ -37,10 +37,19 @@
 
     <div class="setting-right"  >
 
-       <div><span class="f-16">最新动态</span></div>
-        <div class="split-line" style="margin: 20px 0px;"></div>
+       <#-- <div><span class="f-16">最新动态</span></div>
+        <div class="split-line" style="margin: 20px 0px;"></div>-->
 
-
+        <div class="layui-tab">
+            <ul class="layui-tab-title">
+                <li class="layui-this">收藏的课程</li>
+                <li>收藏的文章</li>
+            </ul>
+            <div class="layui-tab-content">
+                <div class="layui-tab-item layui-show">内容1</div>
+                <div class="layui-tab-item">内容2</div>
+            </div>
+        </div>
 
 
     </div>

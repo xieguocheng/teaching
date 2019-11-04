@@ -31,7 +31,7 @@ public class LoginUrlEntryPoint extends LoginUrlAuthenticationEntryPoint {
         authEntryPointMap = new HashMap<>();
 
         // 普通用户登录入口映射
-        //authEntryPointMap.put("/user/**", "/user/login");
+        authEntryPointMap.put("/user/**", "/website/login");
         // 管理员登录入口映射
         authEntryPointMap.put("/admin/**", "/admin/login");
     }

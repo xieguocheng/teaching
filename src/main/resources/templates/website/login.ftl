@@ -22,15 +22,15 @@
                         <div class="layui-inline iphone">
                             <div class="layui-input-inline">
                                 <i class="layui-icon layui-icon-cellphone iphone-icon"></i>
-                                <input type="tel" name="phone" id="phone" lay-verify="required|phone"
-                                       placeholder="请输入手机号" autocomplete="off" class="layui-input">
+                                <input type="tel" name="account" id="account" lay-verify="required|phone"
+                                       placeholder="请输入手机号/账号" autocomplete="off" class="layui-input">
                             </div>
                         </div>
 
                         <div class="layui-inline iphone" id="mima" >
                             <div class="layui-input-inline">
                                 <i class="layui-icon layui-icon-password iphone-icon"></i>
-                                <input hidden type="tel" name="phone" id="phone"
+                                <input hidden type="password" name="loginPassword" id="loginPassword"
                                        placeholder="请输入密码" autocomplete="off" class="layui-input">
                             </div>
                         </div>
@@ -38,7 +38,7 @@
                         <div class="layui-inline veri-code" id="duanxin" style="display: none">
                             <div class="layui-input-inline">
                                 <i class="layui-icon layui-icon-vercode iphone-icon"></i>
-                                <input style="padding-left: 40px;" id="pnum" type="text" name="pnum" lay-verify="required"
+                                <input style="padding-left: 40px;" id="pnum" type="text" name="pnum"
                                        placeholder="请输入验证码" autocomplete="off" class="layui-input">
                                 <input type="button" class="layui-btn" id="find"  value="验证码" />
                             </div>
@@ -48,7 +48,7 @@
 
                     <div class="layui-form-item login-btn">
                         <div class="layui-input-block">
-                            <button class="layui-btn" lay-submit="" lay-filter="demo1" onclick="return false">登录</button>
+                            <button class="layui-btn" lay-submit="" lay-filter="demo1" id="loginBtn" onclick="return false">登录</button>
                         </div>
                     </div>
 
@@ -70,22 +70,64 @@
 
 <script type="text/javascript">
 
+    $(function () {
+
+        // 登陆事件
+        $('#loginBtn').on('click', function () {
+            var loginUsername = $('#account').val();
+            var loginPassword = $('#loginPassword').val();
+            var params = {};
+            params.username = loginUsername;
+            params.password = loginPassword;
+            debugger;
+            var loginLoadIndex = layer.load(2);
+            $('#loginBtn').val("正在登录...");
+            $.ajax({
+                type:'post',
+                url:"/login"+"?username="+loginUsername+"&password="+loginPassword,
+                dataType:'json',
+                //data:JSON.stringify(params),
+                data: "name="+loginUsername+"&password="+loginPassword,
+                contentType:'application/json',
+                success: function (data) {
+                    debugger;
+                    layer.close(loginLoadIndex);
+                    console.log(data);
+                    if(data.status=="ok"){
+                        console.log("ok")
+                        window.location.href = '/user/home';
+                    }else if(data.status=="error"){
+                        console.log("error")
+                        $('#loginBtn').val("登录");
+                        layer.msg("账号密码错误！", {icon: 5, time: 2000});
+                    }
+                },
+                error:function () {
+                    debugger;
+                    layer.close(loginLoadIndex);
+                    $('#loginBtn').val("登录");
+                    layer.msg("error！", {icon: 5, time: 2000});
+                }
+            });
+        })
+     });
+
+
+   //密码登录
    function passwordLogin(){
        $("#smsLogin").show();
        $("#passwordLogin").hide();
        document.getElementById("mima").style.display = "block";
        document.getElementById("duanxin").style.display = "none";
    }
-    function smsLogin(){//短信登录
+   //短信登录
+    function smsLogin(){
         $("#smsLogin").hide();
         $("#passwordLogin").show();
 
         document.getElementById("mima").style.display = "none";
         document.getElementById("duanxin").style.display = "block";
     }
-
-
-
 
     layui.config({
         base: '/static/js/website/' //你存放新模块的目录，注意，不是layui的模块目录
@@ -94,7 +136,7 @@
 
 
         $("#find").click(function() {
-            if(!/^1\d{10}$/.test($("#phone").val())){
+            if(!/^1\d{10}$/.test($("#account").val())){
                 layer.msg("请输入正确的手机号");
                 return false;
             }

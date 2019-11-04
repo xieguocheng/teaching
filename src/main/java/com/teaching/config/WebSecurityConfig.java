@@ -48,7 +48,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
                 .antMatchers("/static/**").permitAll() // 静态资源
                 .antMatchers("/user/login").permitAll() // 用户登录入口
                 .antMatchers("/admin/**").hasRole("ADMIN")
-                // .antMatchers("/user/**").hasAnyRole("ADMIN", "USER")
+                 .antMatchers("/user/**").hasAnyRole("ADMIN", "USER")
                 .antMatchers("/api/user/**").hasAnyRole("ADMIN", "USER")
                 .and()
                 .formLogin()

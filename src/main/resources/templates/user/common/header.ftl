@@ -3,15 +3,15 @@
 <ul class="layui-nav layui-bg-green" align="right">
 
     <li class="layui-nav-item layui-layout-left" >
-        <a href="/website/index">首页<span class="layui-badge-dot"></span></a>
+        <a href="/website/index"><span class="layui-icon">&#xe68e;</span>首页</a>
     </li>
 
     <li class="layui-nav-item ">
         <a href=""><img src="/static/images/user/default-avatar.png" class="layui-nav-img">我的</a>
         <dl class="layui-nav-child">
-            <dd><a href="javascript:;">修改信息</a></dd>
+            <dd><a href="/user/setting">个人设置</a></dd>
             <dd><a href="javascript:;">安全管理</a></dd>
-            <dd><a href="javascript:;">退了</a></dd>
+            <dd><a href="/logout">退了</a></dd>
         </dl>
     </li>
 

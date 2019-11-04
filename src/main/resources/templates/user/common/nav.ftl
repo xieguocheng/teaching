@@ -53,29 +53,30 @@
         height: 50px;
         line-height: 50px;
     }
+    a{text-decoration: none}
 </style>
 
 <div class="setting-left">
     <img id="userNavHeader" class="setting-header" src=''>
     <div class="split-line" style="margin-bottom: 20px;"></div>
     <ul class="user-menu-nav-block">
-        <a href="" style="text-decoration: none">
-            <li class="user-menu-nav-cur">个人中心 <span class="layui-icon">&#xe68e;</span></li>
+        <a href="/user/home">
+            <li class="user-menu-nav">个人中心 <span class="layui-icon">&#xe68e;</span></li>
         </a>
-        <a href="" style="text-decoration: none">
+        <a href="/user/joinCourse">
             <li class="user-menu-nav">我的课程 <span class="layui-icon">&#xe705;</span></li>
         </a>
-        <a href="" style="text-decoration: none">
+        <a href="/user/createCourse">
             <li class="user-menu-nav">已创课程 <span class="layui-icon">&#xe705;</span></li>
         </a>
-        <a href="" style="text-decoration: none">
+        <a href="/user/collect">
             <li class="user-menu-nav">我的收藏  <span class="layui-icon">&#xe600;</span></li>
         </a>
-        <a href="" style="text-decoration: none">
-            <li class="user-menu-nav">我的关注  <span class="layui-icon">&#xe770;</span></li>
-        </a>
-        <a href="">
+        <a href="/user/answer">
             <li class="user-menu-nav">我的问答 <span class="layui-icon">&#xe63a;</span></li>
+        </a>
+        <a href="/user/follow">
+            <li class="user-menu-nav">我的关注  <span class="layui-icon">&#xe770;</span></li>
         </a>
         <a href="/user/setting">
             <li class="user-menu-nav">个人设置 <span class="layui-icon">&#xe620;</span></li>
