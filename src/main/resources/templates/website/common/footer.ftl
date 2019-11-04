@@ -22,7 +22,7 @@
                         <p class="contact-bottom"><i class="layui-icon layui-icon-home"></i>&nbsp;88888888@163.com</span></p>
                     </div>
                     <div class="layui-col-sm6 layui-col-md4 layui-col-lg3">
-                        <p class="contact-top"><span class="right">该网站归 <a href="https://www.layui.com/" target="_blank">XO.com</a> 所有</span></p>
+                        <p class="contact-top"><span class="right">该网站归 <a href="#" target="_blank">XO.com</a> 所有</span></p>
                         <p class="contact-bottom"><span class="right">Copyright&nbsp;©&nbsp;2019-2020&nbsp;&nbsp;ICP&nbsp;备888888号</span></p>
                     </div>
                 </div>

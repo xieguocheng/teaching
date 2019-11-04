@@ -22,7 +22,7 @@
                         <p class="contact-bottom"><i class="layui-icon layui-icon-home"></i>&nbsp;88888888@163.com</span></p>
                     </div>
                     <div class="layui-col-sm6 layui-col-md4 layui-col-lg3">
-                        <p class="contact-top"><span class="right">该网站归 <a href="https://www.layui.com/" target="_blank">XO.com</a> 所有</span></p>
+                        <p class="contact-top"><span class="right">该网站归 <a href="#" target="_blank">XO.com</a> 所有</span></p>
                         <p class="contact-bottom"><span class="right">Copyright&nbsp;©&nbsp;2019-2020&nbsp;&nbsp;ICP&nbsp;备888888号</span></p>
                     </div>
                 </div>
@@ -33,7 +33,8 @@
 
 <style type="text/css">
     /*底部*/
-    .footer{padding-bottom: 70px; background: #5e6664;}
+    .footer{padding-bottom: 20px; background: #5e6664; clear: both; /* 清除浮动元素格式 */
+        position: relative;}
     .footer .footer-web{padding-top: 50px; padding-bottom: 63px;}
     .footer .footer-web a{color: #a5aaa9; line-height: 22px; margin-right: 20px; transition: 0.3s;}
     .footer .footer-web a:hover{color: #dce1e0; transition: 0.3s;}

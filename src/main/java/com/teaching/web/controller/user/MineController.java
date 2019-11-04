@@ -32,6 +32,18 @@ public class MineController {
         return new ModelAndView("user/home", map);
     }
 
+    /**
+     * 我的设置
+     * @return
+     */
+    @GetMapping("/user/setting")
+    public ModelAndView setting(Map<String, Object> map,Model model) {
+
+        model.addAttribute("msg","fads");
+
+        return new ModelAndView("user/setting", map);
+    }
+
 
 
 
