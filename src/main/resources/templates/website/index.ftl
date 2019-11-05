@@ -34,8 +34,7 @@
     </div>
 
 
-
-        <div class="floors">
+    <div class="floors">
             <div class="sk">
                 <div class="sk_inner w1200">
 
@@ -50,84 +49,35 @@
                             <div carousel-item>
 
                                 <div class="item-box">
-
+                                    <#list freeCourse1 as free>
                                     <div class="item">
                                         <a href="javascript:;">
-                                            <img src="http://szimg.mukewang.com/58f57d200001461105400300-360-202.jpg">
+                                            <img src="${free.picture}">
                                         </a>
-                                        <div class="title">JAVA从入门到精通</div>
+                                        <div class="title">${free.name!}</div>
                                         <div class="price">
-                                            <span>￥49.00</span>
-                                            <del>￥99.00</del>
+                                            <span style="font-size: 16px;float:left"><i class="layui-icon">&#xe770;</i> 1266在学</span>
+                                            <span class="nub" style="font-size: 14px;float:right">免费</span>
                                         </div>
                                     </div>
-
-                                    <div class="item">
-                                        <a href="javascript:;"><img src="http://szimg.mukewang.com/58f57d200001461105400300-360-202.jpg"></a>
-                                        <div class="title">JAVA从入门到精通</div>
-                                        <div class="price">
-                                            <span>￥49.00</span>
-                                            <del>￥99.00</del>
-                                        </div>
-                                    </div>
-                                    <div class="item">
-                                        <a href="javascript:;"><img src="http://szimg.mukewang.com/58f57d200001461105400300-360-202.jpg"></a>
-                                        <div class="title">JAVA从入门到精通</div>
-                                        <div class="price">
-                                            <span>￥49.00</span>
-                                            <del>￥99.00</del>
-                                        </div>
-                                    </div>
-                                    <div class="item">
-                                        <a href="javascript:;"><img src="http://szimg.mukewang.com/58f57d200001461105400300-360-202.jpg"></a>
-                                        <div class="title">JAVA从入门到精通</div>
-                                        <div class="price">
-                                            <span>￥49.00</span>
-                                            <del>￥99.00</del>
-                                        </div>
-                                    </div>
+                                    </#list>
                                 </div>
 
                                 <div class="item-box">
-                                    <div class="item">
-                                        <a href="javascript:;"><img src="http://szimg.mukewang.com/58f57d200001461105400300-360-202.jpg"></a>
-                                        <div class="title">JAVA从入门到精通</div>
-                                        <div class="price">
-                                            <span>￥49.00</span>
-                                            <del>￥99.00</del>
+                                    <#list freeCourse1 as free>
+                                        <div class="item">
+                                            <a href="javascript:;">
+                                                <img src="${free.picture}">
+                                            </a>
+                                            <div class="title">${free.name!}</div>
+                                            <div class="price">
+                                                <span style="font-size: 16px;float:left"><i class="layui-icon">&#xe770;</i> 1266在学</span>
+                                                <span class="nub" style="font-size: 14px;float:right">免费</span>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="item">
-                                        <a href="javascript:;"><img src="http://szimg.mukewang.com/58f57d200001461105400300-360-202.jpg"></a>
-                                        <div class="title">JAVA从入门到精通</div>
-                                        <div class="price">
-                                            <span>￥49.00</span>
-                                            <del>￥99.00</del>
-                                        </div>
-                                    </div>
-                                    <div class="item">
-                                        <a href="javascript:;">
-                                            <img src="http://szimg.mukewang.com/58f57d200001461105400300-360-202.jpg">
-                                        </a>
-                                        <div class="title">JAVA从入门到精通</div>
-                                        <div class="price">
-                                            <span>￥49.00</span>
-                                            <del>￥99.00</del>
-                                        </div>
-                                    </div>
-
-                                    <div class="item">
-                                        <a href="javascript:;">
-                                            <img src="http://szimg.mukewang.com/58f57d200001461105400300-360-202.jpg">
-                                        </a>
-                                        <div class="title">JAVA从入门到精通</div>
-                                        <div class="price">
-                                            <span>￥49.00</span>
-                                            <del>￥99.00</del>
-                                        </div>
-                                    </div>
-
+                                    </#list>
                                 </div>
+
 
                             </div>
                         </div>
@@ -152,72 +102,33 @@
                         <div carousel-item>
 
                             <div class="item-box">
-
-                                <div class="item">
-                                    <a href="javascript:;">
-                                        <img src="http://szimg.mukewang.com/58f57d200001461105400300-360-202.jpg">
-                                    </a>
-                                    <div class="title">JAVA从入门到精通</div>
-                                    <div class="price">
-                                        <span>￥49.00</span>
-                                        <del>￥99.00</del>
-                                    </div>
-                                </div>
-
-                                <div class="item">
-                                    <a href="javascript:;"><img src="http://szimg.mukewang.com/58f57d200001461105400300-360-202.jpg"></a>
-                                    <div class="title">JAVA从入门到精通</div>
-                                    <div class="price">
-                                        <span>￥49.00</span>
-                                        <del>￥99.00</del>
-                                    </div>
-                                </div>
-                                <div class="item">
-                                    <a href="javascript:;"><img src="http://szimg.mukewang.com/58f57d200001461105400300-360-202.jpg"></a>
-                                    <div class="title">JAVA从入门到精通</div>
-                                    <div class="price">
-                                        <span>￥49.00</span>
-                                        <del>￥99.00</del>
-                                    </div>
-                                </div>
-                                <div class="item">
-                                    <a href="javascript:;"><img src="http://szimg.mukewang.com/58f57d200001461105400300-360-202.jpg"></a>
-                                    <div class="title">JAVA从入门到精通</div>
-                                    <div class="price">
-                                        <span>￥49.00</span>
-                                        <del>￥99.00</del>
-                                    </div>
-                                </div>
+                                    <#list moneyCourseList1 as money >
+                                        <div class="item">
+                                            <a href="javascript:;">
+                                                <img src="${money.picture}">
+                                            </a>
+                                            <div class="title">${money.name!}</div>
+                                            <div class="price">
+                                                <span style="font-size: 18px"><i class="layui-icon">&#xe770;</i>1266在学</span>
+                                                <span class="nub" style="font-size: 12px;float:right">￥150/毛</span>
+                                            </div>
+                                        </div>
+                                    </#list>
                             </div>
 
                             <div class="item-box">
-                                <div class="item">
-                                    <a href="javascript:;"><img src="http://szimg.mukewang.com/58f57d200001461105400300-360-202.jpg"></a>
-                                    <div class="title">JAVA从入门到精通</div>
-                                    <div class="price">
-                                        <span>￥49.00</span>
-                                        <del>￥99.00</del>
-                                    </div>
-                                </div>
-                                <div class="item">
-                                    <a href="javascript:;"><img src="http://szimg.mukewang.com/58f57d200001461105400300-360-202.jpg"></a>
-                                    <div class="title">JAVA从入门到精通</div>
-                                    <div class="price">
-                                        <span>￥49.00</span>
-                                        <del>￥99.00</del>
-                                    </div>
-                                </div>
-                                <div class="item">
-                                    <a href="javascript:;">
-                                        <img src="http://szimg.mukewang.com/58f57d200001461105400300-360-202.jpg">
-                                    </a>
-                                    <div class="title">JAVA从入门到精通</div>
-                                    <div class="price">
-                                        <span>￥49.00</span>
-                                        <del>￥99.00</del>
-                                    </div>
-                                </div>
-
+                                    <#list moneyCourseList1 as money>
+                                        <div class="item">
+                                            <a href="javascript:;">
+                                                <img src="${money.picture}">
+                                            </a>
+                                            <div class="title">${money.name!}</div>
+                                            <div class="price">
+                                                <span style="font-size: 18px"><i class="layui-icon">&#xe770;</i>1266在学</span>
+                                                <span class="nub" style="font-size: 12px;float:right">￥150/毛</span>
+                                            </div>
+                                        </div>
+                                    </#list>
                             </div>
 
                         </div>
@@ -232,44 +143,16 @@
                 <h4>系统推荐</h4>
 
                 <div class="product-item-box layui-clear">
-                    <div class="list-item">
-                        <a href="javascript:;">
-                            <img style="width: 160px;px; height:160px;"src="http://szimg.mukewang.com/58f57d200001461105400300-360-202.jpg">
-                        </a>
-                        <p>JAVA从入门到精通</p>
-                        <span>￥100.00</span>
-                    </div>
 
+                <#list systemCourseList1 as sys>
                     <div class="list-item">
                         <a href="javascript:;">
-                            <img style="width: 160px;px; height:160px;"src="http://szimg.mukewang.com/58f57d200001461105400300-360-202.jpg">
+                            <img style="width: 160px;px; height:160px;"src="${sys.picture!}">
                         </a>
-                        <p>JAVA从入门到精通</p>
-                        <span>￥100.00</span>
+                        <p>${sys.name!}</p>
+                        <span>${sys.studyCount!}</span>
                     </div>
-
-                    <div class="list-item">
-                        <a href="javascript:;">
-                            <img style="width: 160px;px; height:160px;"src="http://szimg.mukewang.com/58f57d200001461105400300-360-202.jpg">
-                        </a>
-                        <p>JAVA从入门到精通</p>
-                        <span>￥100.00</span>
-                    </div>
-
-                    <div class="list-item">
-                        <a href="javascript:;">
-                            <img style="width: 160px;px; height:160px;"src="http://szimg.mukewang.com/58f57d200001461105400300-360-202.jpg">
-                        </a>
-                        <p>JAVA从入门到精通</p>
-                        <span>￥100.00</span>
-                    </div>
-                    <div class="list-item">
-                        <a href="javascript:;">
-                            <img style="width: 160px;px; height:160px;"src="http://szimg.mukewang.com/58f57d200001461105400300-360-202.jpg">
-                        </a>
-                        <p>JAVA从入门到精通</p>
-                        <span>￥100.00</span>
-                    </div>
+                </#list>
 
                 </div>
             </div>

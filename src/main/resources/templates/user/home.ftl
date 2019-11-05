@@ -38,7 +38,7 @@
     <div class="setting-right"  >
 
        <div><span class="f-16">最新动态</span></div>
-        <div class="split-line" style="margin: 20px 0px;"></div>
+        <div class="split-line" style="margin: 20px 0px;color"></div>
 
 
 

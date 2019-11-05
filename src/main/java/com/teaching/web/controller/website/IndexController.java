@@ -3,8 +3,11 @@ package com.teaching.web.controller.website;
 
 
 import com.teaching.enums.ConstsSiteCarouselStatus;
+import com.teaching.enums.CourseStatus;
 import com.teaching.mapper.ConstsSiteCarouselMapper;
+import com.teaching.mapper.CourseMapper;
 import com.teaching.pojo.ConstsSiteCarousel;
+import com.teaching.pojo.Course;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,6 +15,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.servlet.ModelAndView;
 import tk.mybatis.mapper.entity.Example;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -26,6 +30,8 @@ public class IndexController {
 
     @Autowired
     private ConstsSiteCarouselMapper constsSiteCarouselMapper;
+    @Autowired
+    private CourseMapper courseMapper;
 
     /**
      * 网站首页
@@ -33,20 +39,45 @@ public class IndexController {
      */
     @GetMapping("/website/index")
     public ModelAndView index(Map<String, Object> map,Model model) {
+        //免费课程
+       List<ConstsSiteCarousel> freeCourse1=new ArrayList<>();
+        List<ConstsSiteCarousel> freeCourse2=new ArrayList<>();
 
         Example example=new Example(ConstsSiteCarousel.class);
         example.createCriteria().andEqualTo("type",ConstsSiteCarouselStatus.TYPE_FREE.getValue());//免费课程
         example.orderBy("status").asc();
         example.orderBy("weight").asc();
         List<ConstsSiteCarousel> freeCourseList=constsSiteCarouselMapper.selectByExample(example);
-        model.addAttribute("freeCourseList",freeCourseList);
+        for(int i=0;i<4;i++){
+            freeCourse1.add(freeCourseList.get(i));
+        }
+        model.addAttribute("freeCourse1",freeCourse1);
+        model.addAttribute("freeCourse2",freeCourse1);
 
+        //实战课程
+        List<ConstsSiteCarousel> moneyCourseList1=new ArrayList<>();
+        List<ConstsSiteCarousel> moneyCourseList2=new ArrayList<>();
         Example example1=new Example(ConstsSiteCarousel.class);
-        example.createCriteria().andEqualTo("type",3);//实战课程
+        example1.createCriteria().andEqualTo("type",3);//实战课程
         example1.orderBy("status").asc();
         example1.orderBy("weight").asc();
-        List<ConstsSiteCarousel> moneyCourseList=constsSiteCarouselMapper.selectByExample(example);
-        model.addAttribute("moneyCourseList",moneyCourseList);
+        List<ConstsSiteCarousel> moneyCourseList=constsSiteCarouselMapper.selectByExample(example1);
+        for(int i=0;i<4;i++){
+            moneyCourseList1.add(moneyCourseList.get(i));
+        }
+        model.addAttribute("moneyCourseList1",moneyCourseList1);
+        model.addAttribute("moneyCourseList2",moneyCourseList1);
+
+        //系统推荐
+        List<Course> systemCourseList1=new ArrayList<>();
+        Example example2=new Example(Course.class);
+        example2.createCriteria().andEqualTo("status",CourseStatus.STATUS_VERIFY_SUCC.getValue());//审核成功
+        example2.orderBy("studyCount").asc();
+        List<Course> systemCourseList=courseMapper.selectByExample(example2);
+        for(int i=0;i<10;i++){
+            systemCourseList1.add(systemCourseList.get(i));
+        }
+        model.addAttribute("systemCourseList1",systemCourseList1);
 
         return new ModelAndView("website/index", map);
     }
