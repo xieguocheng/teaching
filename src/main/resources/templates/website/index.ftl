@@ -52,7 +52,7 @@
                                     <#list freeCourse1 as free>
                                     <div class="item">
                                         <a href="javascript:;">
-                                            <img src="${free.picture}">
+                                            <img src="${free.picture!}">
                                         </a>
                                         <div class="title">${free.name!}</div>
                                         <div class="price">
@@ -67,7 +67,7 @@
                                     <#list freeCourse1 as free>
                                         <div class="item">
                                             <a href="javascript:;">
-                                                <img src="${free.picture}">
+                                                <img src="${free.picture!}">
                                             </a>
                                             <div class="title">${free.name!}</div>
                                             <div class="price">
@@ -105,7 +105,7 @@
                                     <#list moneyCourseList1 as money >
                                         <div class="item">
                                             <a href="javascript:;">
-                                                <img src="${money.picture}">
+                                                <img src="${money.picture!}">
                                             </a>
                                             <div class="title">${money.name!}</div>
                                             <div class="price">
@@ -120,7 +120,7 @@
                                     <#list moneyCourseList1 as money>
                                         <div class="item">
                                             <a href="javascript:;">
-                                                <img src="${money.picture}">
+                                                <img src="${money.picture!}">
                                             </a>
                                             <div class="title">${money.name!}</div>
                                             <div class="price">
@@ -163,6 +163,9 @@
 <#include "common/footer.ftl">
 
     <script type="text/javascript">
+        $(function () {
+            $("#index").addClass("active");
+        })
 
         layui.config({
             base: '/static/js/website/' //你存放新模块的目录，注意，不是layui的模块目录

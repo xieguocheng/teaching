@@ -14,4 +14,27 @@
     <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
     <result column="del" property="del" jdbcType="INTEGER" />
   </resultMap>
+
+  <resultMap id="newResultMap" type="com.teaching.pojo.ConstsClassify" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="pid" property="id" jdbcType="INTEGER" />
+    <result column="pname" property="name" jdbcType="VARCHAR" />
+
+      <collection property="sub" ofType="com.teaching.pojo.ConstsClassify">
+          <id column="cid" property="id" jdbcType="INTEGER" />
+          <result column="cname" property="name" jdbcType="VARCHAR" />
+
+      </collection>
+  </resultMap>
+
+  <select id="getTree" resultMap="newResultMap">
+    select t1.id pid,t1.name pname,t2.id cid,t2.name cname from consts_classify t1 LEFT JOIN consts_classify t2
+    ON t1.id=t2.parent_id WHERE t2.parent_id &lt;&gt; 0
+  </select>
+
+
+
+
 </mapper>

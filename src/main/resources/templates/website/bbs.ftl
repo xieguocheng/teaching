@@ -99,6 +99,9 @@
 <#include "common/footer.ftl">
 
     <script type="text/javascript">
+        $(function () {
+            $("#bbs").addClass("active");
+        })
 
         layui.config({
             base: '/static/js/website/' //你存放新模块的目录，注意，不是layui的模块目录

@@ -3,6 +3,7 @@ package com.teaching.pojo;
 import lombok.Data;
 
 import java.util.Date;
+import java.util.List;
 import javax.persistence.*;
 
 @Table(name = "consts_classify")
@@ -202,4 +203,7 @@ public class ConstsClassify {
     public void setDel(Integer del) {
         this.del = del;
     }
+
+    private List<ConstsClassify> sub;
+
 }

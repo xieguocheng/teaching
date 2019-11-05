@@ -15,21 +15,16 @@
         <div class="commod-cont w1200 layui-clear">
             <div class="left-nav">
                 <div class="title">课程分类</div>
+        <#list treeList as tree>
                 <div class="list-box">
                     <dl>
-                        <dt>后端开发</dt>
-                        <dd><a href="javascript:;">Java</a></dd>
-                        <dd><a href="javascript:;">PHP</a></dd>
-                        <dd><a href="javascript:;">C++</a></dd>
-                    </dl>
-                    <dl>
-                        <dt>前端开发</dt>
-                        <dd><a href="javascript:;">HTML</a></dd>
-                        <dd><a href="javascript:;">Javascript</a></dd>
-                        <dd><a href="javascript:;">jquery</a></dd>
-                        <dd><a href="javascript:;">boostrapt</a></dd>
+                            <dt off="true" class="active">${tree.name!}</dt>
+                        <#list tree.sub as item>
+                        <dd style="display: none"><a href="javascript:;">${item.name!}</a></dd>
+                        </#list>
                     </dl>
                 </div>
+        </#list>
             </div>
 
             <div class="right-cont-wrap">
@@ -41,56 +36,40 @@
                         <a href="javascript:;" event = 'collection'>收藏</a>
                     </div>
                     <div class="prod-number">
-                        <span>200个</span>
+                        <span>${courseList?size} &nbsp门课程</span>
                     </div>
                     <div class="cont-list layui-clear" id="list-cont">
+<#list courseList as item>
+                        <div class="item">
+                            <div class="img">
+                                <a href="javascript:;">
+                                    <img style="width: 280px;px; height:170px;"
+                                         src="${item.picture!}">
+                                </a>
+                            </div>
+                            <div class="text">
+                                <p class="title">${item.name!}</p>
+                                <p class="price">
+                                    <#if item.free=0>
+                                    <span   class="pri" style="font-size: 16px;color: red">￥${item.price!}/块钱</span>
+                                    <#else >
+                                    <span  class="pri" style="font-size: 16px;color: red">免费</span>
+                                    </#if>
 
-                        <div class="item">
-                            <div class="img">
-                                <a href="javascript:;">
-                                    <img style="width: 280px;px; height:170px;" src="http://szimg.mukewang.com/58f57d200001461105400300-360-202.jpg">
-                                </a>
-                            </div>
-                            <div class="text">
-                                <p class="title">森系小清新四件套</p>
-                                <p class="price">
-                                    <span class="pri">￥200</span>
-                                    <span class="nub">1266付款</span>
-                                </p>
-                            </div>
-                        </div>
+                                    <span class="nub">
+                                        课时${item.time!}分钟 &nbsp
+                                        <i class="layui-icon" style="font-size: 12px">&#xe770;</i>
+                                        ${item.studyCount}人在学
+                                    </span>
 
-                        <div class="item">
-                            <div class="img">
-                                <a href="javascript:;">
-                                    <img style="width: 280px;px; height:170px;" src="http://szimg.mukewang.com/58f57d200001461105400300-360-202.jpg">
-                                </a>
-                            </div>
-                            <div class="text">
-                                <p class="title">森系小清新四件套</p>
-                                <p class="price">
-                                    <span class="pri">￥200</span>
-                                    <span class="nub">1266付款</span>
                                 </p>
                             </div>
                         </div>
-                        <div class="item">
-                            <div class="img">
-                                <a href="javascript:;">
-                                    <img style="width: 280px;px; height:170px;" src="http://szimg.mukewang.com/58f57d200001461105400300-360-202.jpg">
-                                </a>
-                            </div>
-                            <div class="text">
-                                <p class="title">森系小清新四件套</p>
-                                <p class="price">
-                                    <span class="pri">￥200</span>
-                                    <span class="nub">1266付款</span>
-                                </p>
-                            </div>
-                        </div>
+</#list>
+
                     </div>
                     <!-- 模版引擎导入 -->
-                    <!-- <script type="text/html" id="demo">
+                    <script type="text/html" id="demo">
                       {{# layui.each(d.menu.milk.content,function(index,item){}}
                         <div class="item">
                           <div class="img">
@@ -105,7 +84,7 @@
                           </div>
                         </div>
                       {{# }); }}
-                    </script> -->
+                    </script>
                     <div id="demo0" style="text-align: center;"></div>
                 </div>
             </div>
@@ -117,9 +96,10 @@
 
 <script>
 
-   /* $(function () {
+   $(function () {
         $("#course").addClass("active");
-    })*/
+       $('dt').attr('off');
+    })
 
     layui.config({
         base: '/static/js/website/' //你存放新模块的目录，注意，不是layui的模块目录
@@ -127,13 +107,36 @@
         var laypage = layui.laypage,$ = layui.$,
             mm = layui.mm;
         laypage.render({
-            elem: 'demo0'
+            elem: 'demo0' +
+            ''
+            ,url:'website/course/list'
             ,count: 100 //数据总数
         });
+
+
+        // 模版引擎导入
+       /* var html = demo.innerHTML;
+        var listCont = document.getElementById('list-cont');
+        // console.log(layui.router("#/about.html"))
+        mm.request({
+            url: '/website/course/list',
+            success : function(res){
+                debugger
+                console.log(res)
+                listCont.innerHTML = mm.renderHtml(html,res)
+            },
+            error: function(res){
+                debugger;
+                console.log(res);
+            }
+        })*/
 
         $('.sort a').on('click',function(){
             $(this).addClass('active').siblings().removeClass('active');
         })
+
+
+
         $('.list-box dt').on('click',function(){
             if($(this).attr('off')){
                 $(this).removeClass('active').siblings('dd').show()

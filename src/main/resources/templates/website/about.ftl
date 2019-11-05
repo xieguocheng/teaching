@@ -197,6 +197,9 @@
 <#include "common/footer.ftl">
 
     <script type="text/javascript">
+        $(function () {
+            $("#about").addClass("active");
+        })
 
         layui.config({
             base: '/static/js/website/'

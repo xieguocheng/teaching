@@ -4,14 +4,21 @@ package com.teaching.web.controller.website;
 
 import com.teaching.enums.ConstsSiteCarouselStatus;
 import com.teaching.enums.CourseStatus;
+import com.teaching.mapper.ConstsClassifyMapper;
 import com.teaching.mapper.ConstsSiteCarouselMapper;
 import com.teaching.mapper.CourseMapper;
+import com.teaching.pojo.ConstsClassify;
 import com.teaching.pojo.ConstsSiteCarousel;
 import com.teaching.pojo.Course;
+import com.teaching.pojo.CourseSection;
+import com.teaching.utils.ApiResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import tk.mybatis.mapper.entity.Example;
 
@@ -32,6 +39,8 @@ public class IndexController {
     private ConstsSiteCarouselMapper constsSiteCarouselMapper;
     @Autowired
     private CourseMapper courseMapper;
+    @Autowired
+    private ConstsClassifyMapper constsClassifyMapper;
 
     /**
      * 网站首页
@@ -74,7 +83,7 @@ public class IndexController {
         example2.createCriteria().andEqualTo("status",CourseStatus.STATUS_VERIFY_SUCC.getValue());//审核成功
         example2.orderBy("studyCount").asc();
         List<Course> systemCourseList=courseMapper.selectByExample(example2);
-        for(int i=0;i<10;i++){
+        for(int i=0;i<5;i++){
             systemCourseList1.add(systemCourseList.get(i));
         }
         model.addAttribute("systemCourseList1",systemCourseList1);
@@ -89,8 +98,32 @@ public class IndexController {
     @GetMapping("/website/course")
     public ModelAndView course(Map<String, Object> map,Model model) {
 
+        //类目
+        List<ConstsClassify> treeList=constsClassifyMapper.getTree();
+        model.addAttribute("treeList",treeList);
+        //
+        //系统推荐
+        Example example2=new Example(Course.class);
+        example2.createCriteria().andEqualTo("status",CourseStatus.STATUS_VERIFY_SUCC.getValue());//审核成功
+        example2.orderBy("studyCount").asc();
+        List<Course> courseList=courseMapper.selectByExample(example2);
+        model.addAttribute("courseList",courseList);
+
         return new ModelAndView("website/course", map);
     }
+
+    @RequestMapping("website/course/list")
+    @ResponseBody
+    public ApiResponse courseSectionList(Model model) {
+
+        Example example2=new Example(Course.class);
+        example2.createCriteria().andEqualTo("status",CourseStatus.STATUS_VERIFY_SUCC.getValue());//审核成功
+        example2.orderBy("studyCount").asc();
+        List<Course> courseList=courseMapper.selectByExample(example2);
+
+        return new ApiResponse(0,"ok",courseList);
+    }
+
 
     /**
      * 网站课程智慧推荐
