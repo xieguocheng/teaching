@@ -2,6 +2,9 @@ package com.teaching.web.controller.website;
 
 
 
+import com.alibaba.fastjson.JSONObject;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.teaching.enums.ConstsSiteCarouselStatus;
 import com.teaching.enums.CourseStatus;
 import com.teaching.mapper.ConstsClassifyMapper;
@@ -15,10 +18,7 @@ import com.teaching.utils.ApiResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import tk.mybatis.mapper.entity.Example;
 
@@ -114,14 +114,27 @@ public class IndexController {
 
     @RequestMapping("website/course/list")
     @ResponseBody
-    public ApiResponse courseSectionList(Model model) {
+    public String courseSectionList(@RequestParam(value = "pageNum",defaultValue = "1") Integer pageNum,
+                                         @RequestParam(value = "pageSize",defaultValue = "10")Integer pageSize,
+                                         Model model,Map<String, Object> map) {
 
         Example example2=new Example(Course.class);
         example2.createCriteria().andEqualTo("status",CourseStatus.STATUS_VERIFY_SUCC.getValue());//审核成功
         example2.orderBy("studyCount").asc();
         List<Course> courseList=courseMapper.selectByExample(example2);
 
-        return new ApiResponse(0,"ok",courseList);
+        //pageNum = (pageNum - 1) * pageSize;
+        PageHelper.startPage(pageNum, pageSize);
+       // List<NewsInfo> newsInfo = newsInfoService.query(pageNum, pageSize, newsTitle, newsAuthor);
+        PageInfo<Course> newsPage = new PageInfo<Course>(courseList);
+        //Integer count = newsInfoService.count();
+        JSONObject json = new JSONObject();
+        json.put("data", newsPage.getList());
+        json.put("count", 1000);
+        json.put("status", 200);
+        return json.toString();
+
+       // return new ApiResponse(0,"ok",courseList);
     }
 
 

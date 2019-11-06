@@ -69,7 +69,7 @@
 
                     </div>
                     <!-- 模版引擎导入 -->
-                    <script type="text/html" id="demo">
+                   <#-- <script type="text/html" id="demo0">
                       {{# layui.each(d.menu.milk.content,function(index,item){}}
                         <div class="item">
                           <div class="img">
@@ -84,7 +84,7 @@
                           </div>
                         </div>
                       {{# }); }}
-                    </script>
+                    </script>-->
                     <div id="demo0" style="text-align: center;"></div>
                 </div>
             </div>
@@ -107,15 +107,25 @@
         var laypage = layui.laypage,$ = layui.$,
             mm = layui.mm;
         laypage.render({
-            elem: 'demo0' +
-            ''
+            elem: 'demo0'
             ,url:'website/course/list'
             ,count: 100 //数据总数
+            ,jump: function(obj, first){
+                //obj包含了当前分页的所有参数，比如：
+                debugger;
+                console.log(obj.curr); //得到当前页，以便向服务端请求对应页的数据。
+                console.log(obj.limit); //得到每页显示的条数
+
+                //首次不执行
+                if(!first){
+
+                }
+            }
         });
 
 
         // 模版引擎导入
-       /* var html = demo.innerHTML;
+      /* var html = demo0.innerHTML;
         var listCont = document.getElementById('list-cont');
         // console.log(layui.router("#/about.html"))
         mm.request({

@@ -12,14 +12,17 @@ layui.define(['jquery','element','laytpl','carousel','laypage'],function(exports
 				success 	: function(res){
 					 // 请求成功
 	                if(0 === res.status){
+	                	debugger;
 	                    typeof param.success === 'function' && param.success(res, res.msg);
 	                }
 					// 请求数据错误
 	                else if(1 === res.status){
+                        debugger;
 	                    typeof param.error === 'function' && param.error(res.msg);
 	                }
 				},
-				error       : function(err){
+				error : function(err){
+                    debugger;
 					 typeof param.error === 'function' && param.error(err.statusText);	
 				}
 			});
