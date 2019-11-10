@@ -62,15 +62,26 @@
                             <div>
                                 <div class="news-img">
                                     <a href="newsDetail.html">
-                                        <img style="width: 184px;height: 142px" src="http://szimg.mukewang.com/58f57d200001461105400300-360-202.jpg">
+                                        <img style="width: 184px;height: 142px" src="/static/images/website/banner.jpg">
                                     </a>
                                 </div><div class="news-panel">
                                 <strong><a href="newsDetail.html">写经验交流材料的技巧全在这了！</a></strong>
-                                <p class="detail"><span>看不到您的原稿，这样对空发议论，估计对您的指导性是不大的。建议您将原稿贴出来，好让老师们针对指导。这里简单给出意见：</span><a href="newsDetail.html">[详细]</a></p>
+                                <p class="detail">
+                                    <span>看不到您的原稿，这样对空发议论，估计对您的指导性是不大的估计对您的指导性是不大的估计对您的指导性是不大的估计对您的指导性是不大的估计对您的指导性是不大的估计对您的指导性是不大的估计对您的指导性是不大的估计对您的指导性是不大的估计对您的指导性是不大的。建议您将原稿贴出来，好让老师们针对指导。这里简单给出意见：
+                                    </span><a href="newsDetail.html">[详细]</a></p>
                                 <p class="read-push">阅读 <span>835</span>&nbsp;&nbsp;&nbsp;&nbsp;发布时间：<span>2018-06-21</span></p>
                             </div>
                             </div>
                         </div>
+                        <#--<style>
+                            span{
+                                display: block;
+                                width: 120px;
+                                overflow: hidden;
+                                white-space: nowrap;
+                                text-overflow: ellipsis;
+                            }
+                        </style>-->
 
                         <div class="layui-col-lg6 content">
                             <div>

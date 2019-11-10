@@ -2,6 +2,7 @@
 <html>
 
 <#include "common/head.ftl">
+<#--<link rel="stylesheet" type="text/css" href="/static/css/bootstrap.css">-->
 
 <body>
 
@@ -36,10 +37,11 @@
                         <a href="javascript:;" event = 'collection'>收藏</a>
                     </div>
                     <div class="prod-number">
-                        <span>${courseList?size} &nbsp门课程</span>
+                        <span>${newsPage.getTotal()} &nbsp门课程</span>
                     </div>
-                    <div class="cont-list layui-clear" id="list-cont">
-<#list courseList as item>
+
+                <div class="cont-list layui-clear" id="list-cont">
+                    <#list newsPage.list as item>
                         <div class="item">
                             <div class="img">
                                 <a href="javascript:;">
@@ -65,27 +67,47 @@
                                 </p>
                             </div>
                         </div>
-</#list>
+                    </#list>
+                </div>
 
+                <#--分页-->
+                    <div class="">
+                        <ul class="">
+                            <li><a href="/website/course"  class="layui-btn layui-btn-sm">首页</a></li>
+                    <#if currentPage lte 1>
+                        <li class="disabled"><a href="#"  class="layui-btn layui-btn-sm layui-btn-disabled">上一页</a></li>
+                    <#else>
+                        <li><a href="/website/course?pageNum=${currentPage - 1}&pageSize=${pageSize}"
+                               class="layui-btn layui-btn-sm">上一页</a></li>
+                    </#if>
+
+                    <#--<#list 1..newsPage.getPages() as index>
+                        <#if currentPage == index>
+                            <li class="disabled"><a href="#">${index}</a></li>
+                        <#else>
+                            <li><a href="/website/course?pageNum=${index}&pageSize=${pageSize}">${index}</a></li>
+                        </#if>
+                    </#list>-->
+
+                    <#if currentPage gte newsPage.getPages()>
+                        <li class="disabled"><a href="#" class="layui-btn  layui-btn-sm      layui-btn-disabled">下一页</a></li>
+                    <#else>
+                        <li><a href="/website/course?pageNum=${currentPage + 1}&pageSize=${pageSize}"
+                               class="layui-btn layui-btn-sm">下一页</a></li>
+                    </#if>
+                            <li><a href="/website/course?pageNum=${newsPage.getPages()}&pageSize=${pageSize}"
+                                   class="layui-btn layui-btn-sm">末页</a></li>
+                        </ul>
                     </div>
-                    <!-- 模版引擎导入 -->
-                   <#-- <script type="text/html" id="demo0">
-                      {{# layui.each(d.menu.milk.content,function(index,item){}}
-                        <div class="item">
-                          <div class="img">
-                            <a href="javascript:;"><img src="{{item.img}}"></a>
-                          </div>
-                          <div class="text">
-                            <p class="title"></p>
-                            <p class="price">
-                              <span class="pri">{{item.pri}}</span>
-                              <span class="nub">{{item.nub}}</span>
-                            </p>
-                          </div>
-                        </div>
-                      {{# }); }}
-                    </script>-->
-                    <div id="demo0" style="text-align: center;"></div>
+<style>
+    ul li {
+        position: relative;
+        display: inline-block;
+        heigth : 30px;
+        padding: 10px;
+    }
+</style>
+
                 </div>
             </div>
         </div>
@@ -124,22 +146,6 @@
         });
 
 
-        // 模版引擎导入
-      /* var html = demo0.innerHTML;
-        var listCont = document.getElementById('list-cont');
-        // console.log(layui.router("#/about.html"))
-        mm.request({
-            url: '/website/course/list',
-            success : function(res){
-                debugger
-                console.log(res)
-                listCont.innerHTML = mm.renderHtml(html,res)
-            },
-            error: function(res){
-                debugger;
-                console.log(res);
-            }
-        })*/
 
         $('.sort a').on('click',function(){
             $(this).addClass('active').siblings().removeClass('active');

@@ -37,13 +37,17 @@
                         <a href="javascript:;" class="active tuang" data-content="tuangou">课程推荐</a>
                         <a href="javascript:;" data-content="yukao">名师推荐</a>
                     </div>
+
                     <div class="list-cont" cont = 'tuangou'>
                         <div class="item-box layui-clear">
 
                             <div class="item">
-                                <img style="width: 290px;px; height:200px;"src="http://szimg.mukewang.com/58f57d200001461105400300-360-202.jpg">
+                                <a href="javascript:;">
+                                <img style="width: 290px;px; height:200px;"
+                                     src="http://szimg.mukewang.com/58f57d200001461105400300-360-202.jpg">
+                                </a>
                                 <div class="text-box">
-                                    <p class="title">宝宝专用硅胶环保饭碗四套+调羹+筷子自助学吃饭套装</p>
+                                    <p class="title">java入门到精通</p>
                                     <p class="plic">
                                         <span class="ciur-pic">￥100.00</span>
                                         <span class="Ori-pic">￥208.00</span>
@@ -51,48 +55,41 @@
                                     </p>
                                 </div>
                             </div>
-
-                            <div class="item">
-                                <img style="width: 290px;px; height:200px;"src="http://szimg.mukewang.com/58f57d200001461105400300-360-202.jpg">
-                                <div class="text-box">
-                                    <p class="title">宝宝专用硅胶环保饭碗四套+调羹+筷子自助学吃饭套装</p>
-                                    <p class="plic">
-                                        <span class="ciur-pic">￥100.00</span>
-                                        <span class="Ori-pic">￥208.00</span>
-                                        <span class="discount">5折</span>
-                                    </p>
-                                </div>
-                            </div>
-                            <div class="item">
-                                <img style="width: 290px;px; height:200px;"src="http://szimg.mukewang.com/58f57d200001461105400300-360-202.jpg">
-                                <div class="text-box">
-                                    <p class="title">宝宝专用硅胶环保饭碗四套+调羹+筷子自助学吃饭套装</p>
-                                    <p class="plic">
-                                        <span class="ciur-pic">￥100.00</span>
-                                        <span class="Ori-pic">￥208.00</span>
-                                        <span class="discount">5折</span>
-                                    </p>
-                                </div>
-                            </div>
-                            <div class="item">
-                                <img style="width: 290px;px; height:200px;"src="http://szimg.mukewang.com/58f57d200001461105400300-360-202.jpg">
-                                <div class="text-box">
-                                    <p class="title">宝宝专用硅胶环保饭碗四套+调羹+筷子自助学吃饭套装</p>
-                                    <p class="plic">
-                                        <span class="ciur-pic">￥100.00</span>
-                                        <span class="Ori-pic">￥208.00</span>
-                                        <span class="discount">5折</span>
-                                    </p>
-                                </div>
-                            </div>
-
-
-
-
 
                         </div>
-                        <div id="demo0" style="text-align: center;"></div>
                     </div>
+
+
+                    <div class="list-cont layui-hide" cont = 'yukao'>
+                    <div class="item-box layui-clear">
+                            <div class="item">
+                                <a href="javascript:;">
+                                <img style="width: 290px;px; height:200px;"
+                                     src="http://szimg.mukewang.com/58f57d200001461105400300-360-202.jpg">
+                                </a>
+                                <div class="text-box">
+                                    <p class="title">宝宝专用硅胶环保饭碗四套+调羹+筷子自助学吃饭套装</p>
+                                    <p class="plic">
+                                        <span class="ciur-pic">￥100.00</span>
+                                        <span class="Ori-pic">￥208.00</span>
+                                        <span class="discount">5折</span>
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="item">
+                                <img style="width: 290px;px; height:200px;"src="http://szimg.mukewang.com/58f57d200001461105400300-360-202.jpg">
+                                <div class="text-box">
+                                    <p class="title">宝宝专用硅胶环保饭碗四套+调羹+筷子自助学吃饭套装</p>
+                                    <p class="plic">
+                                        <span class="ciur-pic">￥100.00</span>
+                                        <span class="Ori-pic">￥208.00</span>
+                                        <span class="discount">5折</span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
             </div>
 

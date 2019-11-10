@@ -26,7 +26,7 @@
             <div class="mallSearch">
                 <form action="" class="layui-form" novalidate>
                     <input type="text" name="title" required  lay-verify="required" autocomplete="off" class="layui-input"
-                           placeholder="请输入想要搜索的课程">
+                           placeholder="请输入想要搜索的课程名称/类型">
                     <button class="layui-btn" lay-submit lay-filter="formDemo">
                         <i class="layui-icon layui-icon-search"></i>
                     </button>

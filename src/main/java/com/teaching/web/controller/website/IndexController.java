@@ -96,46 +96,32 @@ public class IndexController {
      * @return
      */
     @GetMapping("/website/course")
-    public ModelAndView course(Map<String, Object> map,Model model) {
+    public ModelAndView course(Map<String, Object> map,
+                               @RequestParam(value = "pageNum",defaultValue = "1") Integer pageNum,
+                               @RequestParam(value = "pageSize",defaultValue = "9")Integer pageSize) {
 
         //类目
         List<ConstsClassify> treeList=constsClassifyMapper.getTree();
-        model.addAttribute("treeList",treeList);
+        map.put("treeList", treeList);
         //
         //系统推荐
+        PageHelper.startPage(pageNum, pageSize);
+
         Example example2=new Example(Course.class);
         example2.createCriteria().andEqualTo("status",CourseStatus.STATUS_VERIFY_SUCC.getValue());//审核成功
         example2.orderBy("studyCount").asc();
         List<Course> courseList=courseMapper.selectByExample(example2);
-        model.addAttribute("courseList",courseList);
+
+
+        PageInfo<Course> newsPage = new PageInfo<>(courseList);
+
+        map.put("newsPage", newsPage);
+        map.put("currentPage", pageNum);
+        map.put("pageSize", pageSize);
 
         return new ModelAndView("website/course", map);
     }
 
-    @RequestMapping("website/course/list")
-    @ResponseBody
-    public String courseSectionList(@RequestParam(value = "pageNum",defaultValue = "1") Integer pageNum,
-                                         @RequestParam(value = "pageSize",defaultValue = "10")Integer pageSize,
-                                         Model model,Map<String, Object> map) {
-
-        Example example2=new Example(Course.class);
-        example2.createCriteria().andEqualTo("status",CourseStatus.STATUS_VERIFY_SUCC.getValue());//审核成功
-        example2.orderBy("studyCount").asc();
-        List<Course> courseList=courseMapper.selectByExample(example2);
-
-        //pageNum = (pageNum - 1) * pageSize;
-        PageHelper.startPage(pageNum, pageSize);
-       // List<NewsInfo> newsInfo = newsInfoService.query(pageNum, pageSize, newsTitle, newsAuthor);
-        PageInfo<Course> newsPage = new PageInfo<Course>(courseList);
-        //Integer count = newsInfoService.count();
-        JSONObject json = new JSONObject();
-        json.put("data", newsPage.getList());
-        json.put("count", 1000);
-        json.put("status", 200);
-        return json.toString();
-
-       // return new ApiResponse(0,"ok",courseList);
-    }
 
 
     /**
