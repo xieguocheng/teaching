@@ -193,6 +193,10 @@ public class CourseController {
 
         Course course=courseMapper.selectByPrimaryKey(new Course(Integer.valueOf(id)));
         model.addAttribute("course",course);
+
+        List<CourseComment> list=courseCommentService.findCourseCommentByCourseId(Integer.valueOf(id));
+        model.addAttribute("CourseCommentList",list);
+
         return "admin/course/course-detail";
     }
 

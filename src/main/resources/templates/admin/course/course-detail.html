@@ -127,9 +127,32 @@
     </div>
 
     <div class="tabCon">
-        <div class="pd-20">
+        <!--<div class="pd-20">
             <table id="table2" class="layui-table" lay-filter="table2"></table>
-        </div>
+        </div>-->
+        <ul class="commentList" style="margin-left: 15px;width: 90%" th:each="courseComment,CourseCommentList : ${CourseCommentList}">
+            <li class="item cl">
+                <a href="#"><i class="avatar size-L radius">
+                <img alt="" src="/static/images/user/default-avatar.png"></i>
+                </a>
+                <div class="comment-main">
+                    <header class="comment-header">
+                        <div class="comment-meta" >
+                            <a class="comment-author" href="#" th:text="${courseComment.username}+评论于 "></a>
+                            <time th:text="${#dates.format(courseComment.createTime, 'yyyy-MM-dd HH:mm:ss')}"
+                                  th:title="${#dates.format(courseComment.createTime, 'yyyy-MM-dd HH:mm:ss')}">
+                            </time>
+                            <a class="comment-author" href="#" th:text="《章节：+${courseComment.sectionTitle}+》 "></a>
+                        </div>
+                    </header>
+                    <div class="comment-body">
+                        <p th:text="${courseComment.content}">
+                            <a href="#" th:text="${courseComment.toUsername}">@某人</a>
+                        </p>
+                    </div>
+                </div>
+            </li>
+        </ul>
 
     </div>
 
