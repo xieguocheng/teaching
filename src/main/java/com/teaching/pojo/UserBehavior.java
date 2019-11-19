@@ -3,10 +3,14 @@ package com.teaching.pojo;
 import lombok.Data;
 
 import java.util.Date;
+import java.util.List;
 import javax.persistence.*;
 @Data
 @Table(name = "user_behavior")
 public class UserBehavior {
+
+    private List<UserBehavior> userBehaviorList;
+
     /**
      * id
      */
