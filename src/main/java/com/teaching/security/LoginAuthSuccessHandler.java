@@ -48,6 +48,9 @@ public class LoginAuthSuccessHandler extends SimpleUrlAuthenticationSuccessHandl
             systemLog.setStatus(1);
             systemLogMapper.insert(systemLog);
         }
+        
+        //网站session判断
+        request.getSession().setAttribute("name",name);
 
         log.info("登录成功！！！");
         response.setContentType("application/json;charset=utf-8");

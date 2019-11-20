@@ -15,6 +15,7 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.authentication.logout.LogoutHandler;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -80,6 +81,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
                 .logout()
                 .logoutUrl("/logout")           //配置退出入口
                 .logoutSuccessUrl("/logout/page")
+                .addLogoutHandler(new LogoutHandler() {
+                    @Override
+                    public void logout(HttpServletRequest request, HttpServletResponse response, Authentication authentication) {
+                        request.getSession().removeAttribute("name");
+                    }
+                })
                 .deleteCookies("JSESSIONID")        //删除默认存放cookie名称-值
                 .invalidateHttpSession(true)
                 .and()

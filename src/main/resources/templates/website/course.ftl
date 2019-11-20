@@ -44,7 +44,7 @@
                     <#list newsPage.list as item>
                         <div class="item">
                             <div class="img">
-                                <a href="javascript:;">
+                                <a href="/website/course/courseDetail/${item.id}">
                                     <img style="width: 280px;px; height:170px;"
                                          src="${item.picture!}">
                                 </a>

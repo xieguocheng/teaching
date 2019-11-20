@@ -7,10 +7,14 @@
             <a href="/website/index">首页</a>
         </p>
         <div class="sn-quick-menu">
+          <#if Session["name"]??>
+            <div class="login"><a href="/user/home"><i class="layui-icon layui-icon-username"></i>我的</a></div>
+           <#else >
             <div class="login"><a href="/website/login">登录</a></div>
             <div style="margin-right: 10px">/</div>
             <div class="login"><a href="/website/register">注册</a></div>
-            <div class="sp-cart"><a href="/website/shopcart">购物车</a><span>2</span></div>
+           </#if>
+            <div class="sp-cart"><a href="/website/shopcart"><i class="layui-icon layui-icon-cart"></i>购物车</a><span>2</span></div>
         </div>
     </div>
 </div>
