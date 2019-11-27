@@ -41,20 +41,28 @@
                     <div class="list-cont" cont = 'tuangou'>
                         <div class="item-box layui-clear">
 
+                            <#list courseList! as item>
                             <div class="item">
-                                <a href="javascript:;">
+                                <a href="/website/course/courseDetail/${item.id}" target="_blank">
                                 <img style="width: 290px;px; height:200px;"
-                                     src="http://szimg.mukewang.com/58f57d200001461105400300-360-202.jpg">
+                                     src="${item.picture!}">
                                 </a>
                                 <div class="text-box">
-                                    <p class="title">java入门到精通</p>
+                                    <p class="title">${item.name!}</p>
                                     <p class="plic">
-                                        <span class="ciur-pic">￥100.00</span>
-                                        <span class="Ori-pic">￥208.00</span>
-                                        <span class="discount">5折</span>
+                                         <#if item.free=0>
+                                             <span class="ciur-pic" style="font-size: 16px;color: red">￥${item.price!}/块钱</span>
+                                         <#else >
+                                             <span class="ciur-pic" style="font-size: 16px;color: red">免费</span>
+                                         </#if>
+                                        <span class="Ori-pic">课时${item.time!}分钟 &nbsp</span>
+                                        <span class="discount">
+                                            <i class="layui-icon" style="font-size: 12px">&#xe770;</i>&nbsp 在学${item.studyCount!}
+                                        </span>
                                     </p>
                                 </div>
                             </div>
+                            </#list>
 
                         </div>
                     </div>
@@ -130,20 +138,6 @@
                     }
                 })
             })
-            // 模版引擎导入
-            //  var html = demo.innerHTML;
-            //  var listCont = document.getElementById('list-cont');
-            //  // console.log(layui.router("#/about.html"))
-            // mm.request({
-            //     url: '../json/buytoday.json',
-            //     success : function(res){
-            //       console.log(res)
-            //       listCont.innerHTML = mm.renderHtml(html,res)
-            //     },
-            //     error: function(res){
-            //       console.log(res);
-            //     }
-            //   })
 
         });
     </script>

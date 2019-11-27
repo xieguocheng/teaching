@@ -67,7 +67,10 @@
                                 </div><div class="news-panel">
                                 <strong><a href="newsDetail.html">写经验交流材料的技巧全在这了！</a></strong>
                                 <p class="detail">
-                                    <span>看不到您的原稿，这样对空发议论，估计对您的指导性是不大的估计对您的指导性是不大的估计对您的指导性是不大的估计对您的指导性是不大的估计对您的指导性是不大的估计对您的指导性是不大的估计对您的指导性是不大的估计对您的指导性是不大的估计对您的指导性是不大的。建议您将原稿贴出来，好让老师们针对指导。这里简单给出意见：
+                                    <span style="display: -webkit-box;
+-webkit-box-orient: vertical;
+-webkit-line-clamp: 3;
+overflow: hidden;">看不到您的原稿，这样对空发议论，估计对您的指导性是不大的估计对您的指导性是不大的估计对您的指导性是不大的估计对您的指导性是不大的估计对您的指导性是不大的估计对您的指导性是不大的估计对您的指导性是不大的估计对您的指导性是不大的估计对您的指导性是不大的。建议您将原稿贴出来，好让老师们针对指导。这里简单给出意见：
                                     </span><a href="newsDetail.html">[详细]</a></p>
                                 <p class="read-push">阅读 <span>835</span>&nbsp;&nbsp;&nbsp;&nbsp;发布时间：<span>2018-06-21</span></p>
                             </div>

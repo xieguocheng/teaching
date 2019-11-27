@@ -9,15 +9,19 @@ body{font-family: "Microsoft YaHei", "SimSun", '\5b8b\4f53', sans-serif;  -moz-u
 i{font-style: normal;}
 
 /*site-nav*/
-.site-nav-bg{height: 30px; line-height: 30px; background-color: whitesmoke;}
+/*.site-nav-bg{height: 3.5em; line-height: 3.5em; background-color:#009688;
+      color: white;}
 .site-nav{position: relative;}
-.sn-back-home{float: left;}
+.sn-back-home a{float: left;
+      display: block;
+      width: 8em;
+      height: 3.5em;}
 .sn-back-home i{margin:0 4px 0 8px; font-size: 14px;}
 .sn-quick-menu{position: absolute; right: 12px;}
 .sn-quick-menu div{float: left;}
 .sn-quick-menu div.login{margin-right: 10px; }
 .sn-quick-menu div.login a{color: #ff5500;}
-.sn-quick-menu div.sp-cart span{margin-left:4px; color: #ff5500; font-weight: bold;}
+.sn-quick-menu div.sp-cart span{margin-left:4px; color: #ff5500; font-weight: bold;}*/
 /*end-site-nav*/
 
 
@@ -236,7 +240,7 @@ i{font-style: normal;}
 .buytoday-content .list-cont .item .text-box .plic{position: relative;}
 .buytoday-content .list-cont .item .text-box .plic .ciur-pic{font-size: 20px; margin-right: 24px}
 .buytoday-content .list-cont .item .text-box .plic .Ori-pic{color: #666666;}
-.buytoday-content .list-cont .item .text-box .plic .discount{width: 60px; height: 26px; line-height: 26px; font-size: 16px; background: #cfb2f6; display: block; text-align: center; color: #fff; position: absolute; right: 0; top: 0; cursor: pointer;}
+.buytoday-content .list-cont .item .text-box .plic .discount{width: 80px; height: 26px; line-height: 26px; font-size: 15px; background: #009688; display: block; text-align: center; color: #fff; position: absolute; right: 0; top: 0; cursor: pointer;}
 /*
 .buytoday-content .footer{padding-bottom: 120px;}
 .buytoday-content .footer-wrap,.buytoday-content .footer{background: #877dd2;}

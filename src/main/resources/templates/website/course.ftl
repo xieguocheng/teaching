@@ -44,9 +44,8 @@
                     <#list newsPage.list as item>
                         <div class="item">
                             <div class="img">
-                                <a href="/website/course/courseDetail/${item.id}">
-                                    <img style="width: 280px;px; height:170px;"
-                                         src="${item.picture!}">
+                                <a href="/website/course/courseDetail/${item.id}" target="_blank">
+                                    <img style="width: 280px;px; height:170px;"src="${item.picture!}">
                                 </a>
                             </div>
                             <div class="text">
@@ -72,7 +71,7 @@
 
                 <#--分页-->
                     <div class="">
-                        <ul class="">
+                        <ul class="fanye">
                             <li><a href="/website/course"  class="layui-btn layui-btn-sm">首页</a></li>
                     <#if currentPage lte 1>
                         <li class="disabled"><a href="#"  class="layui-btn layui-btn-sm layui-btn-disabled">上一页</a></li>
@@ -100,7 +99,7 @@
                         </ul>
                     </div>
                     <style>
-                        ul li {
+                        ul.fanye li {
                             position: relative;
                             display: inline-block;
                             heigth : 30px;

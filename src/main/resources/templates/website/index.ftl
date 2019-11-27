@@ -51,7 +51,7 @@
                                 <div class="item-box">
                                     <#list freeCourse1 as free>
                                     <div class="item">
-                                        <a href="/website/course/courseDetail/${free.id}">
+                                        <a href="/website/course/courseDetail/${free.id}" target="_blank">
                                             <img src="${free.picture!}">
                                         </a>
                                         <div class="title">${free.name!}</div>
@@ -104,7 +104,7 @@
                             <div class="item-box">
                                     <#list moneyCourseList1 as money >
                                         <div class="item">
-                                            <a href="/website/course/courseDetail/${money.id}">
+                                            <a href="/website/course/courseDetail/${money.id}" target="_blank">
                                                 <img src="${money.picture!}">
                                             </a>
                                             <div class="title">${money.name!}</div>
@@ -146,7 +146,7 @@
 
                 <#list systemCourseList1 as sys>
                     <div class="list-item">
-                        <a href="/website/course/courseDetail/${sys.id}">
+                        <a href="/website/course/courseDetail/${sys.id}" target="_blank">
                             <img style="width: 160px;px; height:160px;"src="${sys.picture!}">
                         </a>
                         <p>${sys.name!}</p>

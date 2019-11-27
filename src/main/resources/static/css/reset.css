@@ -1,0 +1,240 @@
+.mt-50{margin-top: 50px;}
+.mt-10{margin-top: 10px;}
+.mb-5{margin-bottom:5px;}
+.mb-10{margin-bottom:10px;}
+.mb-20{margin-bottom:20px;}
+.f-main{
+	width: 1200px;
+	margin:0 auto;
+	min-height: 400px;
+	margin-top:20px;
+	margin-bottom:100px;
+}
+.following{
+	width: 32px;
+	height: 37px;
+	background: url('../i/following.png') no-repeat no-repeat 50% 50%;
+}
+.followed{
+	width: 32px;
+	height: 37px;
+	background: url('../i/followed.png') no-repeat no-repeat 50% 50%;
+}
+
+/**
+*课程章节页面 start
+**/
+.main-course-left{
+	float:left;
+	width: 820px;
+	min-height:500px;
+}
+.main-course-right{
+	float:right;
+	width: 300px;
+	min-height:500px;
+}
+.course-info{
+
+	width:100%;
+	min-height: 210px;
+	border-bottom: 1px solid #d9dde1;
+	padding-bottom:15px;
+}
+.course-info .course-title {
+	margin-bottom: 20px;
+	line-height: 31px;
+	font-weight: 700;
+	font-size: 32px;
+}
+.course-meta{
+	margin-top: 30px;
+}
+.course-meta .static-item {
+	display: inline-block;
+	padding: 0 33px;
+	font-size: 12px;
+	border-right: 1px solid #d9dde1;
+}
+.course-meta .static-item .meta{
+	height:25px;
+	line-height:30px;
+}
+.course-info .static-item .meta-value{
+	font-size:16px;
+	height:25px;
+	line-height:25px;
+	overflow: hidden;
+	max-width: 180px;
+}
+.learn-btn {
+	display: inline-block;
+	border-radius:4px;
+	text-align: center;
+	background-color: #009688;
+	color: #FFF;
+	width: 137px;
+	height: 48px;
+	line-height:48px;
+	font-size: 16px;
+	position: relative;
+	top:-1px;
+}
+.learn-btn:hover{
+	color: #FFF;
+}
+.course-brief{
+	margin-top: 15px;
+	letter-spacing: 1px;
+	line-height: 30px;
+}
+.course-menu{
+	width: 100%;
+	padding: 30px 0px;
+}
+.course-menu .menu-item{
+	font-size: 16px;
+	font-weight:bold;
+	float: left;
+	width: 100px;
+	display: inline-block;
+}
+.course-menu .cur{
+	color:#0089D2;
+}
+.course-menu span:hover{
+	color: #0089D2;
+}
+.chapter {
+	padding: 0px 10px 20px 10px;
+	border-bottom: 1px solid #eee;
+}
+.chapter strong{
+	font-size: 16px;
+}
+.icon-chapter{
+	border-radius:50%;
+	background-color: #93999F;
+	color: #FFF;
+	font-weight: bold;
+	width: 25px;
+	height: 25px;
+	line-height: 27px;
+	text-align: center;
+	font-size: 16px;
+	float: left;
+	margin-right: 20px;
+	margin-top: 2px;
+}
+.chapter .drop-down{
+	float: right;
+	margin-top: 2px;
+	margin-right: 10px;
+	color: #93999F;
+}
+.chapter-sub .chapter-sub-li{
+	width: 100%;
+	height: 40px;
+	line-height: 40px;
+	background-color: #F3F5F7;
+	margin-bottom: 10px;
+	list-style-type: none;
+	padding:0px 10px;
+	margin-top: 10px;
+}
+
+.chapter-sub-title-fff{
+	color: #FFF;
+}
+.chapter-sub .chapter-sub-li:hover{
+	background-color: #009688;
+	color: #FFF;
+}
+.chapter-sub .chapter-sub-li .layui-icon-video{
+	margin-right: 10px;
+	color: #777777;
+}
+.preview-btn{
+	height: 25px;
+	width: 80px;
+	float: right;
+	line-height: 25px;
+	background-color: #0089D2;
+	text-align: center;
+	color: #FFF;
+	margin-top: 8px;
+	border-radius:4px;
+}
+.follow-btn{
+	display:inline-block;
+	height: 25px;
+	width: 60px;
+	line-height: 25px;
+	background-color: #06B310;
+	text-align: center;
+	color: #FFF;
+	border-radius:4px;
+}
+/*右侧*/
+.lecturer-item {
+	width: 224px;
+	height: 320px;
+	margin-right: 20px;
+	background-color: #fff;
+	box-shadow: 0 4px 8px 0 rgba(7,17,27,.1);
+	box-sizing: border-box;
+	padding: 36px 24px 0;
+	text-align: center;
+	border-radius: 4px;
+}
+
+.lecturer-item .lecturer-uimg {
+	display: block;
+	width: 120px;
+	height: 120px;
+	margin: 0 auto 10px;
+	border-radius: 50%;
+}
+
+.lecturer-item .lecturer-name {
+	display: block;
+	font-size: 16px;
+	line-height: 24px;
+	color: #07111b;
+	font-weight: 700;
+	word-break: break-all;
+	word-wrap: break-word;
+	overflow: hidden;
+	text-overflow: -o-ellipsis-lastline;
+	-webkit-line-clamp: 1;
+}
+
+.lecturer-item .lecturer-title {
+	display: block;
+	font-size: 12px;
+	line-height: 24px;
+	color: #93999f;
+	margin-bottom: 15px;
+}
+
+.lecturer-item .lecturer-p {
+	display: block;
+	font-size: 12px;
+	line-height: 20px;
+	color: #93999f;
+	height: 56px;
+	word-break: break-all;
+	word-wrap: break-word;
+	overflow: hidden;
+	text-overflow: -o-ellipsis-lastline;
+	-webkit-line-clamp: 3;
+	-webkit-box-orient: vertical;
+}
+
+
+/**视频页面*/
+.course-video{
+	width: 100%;
+	height: 505px;
+	border: 2px solid #93999F;
+}

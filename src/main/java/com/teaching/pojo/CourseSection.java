@@ -74,7 +74,14 @@ public class CourseSection {
      */
     private Integer del;
 
+    public CourseSection(Integer id) {
+        this.id = id;
+    }
+    public CourseSection() {
+    }
+
     /**
+
      * 获取ID
      *
      * @return id - ID

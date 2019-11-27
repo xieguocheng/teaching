@@ -2,7 +2,7 @@
 <!-- head部分 -->
 <head>
     <meta charset="UTF-8">
-    <title>首页</title>
+    <title>智慧教学视频网站</title>
 
     <link rel="stylesheet" type="text/css" href="/static/css/website/main.css">
 

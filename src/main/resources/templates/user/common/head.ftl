@@ -2,7 +2,7 @@
 <!-- head部分 -->
 <head>
     <meta charset="UTF-8">
-    <title>首页</title>
+    <title>个人中心</title>
 
     <link rel="stylesheet" type="text/css" href="/static/css/website/main.css">
     <link rel="stylesheet" type="text/css" href="/static/lib/myLayui/css/layui.css">

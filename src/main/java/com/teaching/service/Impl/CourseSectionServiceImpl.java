@@ -7,12 +7,12 @@ import com.teaching.mapper.UserCourseSectionMapper;
 import com.teaching.pojo.CourseSection;
 import com.teaching.service.CourseSectionService;
 import com.teaching.utils.UtilFuns;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import tk.mybatis.mapper.entity.Example;
 
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 import java.util.regex.Pattern;
 
 /**
@@ -88,10 +88,9 @@ public class CourseSectionServiceImpl implements CourseSectionService {
                                         courseSection.setId(id);
                                         courseSectionMapper.updateByPrimaryKey(courseSection);
                                 }
-
                         }
-
                 }
+                //TODO 更新课程总时长
 
         }
 
@@ -102,6 +101,42 @@ public class CourseSectionServiceImpl implements CourseSectionService {
                 example.orderBy("sort").asc();
                 List<CourseSection> courseSectionList=courseSectionMapper.selectByExample(example);
                 return courseSectionList;
+        }
+
+        @Override
+        public List<CourseSection> findCourseSectionOnsale(Integer courseId, Integer onsale) {
+                Example example=new Example(CourseSection.class);
+                example.createCriteria().andEqualTo("courseId",courseId)
+                        .andEqualTo("onsale",onsale);//是否上架
+                example.orderBy("id").asc();
+                example.orderBy("sort").asc();
+                List<CourseSection> courseSectionList=courseSectionMapper.selectByExample(example);
+                return courseSectionList;
+        }
+
+        @Override
+        public List<CourseSectionVO> queryCourseSection(Integer courseId) {
+
+                List<CourseSection> courseSectionList=findCourseSectionOnsale(courseId,1);
+
+                List<CourseSectionVO> resultList = new ArrayList<>();
+                Map<Integer,CourseSectionVO> tmpMap = new LinkedHashMap<>();
+                Iterator<CourseSection> it = courseSectionList.iterator();
+                while(it.hasNext()){
+                        CourseSection item = it.next();
+                        if(Integer.valueOf(0).equals(item.getParentId())){//章
+                                CourseSectionVO vo = new CourseSectionVO();
+                                BeanUtils.copyProperties(item, vo);
+                                tmpMap.put(vo.getId(), vo);
+                        }else{
+                                tmpMap.get(item.getParentId()).getSections().add(item);//小节添加到大章中
+                        }
+                }
+                for(CourseSectionVO vo : tmpMap.values()){
+                        resultList.add(vo);
+                }
+                return resultList;
+
         }
 
 

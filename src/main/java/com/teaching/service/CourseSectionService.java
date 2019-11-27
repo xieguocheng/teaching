@@ -20,10 +20,23 @@ public interface CourseSectionService {
     public void batchAdd(List<CourseSectionVO> courseSections);
 
     /**
-     * 通过课程id查看章节
+     * 通过课程id查看章节,包含未上架,上架的
      * @param courseId
      * @return
      */
     public List<CourseSection> findCourseSectionByCourseId(Integer courseId);
+
+    /**
+     * 通过课程id查看章节是否上架
+     * @param courseId
+     * @param onsale
+     * @return
+     */
+    public List<CourseSection> findCourseSectionOnsale(Integer courseId,Integer onsale);
+
+    /**
+     * 获取课程章节,用于渲染
+     */
+    List<CourseSectionVO> queryCourseSection(Integer courseId);
 
 }
