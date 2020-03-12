@@ -122,6 +122,9 @@ public class WebCourseController {
         CourseSection courseSection = courseSectionMapper.selectByPrimaryKey(new CourseSection(Integer.valueOf(sectionId)));
         if(null == courseSection)
             return "404";
+        Course course=courseMapper.selectByPrimaryKey(new Course(courseSection.getCourseId()));
+        if(course.getOnsale()==0||course.getDel()==1)//未上架,已经删除
+            return "404";
         model.addAttribute("courseSection", courseSection);
 
         //课程章节
@@ -136,7 +139,6 @@ public class WebCourseController {
                 .andEqualTo("sectionId",Integer.valueOf(sectionId));
         List<CourseComment> courseCommentList=courseCommentMapper.selectByExample(example);
         model.addAttribute("courseCommentList",courseCommentList);
-
 
         return "website/course-learn";
     }

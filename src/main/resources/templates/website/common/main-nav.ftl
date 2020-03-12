@@ -19,10 +19,10 @@
      $(function(){
 
          //监听click
-         $("a").on("click",function(){
+         /*$("a").on("click",function(){
              $(this).addClass('active').siblings().removeClass('active');
             debugger;
-         })
+         })*/
 
 
      })

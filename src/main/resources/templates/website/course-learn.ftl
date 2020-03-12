@@ -6,7 +6,7 @@
 
 <body>
 
-<#include "common/header1.ftl">
+<#include "../user/common/header.ftl">
 
 <div class="f-main clearfix">
     <div class="main-course-left">
@@ -30,6 +30,8 @@
                                 margin-top:10px;
                                 letter-spacing: .2px;
                                 font-size: 95%;
+
+
                             }
 
                             .comment{
@@ -52,7 +54,7 @@
                             }
                             .conmment_details{
 
-
+                                width: 100%;
                             }
                             .comment_name {
 

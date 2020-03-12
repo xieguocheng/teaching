@@ -6,7 +6,7 @@
     </li>
 <li class="layui-nav-item ">
         <#if Session["name"]??>
-            <a href=""><img src="/static/images/user/default-avatar.png" class="layui-nav-img">我的</a>
+            <a href="/user/home"><img src="/static/images/user/default-avatar.png" class="layui-nav-img">我的</a>
             <dl class="layui-nav-child">
                 <dd><a href="/user/home">个人中心</a></dd>
                 <dd><a href="/user/setting">安全管理</a></dd>

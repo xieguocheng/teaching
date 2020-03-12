@@ -33,7 +33,7 @@
                     <div class="sort layui-clear">
                         <a class="active" href="javascript:;" event = 'volume'>流量</a>
                         <a href="javascript:;" event = 'price'>价格</a>
-                        <a href="javascript:;" event = 'newprod'>新品</a>
+                        <a href="javascript:;" event = 'newprod'>新课</a>
                         <a href="javascript:;" event = 'collection'>收藏</a>
                     </div>
                     <div class="prod-number">
