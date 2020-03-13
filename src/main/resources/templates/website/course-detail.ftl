@@ -15,10 +15,16 @@
         <div class="course-info">
             <div class="course-title">${(course.name)!}</div>
             <div class="course-meta">
-                <a href="" class="learn-btn" >继续学习</a>
+
+                 <#if curCourseSection??>
+                     <a href="/website/course/courseDetail/${(curCourseSection.id)!}" class="learn-btn" >继续学习</a>
+                 <#else>
+                     <a href="" class="learn-btn" >开始学习</a>
+                 </#if>
+
                 <div class="static-item"  >
                     <div class="meta">上次学到</div>
-                <#-- <div class="meta-value" title="${(curCourseSection.name)!}">${(curCourseSection.name)!}</div>-->
+                 <div class="meta-value" title="${(curCourseSection.name)!}">${(curCourseSection.name)!}</div>
                 </div>
                 <div class="static-item"  >
                     <div class="meta">学习人数</div>
@@ -90,7 +96,6 @@
 
                     <div class="layui-tab-item">
                        评论
-
                     </div>
 
                 </div>
@@ -112,13 +117,13 @@
                     <span class="lecturer-title">${(schoolName)!""} · ${(courseTeacher.education)!""}</span>
                     <span class="lecturer-p" >${(courseTeacher.title)!""}，${(courseTeacher.sign)!""}</span>
                     <a href="javascript:void(0)"  onclick="doFollow('${(courseTeacher.id!)}');">
-                    <span id="followSpan" class="follow-btn">
-                    <#if followFlag?? && followFlag>
-                    已关注
-                    <#else>
-                    关注+
-                    </#if>
-                    </span>
+                        <span id="followSpan" class="follow-btn">
+                        <#if followFlag??>
+                        已关注
+                        <#else>
+                        关注+
+                        </#if>
+                        </span>
                     </a>
                 </div>
                 </#if>
@@ -158,10 +163,34 @@
                 $(this).find('.drop-down').html('▲');
             }
         });
-
-
-
     });
+
+
+    //关注
+    function doFollow(followId,url){
+        debugger;
+        var follow=$('#followSpan').text().trim();
+        if(follow==='关注+'){
+            url = '/user/follow/doFollow';
+        }else {
+            url = '/user/follow/isFollow';
+        }
+
+        $.ajax({
+            url:url,
+            type:'POST',
+            dataType:'json',
+            data:{"followId":followId},
+            success:function(data){
+                debugger;
+                if (data.code === 0){
+                    $('#followSpan').html('已关注');
+                }else if(data.code === 1){
+                    $('#followSpan').html('关注+');
+                }
+            }
+        });
+    }
 </script>
 
 
