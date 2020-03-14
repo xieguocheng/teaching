@@ -56,7 +56,9 @@
                                         </a>
                                         <div class="title">${free.name!}</div>
                                         <div class="price">
-                                            <span style="font-size: 16px;float:left"><i class="layui-icon">&#xe770;</i> 1266在学</span>
+                                            <span style="font-size: 16px;float:left"><i class="layui-icon">&#xe770;</i>
+                                                ${free.column1!}在学
+                                            </span>
                                             <span class="nub" style="font-size: 14px;float:right">免费</span>
                                         </div>
                                     </div>
@@ -71,7 +73,9 @@
                                             </a>
                                             <div class="title">${free.name!}</div>
                                             <div class="price">
-                                                <span style="font-size: 16px;float:left"><i class="layui-icon">&#xe770;</i> 1266在学</span>
+                                                <span style="font-size: 16px;float:left"><i class="layui-icon">&#xe770;</i>
+                                                    ${free.column1!}在学
+                                                </span>
                                                 <span class="nub" style="font-size: 14px;float:right">免费</span>
                                             </div>
                                         </div>
@@ -109,7 +113,9 @@
                                             </a>
                                             <div class="title">${money.name!}</div>
                                             <div class="price">
-                                                <span style="font-size: 18px"><i class="layui-icon">&#xe770;</i>1266在学</span>
+                                                <span style="font-size: 18px"><i class="layui-icon">&#xe770;</i>
+                                                    ${money.column1!}在学
+                                                </span>
                                                 <span class="nub" style="font-size: 12px;float:right">￥150/毛</span>
                                             </div>
                                         </div>
@@ -124,7 +130,9 @@
                                             </a>
                                             <div class="title">${money.name!}</div>
                                             <div class="price">
-                                                <span style="font-size: 18px"><i class="layui-icon">&#xe770;</i>1266在学</span>
+                                                <span style="font-size: 18px"><i class="layui-icon">&#xe770;</i>
+                                                    ${money.column1!}在学
+                                                </span>
                                                 <span class="nub" style="font-size: 12px;float:right">￥150/毛</span>
                                             </div>
                                         </div>
@@ -149,8 +157,8 @@
                         <a href="/website/course/courseDetail/${sys.id}" target="_blank">
                             <img style="width: 160px;px; height:160px;"src="${sys.picture!}">
                         </a>
-                        <p>${sys.name!}</p>
-                        <span>${sys.studyCount!}</span>
+                        <p>课程名称：${sys.name!}</p>
+                        <span>在学人数:${sys.studyCount!}</span>
                     </div>
                 </#list>
 

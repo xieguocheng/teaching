@@ -36,8 +36,6 @@ public class WebCourseController {
     @Autowired
     private SchoolMapper schoolMapper;
     @Autowired
-    private CourseCommentMapper courseCommentMapper;
-    @Autowired
     private CourseSectionService courseSectionService;
     @Autowired
     private UserFollowMapper userFollowMapper;
@@ -49,7 +47,7 @@ public class WebCourseController {
      * @param id
      * @return
      */
-    @GetMapping(value="website/course/courseDetail/{id}")
+    @GetMapping(value="/website/course/courseDetail/{id}")
     public String courseDetail(HttpServletRequest request,Model model, @PathVariable("id") String id){
 
         //1.获取课程
@@ -128,39 +126,5 @@ public class WebCourseController {
         return "website/course-detail";
     }
 
-    /**
-     * 用户观看视频页面
-     * @param model
-     * @param sectionId
-     * @return
-     */
-    @GetMapping(value="user/course/learn/{sectionId}")
-    public String learn(HttpServletRequest request,Model model, @PathVariable("sectionId") String sectionId){
-
-        if(null == sectionId)
-            return "404";
-        CourseSection courseSection = courseSectionMapper.selectByPrimaryKey(new CourseSection(Integer.valueOf(sectionId)));
-        if(null == courseSection)
-            return "404";
-        Course course=courseMapper.selectByPrimaryKey(new Course(courseSection.getCourseId()));
-        if(course.getOnsale()==0||course.getDel()==1)//未上架,已经删除
-            return "404";
-        model.addAttribute("courseSection", courseSection);
-
-        //课程章节
-        List<CourseSectionVO> chaptSections = courseSectionService.queryCourseSection(courseSection.getCourseId());
-        model.addAttribute("chaptSections", chaptSections);
-
-        //章节评论
-        Example example=new Example(CourseComment.class);
-        example.orderBy("createTime").desc();
-        example.createCriteria().andEqualTo("courseId",courseSection.getCourseId())
-                .andEqualTo("type",CourseCommentStatus.TYPE_COMMENT.getValue())
-                .andEqualTo("sectionId",Integer.valueOf(sectionId));
-        List<CourseComment> courseCommentList=courseCommentMapper.selectByExample(example);
-        model.addAttribute("courseCommentList",courseCommentList);
-
-        return "website/course-learn";
-    }
 
 }

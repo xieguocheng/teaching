@@ -39,4 +39,11 @@ public interface CourseSectionService {
      */
     List<CourseSectionVO> queryCourseSection(Integer courseId);
 
+    /**
+     * 通过courseid获取第一个章节
+     * @param courseId
+     * @return
+     */
+    CourseSection findFirstCourseSectionByCourseId(Integer courseId);
+
 }

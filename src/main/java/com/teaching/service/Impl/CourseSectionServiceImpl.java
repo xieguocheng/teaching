@@ -4,6 +4,7 @@ import com.teaching.dto.CourseSectionVO;
 import com.teaching.enums.CourseSectionStatus;
 import com.teaching.mapper.CourseSectionMapper;
 import com.teaching.mapper.UserCourseSectionMapper;
+import com.teaching.pojo.CourseComment;
 import com.teaching.pojo.CourseSection;
 import com.teaching.service.CourseSectionService;
 import com.teaching.utils.UtilFuns;
@@ -137,6 +138,21 @@ public class CourseSectionServiceImpl implements CourseSectionService {
                 }
                 return resultList;
 
+        }
+
+        @Override
+        public CourseSection findFirstCourseSectionByCourseId(Integer courseId) {
+                Example example=new Example(CourseSection.class);
+                example.createCriteria().andEqualTo("courseId",courseId)
+                        .andEqualTo("del",0)//未删除
+                        .andNotEqualTo("parentId",0);//不是父亲节点
+                example.orderBy("id").asc();
+                example.orderBy("sort").asc();
+                List<CourseSection> courseSectionList=courseSectionMapper.selectByExample(example);
+                if(UtilFuns.isNotEmpty(courseSectionList)){
+                        return courseSectionList.get(0);
+                }
+               return null;
         }
 
 

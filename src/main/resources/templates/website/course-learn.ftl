@@ -22,7 +22,6 @@
                     <li class="layui-this">评论</li>
                     <li>问答</li>
                 </ul>
-
                 <div class="layui-tab-content">
                     <div class="layui-tab-item layui-show">
                         <style>
@@ -30,8 +29,6 @@
                                 margin-top:10px;
                                 letter-spacing: .2px;
                                 font-size: 95%;
-
-
                             }
 
                             .comment{
@@ -68,7 +65,6 @@
                             }
 
                         </style>
-
                          <#if courseCommentList??>
                              <#list courseCommentList as item>
                         <div class="comment">
@@ -76,9 +72,9 @@
                                 <img class="imgcss"  src="/static/images/user/default-avatar.png"/>
                             </div>
                             <div class="conmment_details">
-                                <span class="comment_name">${item.username} </span>    
+                                <span class="comment_name">${item.username!} </span>    
                                 <span style="float:right">${item.createTime?string('yyyy-MM-dd hh:mm:ss')}</span>
-                                <div class="comment_content" >${item.content}</div>
+                                <div class="comment_content" >${item.content!}</div>
                             </div>
                             <hr>
                         </div>
@@ -86,16 +82,17 @@
                          </#if>
 
                         <div style="margin-top: 20px;">
-                            <form class="layui-form">
+                            <form class="layui-form" action="/user/course/comment">
                                 <div class="layui-form-item layui-form-text">
                                     <label class="layui-form-label">请发表评论:</label>
                                     <div class="layui-input-block">
-                                        <textarea placeholder="请输入内容" name="sign" class="layui-textarea"></textarea>
+                                        <textarea placeholder="请输入内容" name="content" class="layui-textarea"></textarea>
                                     </div>
+                                    <input name="sectionId" value="${courseSection.id}" hidden/>
                                 </div>
                                 <div class="layui-form-item" style="margin: 0px 0px 0px 100px;">
                                     <div class="layui-input-block">
-                                        <button class="layui-btn" lay-submit lay-filter="*">确认发布</button>
+                                        <button class="layui-btn" lay-submit lay-filter="*">发布评论</button>
                                         <button type="reset" class="layui-btn layui-btn-primary">重置</button>
                                     </div>
                                 </div>
@@ -109,7 +106,7 @@
                         <div style="margin-top: 20px;">
                             <form class="layui-form">
                                 <div class="layui-form-item layui-form-text">
-                                    <label class="layui-form-label">请发表评论:</label>
+                                    <label class="layui-form-label">请发表问答:</label>
                                     <div class="layui-input-block">
                                         <textarea placeholder="请输入内容" name="sign" class="layui-textarea"></textarea>
                                     </div>

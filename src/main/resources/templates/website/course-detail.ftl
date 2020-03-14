@@ -17,9 +17,9 @@
             <div class="course-meta">
 
                  <#if curCourseSection??>
-                     <a href="/website/course/courseDetail/${(curCourseSection.id)!}" class="learn-btn" >继续学习</a>
+                     <a href="/user/course/learn/${(curCourseSection.id)!}" class="learn-btn" >继续学习</a>
                  <#else>
-                     <a href="" class="learn-btn" >开始学习</a>
+                     <a href="/user/course/learn/first/${(course.id)}" class="learn-btn" >开始学习</a>
                  </#if>
 
                 <div class="static-item"  >

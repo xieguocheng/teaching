@@ -270,7 +270,7 @@ public class IndexController {
     }
 
     /**
-     * 网站课程智慧推荐
+     * 网站课程bbs
      * @return
      */
     @GetMapping("/website/bbs")

@@ -2,9 +2,24 @@ package com.teaching.web.controller.user;
 
 
 
+import com.teaching.enums.CourseCommentStatus;
+import com.teaching.mapper.CourseCommentMapper;
+import com.teaching.mapper.CourseSectionMapper;
+import com.teaching.pojo.AuthUser;
+import com.teaching.pojo.Course;
+import com.teaching.pojo.CourseComment;
+import com.teaching.pojo.CourseSection;
+import com.teaching.utils.ApiResponse;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.Map;
@@ -18,6 +33,10 @@ import java.util.Map;
 @Controller
 public class MineController {
 
+    @Autowired
+    private CourseCommentMapper courseCommentMapper;
+    @Autowired
+    private CourseSectionMapper courseSectionMapper;
 
 
     /**

@@ -420,7 +420,7 @@ public class CourseController {
 
         //2.添加课程到数据库
         Course newCourse=modelMapper.map(course,Course.class);
-        newCourse.setUserId(1);//TODO
+        newCourse.setUserId(1);//TODO 默认后台创建课程ID
         newCourse.setClassifyName(constsClassifyMapper.selectByPrimaryKey(Integer.valueOf(course.getClassify())).getName());
         newCourse.setSubClassifyName(constsClassifyMapper.selectByPrimaryKey(Integer.valueOf(course.getSubClassify())).getName());
         newCourse.setPicture(prefix+ret.getKey());
