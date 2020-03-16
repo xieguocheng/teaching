@@ -62,6 +62,13 @@ public interface CourseService {
      */
     public List<Course> findCourseByTimeAndNameAndClassify(String startTime,String endTime,String name,Integer Classify);
 
+    /**
+     * 学习人数加一
+     * @param id
+     * @return
+     */
+    public Integer updateStudyCountById(Integer id);
+
 
 
 

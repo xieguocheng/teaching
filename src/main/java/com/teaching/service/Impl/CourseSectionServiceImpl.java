@@ -11,6 +11,7 @@ import com.teaching.utils.UtilFuns;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import tk.mybatis.mapper.entity.Example;
 
 import java.util.*;
@@ -32,6 +33,7 @@ public class CourseSectionServiceImpl implements CourseSectionService {
          *  循环添加和批量添加章节
          * @param courseSections
          */
+        @Transactional
         @Override
         public void batchAdd(List<CourseSectionVO> courseSections) {
 

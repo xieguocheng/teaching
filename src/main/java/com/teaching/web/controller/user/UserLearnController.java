@@ -2,14 +2,18 @@ package com.teaching.web.controller.user;
 
 import com.teaching.dto.CourseSectionVO;
 import com.teaching.enums.CourseCommentStatus;
+import com.teaching.enums.UserBehaviorStatus;
 import com.teaching.mapper.*;
 import com.teaching.pojo.*;
 import com.teaching.service.CourseSectionService;
+import com.teaching.service.CourseService;
+import com.teaching.service.UserCourseSectionService;
 import com.teaching.utils.UtilFuns;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -26,17 +30,24 @@ import java.util.List;
 @Controller
 public class UserLearnController {
 
-    @Autowired
-    private CourseCommentMapper courseCommentMapper;
+
     @Autowired
     private CourseSectionService courseSectionService;
+    @Autowired
+    private CourseService courseService;
+    @Autowired
+    private UserCourseSectionService userCourseSectionService;
 
+    @Autowired
+    private CourseCommentMapper courseCommentMapper;
     @Autowired
     private CourseMapper courseMapper;
     @Autowired
     private CourseSectionMapper courseSectionMapper;
     @Autowired
     private  UserCourseSectionMapper userCourseSectionMapper;
+    @Autowired
+    private UserBehaviorMapper userBehaviorMapper;
 
 
     /**
@@ -44,24 +55,33 @@ public class UserLearnController {
      * @param courseId
      * @return
      */
+    @Transactional
     @GetMapping(value="/user/course/learn/first/{courseId}")
     public String firstLearn( @PathVariable("courseId") Integer courseId){
 
-        //获取当前登录的用户
+        //1、获取当前登录的用户
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         AuthUser authUser= (AuthUser) auth.getPrincipal();
-        //获取课程的第一章节
+        //2、添加用户学习记录，获取课程的第一章节，进入学习
         CourseSection courseSection=courseSectionService.findFirstCourseSectionByCourseId(courseId);
         if(UtilFuns.isNull(courseSection)){
            return "redirect:/website/course/courseDetail/"+courseId;
         }
-        UserCourseSection userCourseSection=new UserCourseSection();
+        userCourseSectionService.addUserCourseSection(authUser.getId(),courseSection.getId());
+       /* UserCourseSection userCourseSection=new UserCourseSection();
         userCourseSection.setCourseId(courseId);
         userCourseSection.setUserId(authUser.getId());
         userCourseSection.setRate(10);
         userCourseSection.setSectionId(courseSection.getId());
-
-        userCourseSectionMapper.insertSelective(userCourseSection);
+        userCourseSectionMapper.insertSelective(userCourseSection);*/
+        //3、更新课程表学习人数+1
+        courseService.updateStudyCountById(courseId);
+        //4、添加一条用户行为记录
+        UserBehavior userBehavior=new UserBehavior();
+        userBehavior.setCourseId(courseId);
+        userBehavior.setUserId(authUser.getId());
+        userBehavior.setType(UserBehaviorStatus.TYPE_BROWSE.getValue());
+        userBehaviorMapper.insertSelective(userBehavior);
         return "redirect:/user/course/learn/"+courseSection.getId();
     }
 
@@ -72,8 +92,9 @@ public class UserLearnController {
      * @param sectionId
      * @return
      */
+    @Transactional
     @GetMapping(value="/user/course/learn/{sectionId}")
-    public String learn(Model model, @PathVariable("sectionId") String sectionId){
+    public String learn(Model model, @PathVariable("sectionId") Integer sectionId){
 
         if(null == sectionId)
             return "404";
@@ -85,18 +106,20 @@ public class UserLearnController {
             return "404";
         model.addAttribute("courseSection", courseSection);
 
-        //TODO 设置用户学习记录
-
-        //课程章节
+        //1、获取当前登录的用户
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        AuthUser authUser= (AuthUser) auth.getPrincipal();
+        //2、设置用户学习记录
+        userCourseSectionService.addUserCourseSection(authUser.getId(),sectionId);
+        //3、获取课程章节
         List<CourseSectionVO> chaptSections = courseSectionService.queryCourseSection(courseSection.getCourseId());
         model.addAttribute("chaptSections", chaptSections);
-
-        //章节评论
+        //4、获取章节评论
         Example example=new Example(CourseComment.class);
         example.orderBy("createTime").desc();
         example.createCriteria().andEqualTo("courseId",courseSection.getCourseId())
                 .andEqualTo("type",CourseCommentStatus.TYPE_COMMENT.getValue())
-                .andEqualTo("sectionId",Integer.valueOf(sectionId));
+                .andEqualTo("sectionId",sectionId);
         List<CourseComment> courseCommentList=courseCommentMapper.selectByExample(example);
         model.addAttribute("courseCommentList",courseCommentList);
 

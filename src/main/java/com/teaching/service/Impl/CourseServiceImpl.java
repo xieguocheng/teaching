@@ -136,4 +136,11 @@ public class CourseServiceImpl implements CourseService {
 
         return courseList;
     }
+
+    @Override
+    public Integer updateStudyCountById(Integer id) {
+        Course course=courseMapper.selectByPrimaryKey(new Course(id));
+        course.setStudyCount(course.getStudyCount()+1);
+        return  courseMapper.updateByPrimaryKey(course);
+    }
 }
