@@ -13,12 +13,12 @@
 .following{
 	width: 32px;
 	height: 37px;
-	background: url('../i/following.png') no-repeat no-repeat 50% 50%;
+	background: url('/static/images/website/following.png') no-repeat no-repeat 50% 50%;
 }
 .followed{
 	width: 32px;
 	height: 37px;
-	background: url('../i/followed.png') no-repeat no-repeat 50% 50%;
+	background: url('/static/images/website/followed.png') no-repeat no-repeat 50% 50%;
 }
 
 /**

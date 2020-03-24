@@ -15,7 +15,7 @@ public class MainController {
     @GetMapping(value = {"/", "/index"})
     public String index(Model model) {
         //TODO 待改善
-        return "redirect:admin/center";
+        return "redirect:website/index";
         //return "index.ftl";
     }
 

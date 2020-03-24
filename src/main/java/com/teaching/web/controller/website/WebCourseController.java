@@ -3,6 +3,7 @@ package com.teaching.web.controller.website;
 import com.qiniu.util.Auth;
 import com.teaching.dto.CourseSectionVO;
 import com.teaching.enums.CourseCommentStatus;
+import com.teaching.enums.UserBehaviorStatus;
 import com.teaching.mapper.*;
 import com.teaching.pojo.*;
 import com.teaching.service.CourseSectionService;
@@ -39,6 +40,8 @@ public class WebCourseController {
     private CourseSectionService courseSectionService;
     @Autowired
     private UserFollowMapper userFollowMapper;
+    @Autowired
+    private UserBehaviorMapper userBehaviorMapper;
 
 
     /**
@@ -93,6 +96,7 @@ public class WebCourseController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         if (auth != null) {
             if (auth instanceof AnonymousAuthenticationToken) {
+                model.addAttribute("collectionFlag",null);
                 model.addAttribute("followFlag",null);
                 model.addAttribute("curCourseSection",null);
                 return "website/course-detail";
@@ -109,8 +113,20 @@ public class WebCourseController {
         }else {
             model.addAttribute("followFlag",null);
         }
+        //6.设置是否收藏了
+        Example example1=new Example(UserBehavior.class);
+        Example.Criteria criteria1=example1.createCriteria();
+        criteria1.andEqualTo("userId",loginUser.getId()).
+                andEqualTo("courseId",id).
+                andEqualTo("type",UserBehaviorStatus.TYPE_COLLECTION.getValue());
+        List<UserBehavior> userBehaviorList=userBehaviorMapper.selectByExample(example1);
+        if(UtilFuns.isNotEmpty(userBehaviorList)){
+            model.addAttribute("collectionFlag",true);
+        }else {
+            model.addAttribute("collectionFlag",null);
+        }
 
-        //6.设置当前学习的章节
+        //7.设置当前学习的章节
         Example em=new Example(UserCourseSection.class);
         Example.Criteria cr=em.createCriteria();
         cr.andEqualTo("courseId",course.getId())

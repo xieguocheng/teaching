@@ -48,13 +48,24 @@
                     <div class="meta">课程时长</div>
                     <div class="meta-value">${(course.time)!}</div>
                 </div>
-                <a id="collectionSpan" onclick="doCollect(${(course.id)!})" href="javascript:void(0)" class="following" style="float: right;margin-top:5px;" >
-                </a>
+
+
+                 <#if collectionFlag??>
+                         <a id="collectionSpan" onclick="doCollect(${(course.id)!})" href="javascript:void(0)" class="followed"
+                            style="float: right;margin-top:5px;" >
+                         </a>
+                 <#else>
+                        <a id="collectionSpan" onclick="doCollect(${(course.id)!})" href="javascript:void(0)" class="following"
+                           style="float: right;margin-top:5px;" >
+                        </a>
+                 </#if>
+
+
+
             </div>
             <div class="course-brief">
             ${(course.brief)!}
             </div>
-
 
             <div class="layui-tab layui-tab-brief">
                 <ul class="layui-tab-title">
@@ -165,6 +176,32 @@
         });
     });
 
+    //收藏
+    function doCollect(courseId,url){
+
+        debugger;
+        var collect=$('#collectionSpan').attr("class");
+        if(collect==='following'){
+            url = '/user/collectons/doCollection';
+        }else {
+            url = '/user/collectons/isCollection';
+        }
+        //处理收藏
+        $.ajax({
+            url:url,
+            type:'POST',
+            dataType:'json',
+            data:{"courseId":courseId},
+            success:function(data){
+                if(data.code === 0){//已收藏
+                    $('#collectionSpan').attr('class','followed');
+                }else if(data.code === 1){//未收藏
+                    $('#collectionSpan').attr('class','following');
+                }
+            }
+        });
+    }
+
 
     //关注
     function doFollow(followId,url){
@@ -182,7 +219,6 @@
             dataType:'json',
             data:{"followId":followId},
             success:function(data){
-                debugger;
                 if (data.code === 0){
                     $('#followSpan').html('已关注');
                 }else if(data.code === 1){
