@@ -83,7 +83,7 @@ public class WebCourseController {
         List<Course> courseList=courseMapper.selectByExample(example);
         if(UtilFuns.isNotEmpty(courseList)&&courseList.size()>=6){//放6个
             List<Course> temp=new ArrayList<>();
-            for(int i=0;i<=6;i++){
+            for(int i=0;i<6;i++){
                 temp.add(courseList.get(i));
             }
             model.addAttribute("recomdCourseList",temp);

@@ -1,7 +1,32 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.teaching.mapper.CourseMapper" >
-  <resultMap id="BaseResultMap" type="com.teaching.pojo.Course" >
+    <sql id="Base_Column_List">
+            id,
+            user_id,
+            `name`,
+            classify,
+            classify_name,
+            sub_classify,
+            sub_classify_name,
+            picture,
+            `level`,
+            `free`,
+            price,
+            `time`,
+            `status`,
+            onsale,
+            recommend,
+            weight,
+            study_count,
+            create_time,
+            create_user,
+            update_time,
+            update_user,
+            del,
+            brief
+    </sql>
+    <resultMap id="BaseResultMap" type="com.teaching.pojo.Course" >
     <!--
       WARNING - @mbg.generated
     -->

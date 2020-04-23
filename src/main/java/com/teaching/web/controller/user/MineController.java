@@ -2,8 +2,13 @@ package com.teaching.web.controller.user;
 
 
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
+import com.teaching.enums.CommonStatus;
 import com.teaching.enums.CourseCommentStatus;
+import com.teaching.enums.CourseStatus;
 import com.teaching.mapper.CourseCommentMapper;
+import com.teaching.mapper.CourseMapper;
 import com.teaching.mapper.CourseSectionMapper;
 import com.teaching.pojo.AuthUser;
 import com.teaching.pojo.Course;
@@ -21,7 +26,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+import tk.mybatis.mapper.entity.Example;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -37,6 +44,8 @@ public class MineController {
     private CourseCommentMapper courseCommentMapper;
     @Autowired
     private CourseSectionMapper courseSectionMapper;
+    @Autowired
+    private CourseMapper courseMapper;
 
 
     /**
@@ -56,9 +65,27 @@ public class MineController {
      * @return
      */
     @GetMapping("/user/joinCourse")
-    public ModelAndView joinCourse(Map<String, Object> map,Model model) {
+    public ModelAndView joinCourse(Map<String, Object> map,
+                                   @RequestParam(value = "pageNum",defaultValue = "1") Integer pageNum,
+                                   @RequestParam(value = "pageSize",defaultValue = "9")Integer pageSize) {
 
-        model.addAttribute("msg","fads");
+
+        PageHelper.startPage(pageNum, pageSize);
+
+        Example example=new Example(Course.class);
+        example.createCriteria().andEqualTo("status",CourseStatus.STATUS_VERIFY_SUCC.getValue())//审核成功
+                .andEqualTo("onsale",CourseStatus.ONSALE_YES.getValue())//上架了
+                .andEqualTo("del",CommonStatus.DEL_NO);
+        example.orderBy("weight").desc();
+        example.orderBy("studyCount").asc();
+        List<Course> courseList=courseMapper.selectByExample(example);
+
+        PageInfo<Course> newsPage = new PageInfo<>(courseList);
+
+        map.put("page", newsPage);
+        map.put("currentPage", pageNum);
+        map.put("pageSize", pageSize);
+
 
         return new ModelAndView("user/joinCourse", map);
     }

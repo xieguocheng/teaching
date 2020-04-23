@@ -1,26 +1,14 @@
 package com.teaching.web.controller.user;
 
-import com.teaching.dto.CourseSectionVO;
-import com.teaching.enums.CourseCommentStatus;
 import com.teaching.enums.UserBehaviorStatus;
 import com.teaching.mapper.*;
 import com.teaching.pojo.*;
-import com.teaching.service.CourseSectionService;
-import com.teaching.service.CourseService;
-import com.teaching.service.UserCourseSectionService;
-import com.teaching.service.UserFollowsService;
 import com.teaching.utils.ApiResponse;
-import com.teaching.utils.UtilFuns;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import tk.mybatis.mapper.entity.Example;
-
-import java.util.List;
 
 /**
  * @Author： XO

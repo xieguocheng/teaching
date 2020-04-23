@@ -93,8 +93,8 @@ overflow: hidden;">看不到您的原稿，这样对空发议论，估计对您�
                                         <img style="width: 184px;height: 142px" src="http://szimg.mukewang.com/58f57d200001461105400300-360-202.jpg">
                                     </a>
                                 </div><div class="news-panel">
-                                <strong><a href="newsDetail.html">写经验交流材料的技巧全在这了！</a></strong>
-                                <p class="detail"><span>看不到您的原稿，这样对空发议论，估计对您的指导性是不大的。建议您将原稿贴出来，好让老师们针对指导。这里简单给出意见：</span><a href="newsDetail.html">[详细]</a></p>
+                                <strong><a href="newsDetail.html">java从入门到精通！</a></strong>
+                                <p class="detail"><span>本教程为Java入门第一季，欢迎来到精彩的Java编程世界！Java语言已经成为当前软件开发行业中主流的开发语言。本教程将介绍Java环境搭建、工具使用、基础语法。带领大家一步一步的踏入Java达人殿堂！Let’s go!</span><a href="newsDetail.html">[详细]</a></p>
                                 <p class="read-push">阅读 <span>835</span>&nbsp;&nbsp;&nbsp;&nbsp;发布时间：<span>2018-06-21</span></p>
                             </div>
                             </div>

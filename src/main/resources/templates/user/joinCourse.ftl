@@ -50,6 +50,38 @@
             <div class="layui-tab-content">
                 <div class="layui-tab-item layui-show">
 
+                    <form id="queryPageForm" action="">
+
+
+                    <#list page.list as item>
+				<div class="comment clearfix">
+                    <div class="comment-main" style="width: 100%">
+                        <a href="/course/learn/${item.id!}.html" target="_blank" class="user-name link-a" style="font-size:20px;">${item.courseName!}</a>
+                        <div class="comment-content">
+                            <span class="learn-rate">已学${item.id!0}%</span>
+                            <span>
+							<a href="/course/video/${item.sectionId!}.html" target="_blank" >
+                                ${item.sectionName!}
+                            </a>
+							</span>
+                        </div>
+                        <div class="comment-footer">
+							<span>时间：
+							<#if item.createTime??>
+                                ${item.createTime?string('yyyy-MM-dd')}
+                            </#if>
+							</span>
+                            <a href="/course/video/${item.sectionId!}.html" target="_blank" >
+                                <span class="continue-btn" style="margin-left: 50px;">继续学习</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                </#list>
+
+
+                    </form>
+
                 </div>
                 <div class="layui-tab-item">内容2</div>
                 <div class="layui-tab-item">内容3</div>

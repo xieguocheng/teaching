@@ -1,10 +1,14 @@
 package com.teaching.security;
 
+import com.teaching.mapper.AuthUserMapper;
 import com.teaching.mapper.SystemLogMapper;
+import com.teaching.pojo.AuthUser;
 import com.teaching.pojo.SystemLog;
+import com.teaching.service.AuthUserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
 
 import javax.servlet.ServletException;
@@ -25,6 +29,10 @@ public class LoginAuthSuccessHandler extends SimpleUrlAuthenticationSuccessHandl
 
     @Autowired
     private SystemLogMapper systemLogMapper;
+    @Autowired
+    private AuthUserService authUserService;
+    @Autowired
+    private AuthUserMapper authUserMapper;
 
     private final LoginUrlEntryPoint urlEntryPoint;
 
@@ -38,15 +46,24 @@ public class LoginAuthSuccessHandler extends SimpleUrlAuthenticationSuccessHandl
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication)
             throws IOException, ServletException {
 
-        String name=authentication.getName();
         //登录成功添加systemlog日志,更新操作日志
-        if(authentication.getAuthorities().equals("ROLE_ADMIN")){
-            SystemLog systemLog=new SystemLog();
-            systemLog.setAddress(request.getRemoteAddr());
-            systemLog.setNickname(name);
-            systemLog.setOperateTime(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
-            systemLog.setStatus(1);
-            systemLogMapper.insert(systemLog);
+        String name=authentication.getName();
+
+        AuthUser authUser=authUserService.findAuthUserByUsername(name);
+        authUser.setIp(request.getRemoteAddr());
+        authUser.setLoginTime(new Date());
+        authUserMapper.updateByPrimaryKeySelective(authUser);
+
+        for (GrantedAuthority grantedAuthority : authentication.getAuthorities()) {
+            if(grantedAuthority.getAuthority().equals("ROLE_ADMIN")){
+                SystemLog systemLog=new SystemLog();
+                systemLog.setAddress(request.getRemoteAddr());
+                systemLog.setNickname(name);
+                systemLog.setOperateTime(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
+                systemLog.setStatus(1);
+                systemLogMapper.insert(systemLog);
+                break;
+            }
         }
         
         //网站session判断
