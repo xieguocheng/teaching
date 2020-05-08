@@ -1,10 +1,12 @@
 package com.teaching.web.controller.admin;
 
+import com.alibaba.excel.EasyExcel;
 import com.alibaba.fastjson.JSONArray;
 import com.google.gson.Gson;
 import com.qiniu.common.QiniuException;
 import com.qiniu.http.Response;
 import com.qiniu.storage.model.DefaultPutRet;
+import com.teaching.VO.CourseVO;
 import com.teaching.dto.QiNiuPutRet;
 import com.teaching.enums.CommonStatus;
 import com.teaching.enums.CourseStatus;
@@ -20,8 +22,10 @@ import com.teaching.utils.UtilFuns;
 import com.teaching.utils.VideoUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -30,11 +34,11 @@ import org.springframework.web.multipart.MultipartFile;
 import tk.mybatis.mapper.entity.Example;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.net.URLEncoder;
+import java.util.*;
 
 /**
  * @Author： XO
@@ -356,6 +360,29 @@ public class CourseController {
         }*/
         return null;
 
+    }
+
+
+    @GetMapping("admin/course/exportExcel/{type}")
+    public void exportExcel(@PathVariable("type") Integer type, HttpServletResponse response)
+            throws IOException {
+        List<Course> courseList=null;
+        //1.查询数据
+        if(type==0){//免费
+           courseList=courseService.findAllCourseFree();
+        }else if(type==1){
+           courseList=courseService.findAllCourseMoney();
+        }else if(type==2){
+           courseList=courseService.findAllCourseDelete();
+        }
+        //2.设置格式
+        response.setContentType("application/vnd.ms-excel");
+        response.setCharacterEncoding("utf-8");
+        String fileName = URLEncoder.encode("课程excel", "UTF-8");
+        response.setHeader("Content-disposition", "attachment;filename=" + fileName + ".xlsx");
+        //3.导出数excel
+        EasyExcel.write(response.getOutputStream(), CourseVO.class).
+                sheet("模板").doWrite(courseList);
     }
 
 /***************************************************课程-章节信息一系列操作**********************************************/

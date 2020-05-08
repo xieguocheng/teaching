@@ -24,7 +24,7 @@
 
     <dependencies>
         <!--excel表格导出依赖-->
-        <dependency>
+        <!--<dependency>
             <groupId>org.apache.poi</groupId>
             <artifactId>poi</artifactId>
             <version>3.11</version>
@@ -38,7 +38,7 @@
             <groupId>org.apache.poi</groupId>
             <artifactId>poi-ooxml-schemas</artifactId>
             <version>3.11</version>
-        </dependency>
+        </dependency>-->
 
         <!-- 内嵌实体类的get，set，toString方法-->
         <dependency>
@@ -231,6 +231,12 @@
             <groupId>com.github.pagehelper</groupId>
             <artifactId>pagehelper-spring-boot-starter</artifactId>
             <version>1.2.3</version>
+        </dependency>
+        <!--excel导出-->
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>easyexcel</artifactId>
+            <version>2.1.7</version>
         </dependency>
 
     </dependencies>
